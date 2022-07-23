@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="dark_100">#E4E4E4</color>
+    <color name="dark_200">#CACACA</color>
+    <color name="dark_300">#AFAFAF</color>
+    <color name="dark_400">#949494</color>
+    <color name="dark_500">#7A7A7A</color>
+    <color name="dark_600">#5F5F5F</color>
+    <color name="dark_700">#444444</color>
+    <color name="dark_800">#2A2A2A</color>
+    <color name="dark_900">#0F0F0F</color>
+    <color name="primary_100">#FBCFE1</color>
+    <color name="primary_200">#F89EC4</color>
+    <color name="primary_300">#F46EA6</color>
+    <color name="primary_400">#F13E89</color>
+    <color name="primary_500">#EA116C</color>
+    <color name="primary_600">#BB0E56</color>
+    <color name="primary_700">#8C0A41</color>
+    <color name="primary_800">#5E072B</color>
+    <color name="primary_900">#2F0316</color>
+    <color name="secondary_100">#DAE0FF</color>
+    <color name="secondary_200">#B4C0FF</color>
+    <color name="secondary_300">#8FA1FF</color>
+    <color name="secondary_400">#6981FF</color>
+    <color name="secondary_500">#4462FF</color>
+    <color name="secondary_600">#032CFF</color>
+    <color name="secondary_700">#001FC2</color>
+    <color name="secondary_800">#001581</color>
+    <color name="secondary_900">#000A41</color>
+    <color name="neutral_100">#E1E2ED</color>
+    <color name="neutral_200">#C3C5DB</color>
+    <color name="neutral_300">#A5A8C9</color>
+    <color name="neutral_400">#868BB8</color>
+    <color name="neutral_500">#686EA6</color>
+    <color name="neutral_600">#53588B</color>
+    <color name="neutral_700">#41456D</color>
+    <color name="neutral_800">#2F324F</color>
+    <color name="neutral_900">#1D1F31</color>
+</resources>
