@@ -17,6 +17,8 @@ import com.example.pic.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 @AndroidEntryPoint
@@ -77,5 +79,15 @@ class LoginActivity : AppCompatActivity() {
         layout.addView(snackView, 0)
 
         snackbar.show()
+    }
+
+    private fun isValidPassword(password: String): Boolean {
+        val pattern: Pattern
+
+        val passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}\$"
+        pattern = Pattern.compile(passwordPattern)
+        val matcher: Matcher = pattern.matcher(password)
+
+        return matcher.matches()
     }
 }

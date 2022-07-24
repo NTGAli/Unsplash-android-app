@@ -1,20 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:weightSum="1"
         tools:context=".view.MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:elevation="8dp">
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/yekan_regular"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:id="@+id/toolbar_title" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_nav" />
 
@@ -22,10 +60,9 @@
             android:id="@+id/bottom_nav_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             app:menu="@menu/nav_bottom_menu"
             app:labelVisibilityMode="labeled"
             app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
             app:itemTextColor="@drawable/bottom_nav_icon_color_selector"/>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

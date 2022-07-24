@@ -1,7 +1,11 @@
 package com.example.pic.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +17,7 @@ import com.example.pic.R
 import com.example.pic.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -22,8 +27,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        init()
+
+
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
@@ -36,5 +44,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavMain.setupWithNavController(navController)
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun init(){
+        setSupportActionBar(binding.toolbar)
+        binding.toolbarTitle.text = "Feed"
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
     }
 }
