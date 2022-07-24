@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
         return if (TextUtils.isEmpty(target)) {
             false
         } else {
-            Patterns.EMAIL_ADDRESS.matcher(target).matches()
+            Patterns.EMAIL_ADDRESS.matcher(target!!).matches()
         }
     }
 
