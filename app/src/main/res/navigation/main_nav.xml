@@ -25,4 +25,8 @@
         android:name="com.example.pic.view.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/detailsFeedFragment"
+        android:name="com.example.pic.view.fragments.DetailsFeedFragment"
+        android:label="DetailsFeedFragment" />
 </navigation>

@@ -11,4 +11,14 @@
     <string name="profile">Profile</string>
     <string name="search">Search</string>
     <string name="topics">Topics</string>
+    <string name="username">Username</string>
+    <string name="views">Views</string>
+    <string name="downloads">Downloads</string>
+    <string name="publish_date">Publish Date</string>
+    <string name="camera">Camera</string>
+    <string name="_156_084">156,084</string>
+    <string name="_8_days_ago">8 days ago</string>
+    <string name="_15_284">15,284</string>
+    <string name="camera_model">SONY, ILCE-7M2</string>
+    <string name="likes">Likes</string>
 </resources>

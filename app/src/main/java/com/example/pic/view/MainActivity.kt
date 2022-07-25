@@ -21,9 +21,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    companion object {
+        private lateinit var binding: ActivityMainBinding
+    }
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         init()
 
 
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
 
 //        appBarConfiguration = AppBarConfiguration(
@@ -46,10 +49,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun init() {
+        setToolBar("Feed")
+    }
+
     @SuppressLint("SetTextI18n")
-    private fun init(){
+    fun setToolBar(toolBarName: String) {
         setSupportActionBar(binding.toolbar)
-        binding.toolbarTitle.text = "Feed"
+        binding.toolbarTitle.text = toolBarName
         supportActionBar!!.setDisplayShowTitleEnabled(false)
     }
+
+
 }
