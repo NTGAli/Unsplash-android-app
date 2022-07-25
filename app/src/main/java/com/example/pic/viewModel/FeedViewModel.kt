@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pic.data.repository.UnsplashImageRepository
 import com.example.pic.model.Feed
 import com.example.pic.model.ImageDetails
+import com.example.pic.model.UnsplashUser
 import com.example.pic.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,10 @@ class FeedViewModel @Inject constructor(private val repository: UnsplashImageRep
 
     fun getSpecificImage(id: String): MutableLiveData<ImageDetails?>{
         return repository.getSpecificImage(id)
+    }
+
+    fun getUserByUsername(username: String): MutableLiveData<UnsplashUser?>{
+        return repository.getUserDetails(username)
     }
 
 }

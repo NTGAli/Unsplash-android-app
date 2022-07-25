@@ -11,6 +11,9 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.example.pic.R
 import com.example.pic.databinding.FragmentDetailsFeedBinding
 import com.example.pic.model.ImageDetails
 import com.example.pic.viewModel.FeedViewModel
@@ -32,12 +35,21 @@ class DetailsFeedFragment : Fragment() {
     ): View? {
         binding = FragmentDetailsFeedBinding.inflate(LayoutInflater.from(context), container, false)
 
+
         viewModel.getSpecificImage(FeedFragment.imageID).observe(viewLifecycleOwner){
             it!!.created_at = getDate(it.created_at)
             loadImage(binding.regularImgDetails, it.urls.regular)
             loadImage(binding.profileImage, it.user.profile_image.large)
-            println("11111111111111111 ${it.user.profile_image.large}")
+            FeedFragment.username = it.user.username
             binding.detail = it
+        }
+
+
+        binding.txtNameUser.setOnClickListener {
+            loadUser()
+        }
+        binding.profileImage.setOnClickListener {
+            loadUser()
         }
 
 
@@ -64,6 +76,10 @@ class DetailsFeedFragment : Fragment() {
         }else{
             "$days days ago"
         }
+    }
+
+    private fun loadUser(){
+        findNavController().navigate(R.id.photographerDetailsFragment)
     }
 
 

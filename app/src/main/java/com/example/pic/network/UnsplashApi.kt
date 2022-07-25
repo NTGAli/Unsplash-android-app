@@ -2,6 +2,7 @@ package com.example.pic.network
 
 import com.example.pic.model.Feed
 import com.example.pic.model.ImageDetails
+import com.example.pic.model.UnsplashUser
 import com.example.pic.util.Constants.API_KEY
 import retrofit2.Call
 import retrofit2.http.GET
@@ -26,4 +27,9 @@ interface UnsplashApi {
     ):Call<ImageDetails>
 
 
+    @Headers("Authorization: Client-ID $API_KEY")
+    @GET("/users/{username}")
+    fun getUserByUsername(
+        @Path("username")username: String
+    ):Call<UnsplashUser>
 }

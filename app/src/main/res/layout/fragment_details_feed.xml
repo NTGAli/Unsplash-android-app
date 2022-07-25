@@ -48,11 +48,12 @@
                             android:layout_margin="16dp"
                             app:civ_border_color="@color/white"/>
                         <TextView
+                            android:id="@+id/txt_name_user"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:text="@{detail.user.username}"
+                            android:text="@{detail.user.name}"
                             android:textColor="@color/white"
                             android:fontFamily="@font/yekan_bold"
                             android:textSize="24sp"/>

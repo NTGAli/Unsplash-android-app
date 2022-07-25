@@ -3,6 +3,7 @@ package com.example.pic.data.repository
 import androidx.lifecycle.MutableLiveData
 import com.example.pic.model.Feed
 import com.example.pic.model.ImageDetails
+import com.example.pic.model.UnsplashUser
 import com.example.pic.network.UnsplashApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class UnsplashImageRepository @Inject constructor(private val unsplashApi: UnsplashApi){
     var liveDataList: MutableLiveData<List<Feed>?> = MutableLiveData()
     var liveDataImageDetails: MutableLiveData<ImageDetails?> = MutableLiveData()
+    var liveDataUserDetails: MutableLiveData<UnsplashUser?> = MutableLiveData()
 
     fun getImages(page: Int): MutableLiveData<List<Feed>?> {
         val call: Call<List<Feed>> = unsplashApi.getAllImages(page, 10)
@@ -43,6 +45,23 @@ class UnsplashImageRepository @Inject constructor(private val unsplashApi: Unspl
         })
 
         return liveDataImageDetails
+    }
+
+    fun getUserDetails(username: String): MutableLiveData<UnsplashUser?>{
+        val call: Call<UnsplashUser> = unsplashApi.getUserByUsername(username)
+        call.enqueue(object: Callback<UnsplashUser>{
+            override fun onResponse(call: Call<UnsplashUser>, response: Response<UnsplashUser>) {
+
+                liveDataUserDetails.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<UnsplashUser>, t: Throwable) {
+                liveDataUserDetails.postValue(null)
+            }
+
+        })
+
+        return liveDataUserDetails
     }
 
 

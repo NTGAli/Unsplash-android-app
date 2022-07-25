@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.pic.R
 import com.example.pic.databinding.ActivityLoginBinding
+import com.example.pic.model.User
 import com.example.pic.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout

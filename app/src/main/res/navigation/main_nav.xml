@@ -29,4 +29,10 @@
         android:id="@+id/detailsFeedFragment"
         android:name="com.example.pic.view.fragments.DetailsFeedFragment"
         android:label="DetailsFeedFragment" />
+    <fragment
+        android:id="@+id/photographerDetailsFragment"
+        android:name="com.example.pic.view.fragments.PhotographerDetailsFragment"
+        android:label="PhotographerDetailsFragment" />
+
+
 </navigation>

@@ -50,15 +50,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        setToolBar("Feed")
+//        setToolBar("Feed")
     }
 
-    @SuppressLint("SetTextI18n")
-    fun setToolBar(toolBarName: String) {
-        setSupportActionBar(binding.toolbar)
-        binding.toolbarTitle.text = toolBarName
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-    }
+//    @SuppressLint("SetTextI18n")
+//    fun setToolBar(toolBarName: String) {
+//        setSupportActionBar(binding.toolbar)
+//        binding.toolbarTitle.text = toolBarName
+//        supportActionBar!!.setDisplayShowTitleEnabled(false)
+//    }
 
 
 }

@@ -32,6 +32,7 @@ class FeedFragment : Fragment() {
 
     companion object{
         lateinit var imageID: String
+        lateinit var username: String
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
