@@ -1,23 +1,26 @@
 package com.example.pic.view.fragments
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
 import androidx.core.widget.NestedScrollView
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pic.R
 import com.example.pic.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentHomeBinding
 import com.example.pic.model.Feed
-import com.example.pic.view.MainActivity
 import com.example.pic.viewModel.FeedViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -63,9 +66,13 @@ class FeedFragment : Fragment() {
     }
 
     private fun setUpList(){
-        feedAdapter = FeedListAdapter(){
-            imageID = it.id
-            findNavController().navigate(R.id.detailsFeedFragment)
+        feedAdapter = FeedListAdapter(){feed, onLong ->
+            if (onLong){
+                imgPreview(feed.urls.regular)
+            }else {
+                imageID = feed.id
+                findNavController().navigate(R.id.detailsFeedFragment)
+            }
         }
         val gridLayoutManager = GridLayoutManager(requireContext(),2)
 
@@ -81,6 +88,21 @@ class FeedFragment : Fragment() {
         }
     }
 
+    private fun imgPreview(imgLink: String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_image_preview)
+        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
+        loadImage(imgPreview, imgLink)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(true)
+        dialog.show()
+    }
+
+    @BindingAdapter("imageUrl")
+    fun loadImage(view: ImageView, url: String) {
+        Picasso.get().load(url).into(view)
+    }
 
 
 }

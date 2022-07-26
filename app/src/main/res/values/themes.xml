@@ -19,4 +19,7 @@
 
         <item name="fontFamily">@font/yekan_regular</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
 </resources>

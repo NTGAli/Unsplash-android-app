@@ -55,9 +55,13 @@ class PhotographerDetailsFragment : Fragment() {
     }
 
     private fun setUpList(){
-        itemsAdapter = FeedListAdapter(){
-            FeedFragment.imageID = it.id
-            findNavController().navigate(R.id.detailsFeedFragment)
+        itemsAdapter = FeedListAdapter(){feed, onLong ->
+            if (onLong){
+
+            }else {
+                FeedFragment.imageID = feed.id
+                findNavController().navigate(R.id.detailsFeedFragment)
+            }
         }
         val gridLayoutManager = GridLayoutManager(requireContext(),2)
 

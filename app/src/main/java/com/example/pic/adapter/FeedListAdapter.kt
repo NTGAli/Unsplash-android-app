@@ -13,7 +13,7 @@ import com.example.pic.model.Feed
 import com.squareup.picasso.Picasso
 
 
-class FeedListAdapter(private val onClick: (Feed) -> Unit): ListAdapter<Feed, FeedListAdapter.FeedViewHolder>(FeedDiffUtil()) {
+class FeedListAdapter(private val onClick: (Feed, Boolean) -> Unit): ListAdapter<Feed, FeedListAdapter.FeedViewHolder>(FeedDiffUtil()) {
 
     class FeedViewHolder(private val binding: FeedItemBinding): RecyclerView.ViewHolder(binding.root){
         var cardItem: CardView = binding.feedItemCard
@@ -37,7 +37,12 @@ class FeedListAdapter(private val onClick: (Feed) -> Unit): ListAdapter<Feed, Fe
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.bindData(getItem(position))
         holder.cardItem.setOnClickListener {
-            onClick.invoke(getItem(position))
+            onClick.invoke(getItem(position), false)
+        }
+
+        holder.cardItem.setOnLongClickListener {
+            onClick.invoke(getItem(position), true)
+            return@setOnLongClickListener true
         }
     }
 

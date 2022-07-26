@@ -18,5 +18,7 @@ interface UserLoginDao {
     @Query("DELETE FROM User")
     fun makeEmptyDB()
 
+    @Query("SELECT * FROM User WHERE email LIKE :email")
+    fun isUserExist(email: String): User
 
 }

@@ -22,4 +22,10 @@
     <string name="camera_model">SONY, ILCE-7M2</string>
     <string name="likes">Likes</string>
     <string name="bio">Things we love: 🍞 Crispbread (naturally) 🌍 Our planet 😋 Delicious food, everyday</string>
+    <string name="current_event">Current Event</string>
+    <string name="current_events">Current Events</string>
+    <string name="topic_des">Covering the latest important events, news-worthy moments and movements from around the world — from political protests to cultural celebrations. When submitting, please provide a photo description so we understand the full context of the image</string>
+    <string name="search_text">Search Text</string>
+    <string name="photos">Photos</string>
+    <string name="users">Users</string>
 </resources>

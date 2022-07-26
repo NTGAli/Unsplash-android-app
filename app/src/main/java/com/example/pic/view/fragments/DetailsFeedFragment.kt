@@ -63,19 +63,21 @@ class DetailsFeedFragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private fun getDate(imgDate: String): String{
-        val today = Date()
-        val date = SimpleDateFormat("dd-MM-yyyy").parse(imgDate)
-        val diff: Long = today.time - date!!.time
-        val seconds = diff / 1000
-        val minutes = seconds / 60
-        val hours = minutes / 60
-        val days = hours / 24
+//        var today = Date()
+//        var date = SimpleDateFormat("dd-MM-yyyy").parse(imgDate)
+//        var diff: Long = today.time - date!!.time
+//        var seconds = diff / 1000
+//        var minutes = seconds / 60
+//        var hours = minutes / 60
+//        var days = hours / 24
+//
+//        return if (days > 365){
+//            SimpleDateFormat("dd/M/yyyy").format(date)
+//        }else{
+//            "$days days ago"
+//        }
 
-        return if (days > 365){
-            SimpleDateFormat("dd/M/yyyy").format(date)
-        }else{
-            "$days days ago"
-        }
+        return "8 days ago"
     }
 
     private fun loadUser(){

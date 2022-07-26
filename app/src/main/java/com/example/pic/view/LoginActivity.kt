@@ -45,14 +45,17 @@ class LoginActivity : AppCompatActivity() {
                 showSnackBar("Invalid Email", "Please enter a valid email")
             }else if (pass.length < 8){
                 showSnackBar("Invalid Password", "your password must be more than 8 characters")
+            }else if(viewModel.isUserExist(email)){
+                showSnackBar("UUUUUUUUUUUUUUUUUUUUU", "your password must be more than 8 characters")
+            }else {
+                viewModel.addUser(
+                    User(
+                        0,
+                        email,
+                        pass
+                    )
+                )
             }
-//            viewModel.addUser(
-//                User(
-//                    0,
-//                    email,
-//                    pass
-//                )
-//            )
         }
     }
 

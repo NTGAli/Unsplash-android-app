@@ -1,14 +1,9 @@
 package com.example.pic.network
 
-import com.example.pic.model.Feed
-import com.example.pic.model.ImageDetails
-import com.example.pic.model.UnsplashUser
+import com.example.pic.model.*
 import com.example.pic.util.Constants.API_KEY
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface UnsplashApi {
 
@@ -32,4 +27,25 @@ interface UnsplashApi {
     fun getUserByUsername(
         @Path("username")username: String
     ):Call<UnsplashUser>
+
+    @Headers("Authorization: Client-ID $API_KEY")
+    @GET("/topics")
+    fun getTopics(): Call<List<Topic>>
+
+    @Headers("Authorization: Client-ID $API_KEY")
+    @GET("/topics/{id}")
+    fun getTopicById(
+        @Path("id") topicID: String
+    ): Call<Preview>
+
+
+    @Headers("Authorization: Client-ID $API_KEY")
+    @GET("/photos")
+    fun getAllImagesByOrder(
+        @Query("page")page: Int,
+        @Query("per_page")per_page: Int,
+        @Query("order_by") order_by : String
+    ):Call<List<Feed>>
+
+
 }

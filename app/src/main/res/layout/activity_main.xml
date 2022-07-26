@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-
     <LinearLayout
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,7 +45,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -64,5 +62,7 @@
             app:labelVisibilityMode="labeled"
             app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
             app:itemTextColor="@drawable/bottom_nav_icon_color_selector"/>
+
     </LinearLayout>
+
 </layout>

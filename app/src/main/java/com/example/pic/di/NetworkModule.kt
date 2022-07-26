@@ -18,9 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-
-
-
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
@@ -34,10 +31,6 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit{
-        val contentType = MediaType.get("application/json")
-        val json = Json {
-            ignoreUnknownKeys = true
-        }
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
@@ -50,5 +43,4 @@ class NetworkModule {
     fun getRetrofitInstance(retrofit: Retrofit): UnsplashApi {
         return retrofit.create(UnsplashApi::class.java)
     }
-
 }

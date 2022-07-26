@@ -9,3 +9,7 @@ data class Feed (
     val id: String,
     val urls: Link,
     )
+
+data class Preview(
+    val preview_photos: List<Feed>
+)

@@ -28,11 +28,18 @@
     <fragment
         android:id="@+id/detailsFeedFragment"
         android:name="com.example.pic.view.fragments.DetailsFeedFragment"
-        android:label="DetailsFeedFragment" />
+        android:label="DetailsFeedFragment"
+        tools:layout="@layout/fragment_details_feed"/>
     <fragment
         android:id="@+id/photographerDetailsFragment"
         android:name="com.example.pic.view.fragments.PhotographerDetailsFragment"
-        android:label="PhotographerDetailsFragment" />
+        android:label="PhotographerDetailsFragment"
+        tools:layout="@layout/fragment_photographer_details"/>
+    <fragment
+        android:id="@+id/topicDetailsFragment"
+        android:name="com.example.pic.view.fragments.TopicDetailsFragment"
+        android:label="TopicDetailsFragment"
+        tools:layout="@layout/fragment_topic_details"/>
 
 
 </navigation>
