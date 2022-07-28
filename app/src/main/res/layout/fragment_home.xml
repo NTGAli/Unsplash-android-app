@@ -2,7 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/idNestedSV"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,20 +11,72 @@
         android:background="@color/dark_100"
         tools:context=".view.fragments.FeedFragment">
 
-        <RelativeLayout
+
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:elevation="8dp"
+            app:elevation="8dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:elevation="8dp"
+                android:layout_gravity="center_horizontal"
+                app:layout_scrollFlags="scroll|enterAlways" >
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feed"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:layout_centerInParent="true"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"/>
+
+                </RelativeLayout>
+
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+
+
+
+
+
+
+        </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/feed_recv"
+                android:layout_below="@id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/feed_item"/>
+                tools:listitem="@layout/feed_item"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        </RelativeLayout>
 
 
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

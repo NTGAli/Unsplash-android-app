@@ -19,11 +19,48 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:elevation="8dp">
+
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/feed_details_tooBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navigationIcon="@drawable/ic_icon_arrowleft"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="@string/feed"
+                        android:fontFamily="@font/yekan_regular"
+                        android:textColor="@color/black"
+                        android:id="@+id/toolbar_title" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_details_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
+                android:layout_below="@id/appBarLayout"
                 android:layout_margin="8dp">
                 <RelativeLayout
                     android:layout_width="match_parent"

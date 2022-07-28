@@ -44,6 +44,10 @@ class TopicDetailsFragment : Fragment() {
         init()
 
 
+        binding.toolbarTopicDetail.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         return binding.root
     }
 

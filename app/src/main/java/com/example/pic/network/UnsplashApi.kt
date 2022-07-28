@@ -47,5 +47,16 @@ interface UnsplashApi {
         @Query("order_by") order_by : String
     ):Call<List<Feed>>
 
+    @Headers("Authorization: Client-ID $API_KEY")
+    @GET("/search/photos")
+    fun searchInImages(
+        @Query("query") query: String
+    ): Call<ResultImage>
+
+    @Headers("Authorization: Client-ID $API_KEY")
+    @GET("/search/users")
+    fun searchInUsers(
+        @Query("query") query: String
+    ):Call<ResultUser>
 
 }

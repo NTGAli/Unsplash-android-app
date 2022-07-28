@@ -19,6 +19,6 @@ interface UserLoginDao {
     fun makeEmptyDB()
 
     @Query("SELECT * FROM User WHERE email LIKE :email")
-    fun isUserExist(email: String): User
+    fun isUserExist(email: String): User?
 
 }

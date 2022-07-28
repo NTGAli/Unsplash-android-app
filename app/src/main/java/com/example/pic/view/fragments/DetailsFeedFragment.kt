@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
@@ -50,6 +51,10 @@ class DetailsFeedFragment : Fragment() {
         }
         binding.profileImage.setOnClickListener {
             loadUser()
+        }
+
+        binding.feedDetailsTooBar.setNavigationOnClickListener{
+            requireActivity().onBackPressed()
         }
 
 

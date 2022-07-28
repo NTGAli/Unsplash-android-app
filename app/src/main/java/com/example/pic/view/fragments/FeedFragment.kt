@@ -49,13 +49,13 @@ class FeedFragment : Fragment() {
         getPage()
 
 
-        binding.idNestedSV.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-
-            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight && page < 200) {
-                page++
-                getPage()
-            }
-        })
+//        binding.idNestedSV.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+//
+//            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight && page < 200) {
+//                page++
+//                getPage()
+//            }
+//        })
 
         return binding.root
     }

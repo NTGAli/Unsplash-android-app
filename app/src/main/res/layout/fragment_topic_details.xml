@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -20,6 +20,40 @@
             android:layout_height="match_parent"
             tools:context=".view.fragments.TopicDetailsFragment">
 
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:elevation="8dp">
+
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_topic_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navigationIcon="@drawable/ic_icon_arrowleft"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="@{detail.title}"
+                        android:fontFamily="@font/yekan_regular"
+                        android:textColor="@color/black"
+                        android:id="@+id/toolbar_title_photograph_detail" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/topic_img_main"

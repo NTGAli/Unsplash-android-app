@@ -12,5 +12,9 @@ data class UnsplashUser(
     val photos: List<Feed>
 )
 
+data class ResultUser(
+    val results: List<UnsplashUser>
+)
+
 
 

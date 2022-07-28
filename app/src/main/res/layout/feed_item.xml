@@ -17,11 +17,10 @@
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/img_feed_item"
-
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="1:1"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 tools:ignore="MissingConstraints" />
 
 

@@ -41,11 +41,15 @@ class PhotographerDetailsFragment : Fragment() {
         }
 
 
+        binding.toolbarPhotographDetail.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
         return binding.root
     }
 
     private fun init(){
+
         setUpList()
     }
 
@@ -63,10 +67,9 @@ class PhotographerDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.detailsFeedFragment)
             }
         }
-        val gridLayoutManager = GridLayoutManager(requireContext(),2)
 
         binding.recvUserItem.apply {
-            layoutManager = gridLayoutManager
+            layoutManager = GridLayoutManager(requireContext(),2)
             adapter = itemsAdapter
         }
     }

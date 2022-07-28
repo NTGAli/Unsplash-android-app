@@ -13,3 +13,7 @@ data class Feed (
 data class Preview(
     val preview_photos: List<Feed>
 )
+
+data class ResultImage(
+    val results: List<Feed>
+)

@@ -1,12 +1,13 @@
 package com.example.pic.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
-
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +30,14 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var email: String
     private lateinit var pass: String
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
 
+        checkIfUserLogged()
 
         binding.btnLogin.setOnClickListener {
             email = binding.emailLoginTil.editText?.text.toString()
@@ -45,9 +49,14 @@ class LoginActivity : AppCompatActivity() {
                 showSnackBar("Invalid Email", "Please enter a valid email")
             }else if (pass.length < 8){
                 showSnackBar("Invalid Password", "your password must be more than 8 characters")
-            }else if(viewModel.isUserExist(email)){
-                showSnackBar("UUUUUUUUUUUUUUUUUUUUU", "your password must be more than 8 characters")
-            }else {
+            }else if(viewModel.isUserExist(email, pass) == Pair(true, second = false)){
+                showSnackBar("Password is incorrect", "check your password, and try again!")
+            }else if (viewModel.isUserExist(email, pass) == Pair(true, second = true)){
+                startActivity(Intent(this, MainActivity::class.java))
+                submitLogin()
+                finish()
+            }
+            else {
                 viewModel.addUser(
                     User(
                         0,
@@ -57,6 +66,12 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun checkIfUserLogged() {
+        val mPrefs = getPreferences(MODE_PRIVATE)
+        if (mPrefs.getBoolean("status",false))
+            startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun isValidEmail(target: CharSequence?): Boolean {
@@ -93,5 +108,13 @@ class LoginActivity : AppCompatActivity() {
         val matcher: Matcher = pattern.matcher(password)
 
         return matcher.matches()
+    }
+
+    private fun submitLogin(){
+
+        val mPrefs = getPreferences(MODE_PRIVATE)
+        val editor = mPrefs.edit()
+        editor.putBoolean("status", true)
+        editor.apply()
     }
 }

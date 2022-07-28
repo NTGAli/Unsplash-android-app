@@ -3,7 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="please_enter_a_valid_email">Please enter a valid email</string>
@@ -28,4 +27,10 @@
     <string name="search_text">Search Text</string>
     <string name="photos">Photos</string>
     <string name="users">Users</string>
+    <string name="home">Home</string>
+    <string name="first_name">First Name</string>
+    <string name="ali">Ali</string>
+    <string name="password">Password</string>
+    <string name="stars">********</string>
+    <string name="test_gmail_com">test@gmail.com</string>
 </resources>

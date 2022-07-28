@@ -2,110 +2,173 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main_content"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:fitsSystemWindows="true"
-        tools:context=".view.fragments.SearchFragment">
+        android:background="@color/white">
 
 
-        <LinearLayout
+
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
 
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/email_login_til"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways"
+                >
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/search_text">
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:imeOptions="actionNext"
-                        android:maxLines="1"
-                        android:singleLine="true"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="@string/search"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/yekan_regular"
                         android:textColor="@color/black"
-                        app:layout_scrollFlags="scroll|enterAlways" />
+                        android:layout_gravity="center"
+                        android:id="@+id/toolbar_title" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_height="?attr/actionBarSize"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|enterAlways" >
+
+
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_til"
+                    app:layout_behavior="id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintTextColor="@color/black"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    app:errorTextColor="@color/black"
+                    android:hint="@string/search_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"/>
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/transparent"
-                app:tabBackground="@android:color/transparent"
-                app:tabGravity="fill"
-                app:tabIndicator="@drawable/shape_round_corner"
-                app:tabIndicatorColor="@color/secondary_500"
-                app:tabIndicatorFullWidth="false"
+                android:orientation="vertical">
 
-                app:tabIndicatorGravity="bottom"
-                app:tabIndicatorHeight="8dp"
-                app:tabRippleColor="@android:color/transparent"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextAppearance="@style/TextAppearance.AppCompat.Subhead"
-                app:tabTextColor="@color/dark_400">
 
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_2"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
-                    android:text="@string/photos" />
+                    app:tabBackground="@android:color/transparent"
+                    app:tabGravity="fill"
+                    app:tabIndicator="@drawable/shape_round_corner"
+                    app:tabIndicatorColor="@color/secondary_500"
+                    app:tabIndicatorFullWidth="false"
 
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:text="@string/users" />
+                    app:tabIndicatorGravity="bottom"
+                    app:tabIndicatorHeight="4dp"
+                    app:tabRippleColor="@android:color/transparent"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    app:tabTextColor="@color/dark_400">
 
-            </com.google.android.material.tabs.TabLayout>
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="@string/photos" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/dark_100" />
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tab_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="@string/users" />
 
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:scrollbars="none"
-                android:scrollingCache="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/search_rcv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.core.widget.NestedScrollView>
+                </com.google.android.material.tabs.TabLayout>
 
 
-        </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+
+
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/searchImg_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchUsers_rcv"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
