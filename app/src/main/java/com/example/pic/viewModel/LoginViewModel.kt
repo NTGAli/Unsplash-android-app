@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(private val userLoginDao: UserLoginDao)
     }
 
     fun isUserExist(email: String, pass: String): Pair<Boolean, Boolean>{
-        val user: User? = userLoginDao.isUserExist(email)
+        val user: User? = userLoginDao.getUser(email)
 
 
         if (user?.email == null){

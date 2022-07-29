@@ -1,6 +1,7 @@
 package com.example.pic.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -53,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 showSnackBar("Password is incorrect", "check your password, and try again!")
             }else if (viewModel.isUserExist(email, pass) == Pair(true, second = true)){
                 startActivity(Intent(this, MainActivity::class.java))
-                submitLogin()
+                submitLogin(email)
                 finish()
             }
             else {
@@ -61,7 +62,10 @@ class LoginActivity : AppCompatActivity() {
                     User(
                         0,
                         email,
-                        pass
+                        pass,
+                        "-",
+                        "-",
+                        null
                     )
                 )
             }
@@ -69,9 +73,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkIfUserLogged() {
-        val mPrefs = getPreferences(MODE_PRIVATE)
-        if (mPrefs.getBoolean("status",false))
+        val sharedPreference =  getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        if (sharedPreference.getString("email",null) != null)
             startActivity(Intent(this, MainActivity::class.java))
+
     }
 
     private fun isValidEmail(target: CharSequence?): Boolean {
@@ -110,11 +115,11 @@ class LoginActivity : AppCompatActivity() {
         return matcher.matches()
     }
 
-    private fun submitLogin(){
+    private fun submitLogin(email: String){
 
-        val mPrefs = getPreferences(MODE_PRIVATE)
-        val editor = mPrefs.edit()
-        editor.putBoolean("status", true)
+        val sharedPreference =  getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("email",email)
         editor.apply()
     }
 }
