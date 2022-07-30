@@ -123,19 +123,6 @@
                     app:tabTextAppearance="@style/TextAppearance.AppCompat.Subhead"
                     app:tabTextColor="@color/dark_400">
 
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="@string/photos" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="@string/users" />
 
                 </com.google.android.material.tabs.TabLayout>
 
@@ -153,6 +140,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -160,6 +148,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchUsers_rcv"

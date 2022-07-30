@@ -57,6 +57,6 @@ interface UnsplashApi {
     @GET("/search/users")
     fun searchInUsers(
         @Query("query") query: String
-    ):Call<ResultUser>
+        ):Call<ResultUser>
 
 }

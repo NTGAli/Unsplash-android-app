@@ -39,7 +39,7 @@ class SearchRepository @Inject constructor(private val unsplashApi: UnsplashApi)
             }
 
             override fun onFailure(call: Call<ResultImage>, t: Throwable) {
-                searchImageLiveData.postValue(null)
+                println("eeeeeeeeeeeeeeeeeeeeeeee ${t.message}")
             }
 
         })

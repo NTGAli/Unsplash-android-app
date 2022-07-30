@@ -11,15 +11,18 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.R.id.tab_2
 import com.example.pic.adapter.FeedListAdapter
+import com.example.pic.adapter.SearchPagerAdapter
 import com.example.pic.adapter.UserListAdapter
 import com.example.pic.databinding.FragmentSearchBinding
 import com.example.pic.viewModel.SearchViewModel
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,7 +33,8 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var searchImagesAdapter: FeedListAdapter
     private lateinit var searchUsersAdapter: UserListAdapter
-    private val viewModel: SearchViewModel by viewModels()
+    private val tabsTitle = arrayOf("Photos", "Users")
+    private val viewModel: SearchViewModel by activityViewModels()
 
     companion object{
         lateinit var query: String
@@ -45,20 +49,23 @@ class SearchFragment : Fragment() {
 
         init()
 
-        viewModel.getSomeImages().observe(viewLifecycleOwner){
-            searchImagesAdapter.submitList(it)
-        }
 
         binding.searchTil.editText?.setOnEditorActionListener { _, keyCode, event ->
             if ((keyCode == EditorInfo.IME_ACTION_DONE)
             ) {
                 query = binding.searchTil.editText?.text.toString()
+
                 viewModel.searchInImages(query).observe(viewLifecycleOwner){
-                    searchImagesAdapter.submitList(it?.results)
+                    viewModel.setImageList(it?.results)
+                }
+
+
+                viewModel.searchInUsers(query).observe(viewLifecycleOwner){
+                    viewModel.setUsersList(it?.results)
                 }
 
                 binding.searchTil.editText?.isFocusable = false
-                binding.searchTil.editText?.isSelected = false
+//                binding.searchTil.editText?.isSelected = false
 
 
                 return@setOnEditorActionListener true
@@ -66,58 +73,25 @@ class SearchFragment : Fragment() {
             return@setOnEditorActionListener false
         }
 
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
+        binding.searchTil.setOnClickListener {
+            binding.searchTil.editText?.isFocusable = true
+        }
 
-                if (tab?.position == 0){
-                    viewModel.searchInImages(query).observe(viewLifecycleOwner){
-                        searchImagesAdapter.submitList(it?.results)
-                    }
-                    setUpImagesList()
-                }else if (tab?.position == 1){
-                    viewModel.searchInUsers(query).observe(viewLifecycleOwner){
-                        searchUsersAdapter.submitList(it?.results)
-                    }
-                    setUpUsersList()
-                }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+        binding.viewPager.adapter = SearchPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
+            tab.text = tabsTitle[position]
+        }.attach()
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
 
         return binding.root
     }
 
     private fun init(){
         searchUsersAdapter = UserListAdapter()
-        setUpImagesList()
-    }
-
-    private fun setUpImagesList(){
-        searchImagesAdapter = FeedListAdapter(){ feed, onLing ->
-
-        }
-
-
-        binding.searchImgRcv.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = searchImagesAdapter
-        }
     }
 
 
-    private fun setUpUsersList(){
-
-
-        binding.searchImgRcv.apply {
-            layoutManager = GridLayoutManager(requireContext(), 3)
-            adapter = searchUsersAdapter
-        }
-    }
 
 
 }

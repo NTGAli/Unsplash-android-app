@@ -1,5 +1,6 @@
 package com.example.pic.di
 
+import com.example.pic.data.repository.SearchRepository
 import com.example.pic.network.UnsplashApi
 import com.example.pic.util.Constants.BASE_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -42,5 +43,11 @@ class NetworkModule {
     @Provides
     fun getRetrofitInstance(retrofit: Retrofit): UnsplashApi {
         return retrofit.create(UnsplashApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun getSearchRepository(unsplashApi: UnsplashApi): SearchRepository {
+        return SearchRepository(unsplashApi)
     }
 }
