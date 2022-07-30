@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,7 +18,7 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class UserListAdapter: ListAdapter<UnsplashUser, UserListAdapter.UserViewHolder>(UserDiffUtil()) {
+class UserListAdapter (private val onClick: (UnsplashUser) -> Unit): ListAdapter<UnsplashUser, UserListAdapter.UserViewHolder>(UserDiffUtil()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,11 +28,15 @@ class UserListAdapter: ListAdapter<UnsplashUser, UserListAdapter.UserViewHolder>
 
     override fun onBindViewHolder(holder: UserListAdapter.UserViewHolder, position: Int) {
         holder.bindData(getItem(position))
+        holder.layout.setOnClickListener {
+            onClick.invoke(getItem(position))
+        }
     }
 
     class UserViewHolder(private val view:View): RecyclerView.ViewHolder(view){
         private val profileImg: CircleImageView = view.findViewById(R.id.img_user_profile_item_search)
         private val txtName: TextView = view.findViewById(R.id.txt_username_item)
+        val layout: ConstraintLayout = view.findViewById(R.id.user_item_layout)
 
         fun bindData(unsplashUser: UnsplashUser){
             val anim: Animation = AnimationUtils.loadAnimation(view.context, R.anim.left_to_right)

@@ -1,16 +1,24 @@
 package com.example.pic.view.fragments
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.adapter.UserListAdapter
 import com.example.pic.viewModel.SearchViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -47,12 +55,36 @@ class UserSearchFragment : Fragment() {
     }
 
     private fun setUpList(){
-        userLstAdapter = UserListAdapter()
+        userLstAdapter = UserListAdapter(){
+            FeedFragment.username = it.username
+            loadUser()
+
+        }
 
         rcv.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = userLstAdapter
         }
+    }
+
+    private fun imgPreview(imgLink: String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_image_preview)
+        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
+        loadImage(imgPreview, imgLink)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(true)
+        dialog.show()
+    }
+
+    @BindingAdapter("imageUrl")
+    fun loadImage(view: ImageView, url: String) {
+        Picasso.get().load(url).into(view)
+    }
+
+    private fun loadUser(){
+        findNavController().navigate(R.id.photographerDetailsFragment)
     }
 
 }

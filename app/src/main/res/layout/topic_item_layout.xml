@@ -19,6 +19,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
         android:maxLines="1"
+        android:scrollHorizontally="true"
         android:textColor="@color/black"/>
 
 

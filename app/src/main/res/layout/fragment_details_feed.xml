@@ -65,11 +65,12 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="450dp">
+
                     <com.elyeproj.loaderviewlibrary.LoaderImageView
                         android:id="@+id/regular_img_details"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="centerCrop" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

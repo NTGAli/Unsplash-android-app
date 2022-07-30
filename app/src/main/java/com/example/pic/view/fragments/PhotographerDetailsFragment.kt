@@ -1,10 +1,14 @@
 package com.example.pic.view.fragments
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -61,7 +65,7 @@ class PhotographerDetailsFragment : Fragment() {
     private fun setUpList(){
         itemsAdapter = FeedListAdapter(){feed, onLong ->
             if (onLong){
-
+                imgPreview(feed.urls.regular)
             }else {
                 FeedFragment.imageID = feed.id
                 findNavController().navigate(R.id.detailsFeedFragment)
@@ -73,4 +77,17 @@ class PhotographerDetailsFragment : Fragment() {
             adapter = itemsAdapter
         }
     }
+
+    private fun imgPreview(imgLink: String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_image_preview)
+        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
+        loadImage(imgPreview, imgLink)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(true)
+        dialog.show()
+    }
+
+
 }

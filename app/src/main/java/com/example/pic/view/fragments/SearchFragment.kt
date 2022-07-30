@@ -1,27 +1,17 @@
 package com.example.pic.view.fragments
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.pic.R
 import com.example.pic.adapter.FeedListAdapter
 import com.example.pic.adapter.SearchPagerAdapter
 import com.example.pic.adapter.UserListAdapter
 import com.example.pic.databinding.FragmentSearchBinding
 import com.example.pic.viewModel.SearchViewModel
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,8 +21,6 @@ class SearchFragment : Fragment() {
 
 
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var searchImagesAdapter: FeedListAdapter
-    private lateinit var searchUsersAdapter: UserListAdapter
     private val tabsTitle = arrayOf("Photos", "Users")
     private val viewModel: SearchViewModel by activityViewModels()
 
@@ -47,7 +35,6 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(LayoutInflater.from(context), container, false)
 
-        init()
 
 
         binding.searchTil.editText?.setOnEditorActionListener { _, keyCode, event ->
@@ -87,9 +74,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    private fun init(){
-        searchUsersAdapter = UserListAdapter()
-    }
+
 
 
 
