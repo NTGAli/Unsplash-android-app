@@ -28,6 +28,7 @@ class PhotographerDetailsFragment : Fragment() {
     private lateinit var binding: FragmentPhotographerDetailsBinding
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var itemsAdapter: FeedListAdapter
+    private val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class PhotographerDetailsFragment : Fragment() {
 
         init()
 
-        viewModel.getUserByUsername(FeedFragment.username).observe(viewLifecycleOwner){
+        viewModel.getUserByUsername(requireArguments().getString("username")!!).observe(viewLifecycleOwner){
             binding.details = it
             loadImage(binding.profileImage, it!!.profile_image.large)
             itemsAdapter.submitList(it.photos)
@@ -67,8 +68,8 @@ class PhotographerDetailsFragment : Fragment() {
             if (onLong){
                 imgPreview(feed.urls.regular)
             }else {
-                FeedFragment.imageID = feed.id
-                findNavController().navigate(R.id.detailsFeedFragment)
+                bundle.putString("imageID", feed.id)
+                findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
 

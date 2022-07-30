@@ -30,6 +30,7 @@ class UserSearchFragment : Fragment() {
     private val viewModel: SearchViewModel by activityViewModels()
     private lateinit var rcv: RecyclerView
     private lateinit var userLstAdapter: UserListAdapter
+    private val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +57,8 @@ class UserSearchFragment : Fragment() {
 
     private fun setUpList(){
         userLstAdapter = UserListAdapter(){
-            FeedFragment.username = it.username
-            loadUser()
+            bundle.putString("username", it.username)
+            loadUser(bundle)
 
         }
 
@@ -83,8 +84,8 @@ class UserSearchFragment : Fragment() {
         Picasso.get().load(url).into(view)
     }
 
-    private fun loadUser(){
-        findNavController().navigate(R.id.photographerDetailsFragment)
+    private fun loadUser(userBundle: Bundle){
+        findNavController().navigate(R.id.photographerDetailsFragment, userBundle)
     }
 
 }

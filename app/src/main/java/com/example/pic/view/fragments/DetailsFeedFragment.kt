@@ -29,6 +29,7 @@ class DetailsFeedFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsFeedBinding
     private val viewModel: FeedViewModel by viewModels()
+    private val bundle = Bundle()
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,20 +38,21 @@ class DetailsFeedFragment : Fragment() {
         binding = FragmentDetailsFeedBinding.inflate(LayoutInflater.from(context), container, false)
 
 
-        viewModel.getSpecificImage(FeedFragment.imageID).observe(viewLifecycleOwner){
+
+        viewModel.getSpecificImage(requireArguments().getString("imageID")!!).observe(viewLifecycleOwner){
             it!!.created_at = getDate(it.created_at)
             loadImage(binding.regularImgDetails, it.urls.regular)
             loadImage(binding.profileImage, it.user.profile_image.large)
-            FeedFragment.username = it.user.username
+            bundle.putString("username", it.user.username)
             binding.detail = it
         }
 
 
         binding.txtNameUser.setOnClickListener {
-            loadUser()
+            loadUser(bundle)
         }
         binding.profileImage.setOnClickListener {
-            loadUser()
+            loadUser(bundle)
         }
 
         binding.feedDetailsTooBar.setNavigationOnClickListener{
@@ -85,8 +87,8 @@ class DetailsFeedFragment : Fragment() {
         return "8 days ago"
     }
 
-    private fun loadUser(){
-        findNavController().navigate(R.id.photographerDetailsFragment)
+    private fun loadUser(userBundle: Bundle){
+        findNavController().navigate(R.id.photographerDetailsFragment, userBundle)
     }
 
 

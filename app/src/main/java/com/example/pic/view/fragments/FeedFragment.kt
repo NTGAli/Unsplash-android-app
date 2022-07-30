@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,10 +31,11 @@ class FeedFragment : Fragment() {
     private lateinit var feedAdapter: FeedListAdapter
     var page = 1
     var users: ArrayList<Feed>? = arrayListOf()
+    val bundle = Bundle()
 
     companion object{
-        lateinit var imageID: String
-        lateinit var username: String
+//        lateinit var imageID: String
+//        lateinit var username: String
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,8 +70,9 @@ class FeedFragment : Fragment() {
             if (onLong){
                 imgPreview(feed.urls.regular)
             }else {
-                imageID = feed.id
-                findNavController().navigate(R.id.detailsFeedFragment)
+//                imageID = feed.id
+                bundle.putString("imageID", feed.id)
+                findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
         val gridLayoutManager = GridLayoutManager(requireContext(),2)

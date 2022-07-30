@@ -3,43 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/feed_nav">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.pic.view.fragments.FeedFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/topicFragment"
-        android:name="com.example.pic.view.fragments.TopicFragment"
-        android:label="fragment_topic"
-        tools:layout="@layout/fragment_topic" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.pic.view.fragments.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.pic.view.fragments.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/detailsFeedFragment"
-        android:name="com.example.pic.view.fragments.DetailsFeedFragment"
-        android:label="DetailsFeedFragment"
-        tools:layout="@layout/fragment_details_feed"/>
-    <fragment
-        android:id="@+id/photographerDetailsFragment"
-        android:name="com.example.pic.view.fragments.PhotographerDetailsFragment"
-        android:label="PhotographerDetailsFragment"
-        tools:layout="@layout/fragment_photographer_details"/>
-    <fragment
-        android:id="@+id/topicDetailsFragment"
-        android:name="com.example.pic.view.fragments.TopicDetailsFragment"
-        android:label="TopicDetailsFragment"
-        tools:layout="@layout/fragment_topic_details"/>
+
+    <include app:graph="@navigation/feed_nav"/>
+    <include app:graph="@navigation/topic_nav"/>
+    <include app:graph="@navigation/search_nav"/>
+    <include app:graph="@navigation/profile_nav"/>
+
 
 
 </navigation>

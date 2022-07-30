@@ -28,6 +28,7 @@ class TopicDetailsFragment : Fragment() {
     private lateinit var binding: FragmentTopicDetailsBinding
     private val viewModel: TopicViewModel by viewModels()
     private lateinit var topicDetailsAdapter: FeedListAdapter
+    private val bundle= Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,8 +64,8 @@ class TopicDetailsFragment : Fragment() {
             if (onLong){
                 imgPreview(feed.urls.regular)
             }else{
-                FeedFragment.imageID = feed.id
-                findNavController().navigate(R.id.detailsFeedFragment)
+                bundle.putString("imageID", feed.id)
+                findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
 
         }

@@ -48,7 +48,6 @@ class TopicFragment : Fragment() {
     private fun init(){
         topicAdapter = TopicListAdapter(){
             topic = it
-            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa $topic")
             findNavController().navigate(R.id.topicDetailsFragment)
         }
 

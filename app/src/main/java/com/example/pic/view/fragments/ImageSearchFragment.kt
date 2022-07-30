@@ -30,6 +30,7 @@ class ImageSearchFragment : Fragment() {
     private lateinit var imageSearchView: View
     private lateinit var searchImagesAdapter: FeedListAdapter
     lateinit var lists: List<Feed>
+    private val bundle= Bundle()
     private lateinit var rcv: RecyclerView
     val viewModel: SearchViewModel by activityViewModels()
 
@@ -61,8 +62,8 @@ class ImageSearchFragment : Fragment() {
             if (onLong){
                 imgPreview(feed.urls.regular)
             }else{
-                FeedFragment.imageID = feed.id
-                findNavController().navigate(R.id.detailsFeedFragment)
+                bundle.putString("imageID", feed.id)
+                findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
 

@@ -2,14 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/feed_nav"
-    app:startDestination="@id/feedFragment">
+    android:id="@+id/topic_nav"
+    app:startDestination="@id/topicFragment">
 
     <fragment
-        android:id="@+id/feedFragment"
-        android:name="com.example.pic.view.fragments.FeedFragment"
-        android:label="FeedFragment"
-        tools:layout="@layout/fragment_home"/>
+        android:id="@+id/topicFragment"
+        android:name="com.example.pic.view.fragments.TopicFragment"
+        android:label="TopicFragment"
+        tools:layout="@layout/fragment_topic"/>
+    <fragment
+        android:id="@+id/topicDetailsFragment"
+        android:name="com.example.pic.view.fragments.TopicDetailsFragment"
+        android:label="TopicDetailsFragment"
+        tools:layout="@layout/fragment_topic_details"/>
     <fragment
         android:id="@+id/detailsFeedFragment"
         android:name="com.example.pic.view.fragments.DetailsFeedFragment"
