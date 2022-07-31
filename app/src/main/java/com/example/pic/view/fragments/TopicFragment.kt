@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.adapter.TopicListAdapter
+import com.example.pic.view.adapter.TopicListAdapter
 import com.example.pic.databinding.FragmentTopicBinding
 import com.example.pic.model.Topic
 import com.example.pic.viewModel.TopicViewModel

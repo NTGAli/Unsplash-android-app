@@ -50,7 +50,10 @@ class LoginActivity : AppCompatActivity() {
                 showSnackBar("Invalid Email", "Please enter a valid email")
             }else if (pass.length < 8){
                 showSnackBar("Invalid Password", "your password must be more than 8 characters")
-            }else if(viewModel.isUserExist(email, pass) == Pair(true, second = false)){
+            }else if (!isValidPassword(pass)){
+                showSnackBar("Easy Password", "use at least one word")
+            }
+            else if(viewModel.isUserExist(email, pass) == Pair(true, second = false)){
                 showSnackBar("Password is incorrect", "check your password, and try again!")
             }else if (viewModel.isUserExist(email, pass) == Pair(true, second = true)){
                 startActivity(Intent(this, MainActivity::class.java))
@@ -68,6 +71,9 @@ class LoginActivity : AppCompatActivity() {
                         null
                     )
                 )
+                submitLogin(email)
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
     }

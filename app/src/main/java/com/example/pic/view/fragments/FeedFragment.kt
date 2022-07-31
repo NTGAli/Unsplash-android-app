@@ -17,14 +17,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.adapter.FeedListAdapter
+import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.databinding.FragmentHomeBinding
 import com.example.pic.model.Feed
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlin.coroutines.suspendCoroutine
 
 
 @AndroidEntryPoint
@@ -33,7 +32,7 @@ class FeedFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     private val viewModel: FeedViewModel by viewModels()
-    private lateinit var feedAdapter: FeedListAdapter
+    private lateinit var feedAdapter: FeedPagerDataAdapter
     var page = 1
     var users: ArrayList<Feed>? = arrayListOf()
     val bundle = Bundle()
@@ -83,7 +82,7 @@ class FeedFragment : Fragment() {
     }
 
     private fun setUpList(){
-        feedAdapter = FeedListAdapter(){feed, onLong ->
+        feedAdapter = FeedPagerDataAdapter(){ feed, onLong ->
             if (onLong){
                 imgPreview(feed?.urls?.regular)
             }else {

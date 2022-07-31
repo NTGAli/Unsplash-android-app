@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
-import com.example.pic.adapter.UserListAdapter
+import com.example.pic.view.adapter.UserListAdapter
 import com.example.pic.viewModel.SearchViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint

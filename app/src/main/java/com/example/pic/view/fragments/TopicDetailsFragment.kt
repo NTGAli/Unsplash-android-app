@@ -12,11 +12,10 @@ import android.view.Window
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.adapter.FeedListAdapter
+import com.example.pic.view.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentTopicDetailsBinding
 import com.example.pic.viewModel.TopicViewModel
 import com.squareup.picasso.Picasso
@@ -38,7 +37,7 @@ class TopicDetailsFragment : Fragment() {
         binding = FragmentTopicDetailsBinding.inflate(LayoutInflater.from(context), container, false)
 
         viewModel.getTopicById(TopicFragment.topic.id).observe(viewLifecycleOwner){
-//            topicDetailsAdapter.submitList(it?.preview_photos)
+            topicDetailsAdapter.submitList(it?.preview_photos)
         }
 
         init()
@@ -59,7 +58,7 @@ class TopicDetailsFragment : Fragment() {
     }
 
     private fun setUpList(){
-        topicDetailsAdapter = FeedListAdapter(){feed, onLong ->
+        topicDetailsAdapter = FeedListAdapter(){ feed, onLong ->
             if (onLong){
                 imgPreview(feed?.urls?.regular)
             }else{

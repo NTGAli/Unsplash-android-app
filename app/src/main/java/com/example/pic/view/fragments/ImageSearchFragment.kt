@@ -12,14 +12,12 @@ import android.view.Window
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
-import com.example.pic.adapter.FeedListAdapter
+import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.model.Feed
 import com.example.pic.viewModel.SearchViewModel
 import com.squareup.picasso.Picasso
@@ -31,7 +29,7 @@ import kotlinx.coroutines.launch
 class ImageSearchFragment : Fragment() {
 
     private lateinit var imageSearchView: View
-    private lateinit var searchImagesAdapter: FeedListAdapter
+    private lateinit var searchImagesAdapter: FeedPagerDataAdapter
     lateinit var lists: List<Feed>
     private val bundle= Bundle()
     private lateinit var rcv: RecyclerView
@@ -50,9 +48,14 @@ class ImageSearchFragment : Fragment() {
             }
         }
 
-        viewModel.getListOfImagesSearched().observe(viewLifecycleOwner){
-            lifecycleScope.launch {
-                searchImagesAdapter.submitData(it)
+
+
+        viewModel.getQuery().observe(viewLifecycleOwner){
+            println("qqqqqqqqqqqqqqqqqqqqqqqqqqqq $it")
+            viewModel.getListOfImagesSearched().observe(viewLifecycleOwner){
+                lifecycleScope.launch {
+                    searchImagesAdapter.submitData(it)
+                }
             }
         }
 
@@ -69,7 +72,7 @@ class ImageSearchFragment : Fragment() {
 
     private fun setUpImagesList(){
 
-        searchImagesAdapter = FeedListAdapter(){ feed, onLong ->
+        searchImagesAdapter = FeedPagerDataAdapter(){ feed, onLong ->
             if (onLong){
                 imgPreview(feed?.urls?.regular)
             }else{

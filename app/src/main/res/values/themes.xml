@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Pic" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Pic" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_300</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -15,13 +15,20 @@
 
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/white</item>
-
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+
+
+
 
         <item name="fontFamily">@font/yekan_regular</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+
+
+
+
 
     <style name="AppBottomSheetDialogTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
@@ -33,4 +40,9 @@
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 
+    <style name="MaterialCardView16Dp">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+    </style>
 </resources>

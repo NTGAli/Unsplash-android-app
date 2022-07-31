@@ -31,21 +31,21 @@ class SearchRepository @Inject constructor(private val unsplashApi: UnsplashApi)
     }
 
 
-    fun searchInImages(query: String): MutableLiveData<ResultImage?>{
-        val call: Call<ResultImage> = unsplashApi.searchInImages(query)
-        call.enqueue(object: Callback<ResultImage>{
-            override fun onResponse(call: Call<ResultImage>, response: Response<ResultImage>) {
-                searchImageLiveData.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<ResultImage>, t: Throwable) {
-                println("eeeeeeeeeeeeeeeeeeeeeeee ${t.message}")
-            }
-
-        })
-
-        return searchImageLiveData
-    }
+//    fun searchInImages(query: String): MutableLiveData<ResultImage?>{
+//        val call: Call<ResultImage> = unsplashApi.searchInImages(query)
+//        call.enqueue(object: Callback<ResultImage>{
+//            override fun onResponse(call: Call<ResultImage>, response: Response<ResultImage>) {
+//                searchImageLiveData.postValue(response.body())
+//            }
+//
+//            override fun onFailure(call: Call<ResultImage>, t: Throwable) {
+//                println("eeeeeeeeeeeeeeeeeeeeeeee ${t.message}")
+//            }
+//
+//        })
+//
+//        return searchImageLiveData
+//    }
 
 
     fun searchInUsers(query: String): MutableLiveData<ResultUser?>{

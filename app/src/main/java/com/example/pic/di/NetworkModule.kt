@@ -2,20 +2,24 @@ package com.example.pic.di
 
 import com.example.pic.data.repository.SearchRepository
 import com.example.pic.network.UnsplashApi
+import com.example.pic.util.Constants
 import com.example.pic.util.Constants.BASE_URL
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
+
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -25,6 +29,7 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(HeaderInterceptor())
             .build()
     }
 
@@ -49,5 +54,17 @@ class NetworkModule {
     @Provides
     fun getSearchRepository(unsplashApi: UnsplashApi): SearchRepository {
         return SearchRepository(unsplashApi)
+    }
+
+
+    class HeaderInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response = chain.run {
+            proceed(
+                request()
+                    .newBuilder()
+                    .addHeader("Authorization", "Client-ID ${Constants.API_KEY}")
+                    .build()
+            )
+        }
     }
 }

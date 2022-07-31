@@ -2,6 +2,7 @@ package com.example.pic.view.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -28,6 +29,7 @@ import com.example.pic.model.User
 import com.example.pic.view.LoginActivity
 import com.example.pic.viewModel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -133,8 +135,8 @@ class ProfileFragment : Fragment() {
     private fun showBottomSheet(isSingleItem: Boolean, txtHint: String, txtData:String?, isLogout: Boolean = false){
         val dialog = BottomSheetDialog(requireContext())
 
-        // on below line we are inflating a layout file which we have created.
         dialog.setContentView(R.layout.bottom_sheet_profile)
+
         val singleItem = dialog.findViewById<LinearLayout>(R.id.single_item_in_layout)
         val logoutLayout = dialog.findViewById<LinearLayout>(R.id.logout_layout)
         val twoItem = dialog.findViewById<LinearLayout>(R.id.two_item_in_layout)
@@ -243,6 +245,7 @@ class ProfileFragment : Fragment() {
     fun setImageUri(view: ImageView, imageUri: Uri?) {
         view.setImageURI(imageUri)
     }
+
 
 
 

@@ -8,7 +8,6 @@ import retrofit2.http.*
 
 interface UnsplashApi {
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/photos")
     suspend fun getAllImages(
         @Query("page")page: Int,
@@ -16,31 +15,26 @@ interface UnsplashApi {
     ):Response<List<Feed>>
 
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/photos/{id}")
     fun getSpecificImage(
         @Path("id")id: String
     ):Call<ImageDetails>
 
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/users/{username}")
     fun getUserByUsername(
         @Path("username")username: String
     ):Call<UnsplashUser>
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/topics")
     fun getTopics(): Call<List<Topic>>
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/topics/{id}")
     fun getTopicById(
         @Path("id") topicID: String
     ): Call<Preview>
 
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/photos")
     fun getAllImagesByOrder(
         @Query("page")page: Int,
@@ -48,14 +42,12 @@ interface UnsplashApi {
         @Query("order_by") order_by : String
     ):Call<List<Feed>>
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/search/photos")
-    fun searchInImages(
+    suspend fun searchInImages(
         @Query("query") query: String,
         @Query("page") page: Int
     ): Response<ResultImage>
 
-    @Headers("Authorization: Client-ID $API_KEY")
     @GET("/search/users")
     fun searchInUsers(
         @Query("query") query: String

@@ -68,6 +68,7 @@
                     android:hint="@string/search_text"
                     app:errorTextColor="@color/black"
                     app:hintTextColor="@color/black"
+
                     app:layout_behavior="id">
 
 

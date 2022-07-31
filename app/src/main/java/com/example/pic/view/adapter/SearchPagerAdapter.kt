@@ -1,4 +1,4 @@
-package com.example.pic.adapter
+package com.example.pic.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

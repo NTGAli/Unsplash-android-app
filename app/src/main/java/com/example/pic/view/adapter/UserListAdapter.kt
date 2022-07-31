@@ -1,4 +1,4 @@
-package com.example.pic.adapter
+package com.example.pic.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View

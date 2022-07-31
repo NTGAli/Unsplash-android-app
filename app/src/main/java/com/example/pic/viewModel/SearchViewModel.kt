@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
 import com.example.pic.data.paging.PhotoPagingSource
+import com.example.pic.data.paging.SearchPagingSource
 import com.example.pic.data.repository.SearchRepository
 import com.example.pic.model.Feed
 import com.example.pic.model.ResultImage
@@ -22,6 +23,7 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
 
     private var imagesSearch: MutableLiveData<List<Feed>?> = MutableLiveData()
     private var usersSearch: MutableLiveData<List<UnsplashUser>?> = MutableLiveData()
+    private var query: MutableLiveData<String> = MutableLiveData()
 
     fun getSomeImages() =
         Pager(
@@ -31,8 +33,9 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
             pagingSourceFactory = { PhotoPagingSource(apiService) }
         ).liveData.cachedIn(viewModelScope)
 
-    fun searchInImages(query: String): MutableLiveData<ResultImage?>{
-        return repository.searchInImages(query)
+    fun searchInImages(userQuery: String){
+        query.postValue(userQuery)
+//        return repository.searchInImages(query)
     }
 
     fun searchInUsers(query: String): MutableLiveData<ResultUser?>{
@@ -43,13 +46,18 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
         imagesSearch.postValue(feeds)
     }
 
+    fun getQuery(): MutableLiveData<String>{
+        return query
+    }
+
     fun getListOfImagesSearched() =
         Pager(
             config = PagingConfig(
                 pageSize = 10,
             ),
-            pagingSourceFactory = { PhotoPagingSource(apiService) }
+            pagingSourceFactory = { SearchPagingSource(apiService, query.value.toString()) }
         ).liveData.cachedIn(viewModelScope)
+
 
     fun setUsersList(users: List<UnsplashUser>?){
         usersSearch.postValue(users)

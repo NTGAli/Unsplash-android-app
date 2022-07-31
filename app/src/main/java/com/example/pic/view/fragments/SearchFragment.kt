@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.pic.adapter.FeedListAdapter
-import com.example.pic.adapter.SearchPagerAdapter
-import com.example.pic.adapter.UserListAdapter
+import com.example.pic.view.adapter.SearchPagerAdapter
 import com.example.pic.databinding.FragmentSearchBinding
 import com.example.pic.viewModel.SearchViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,21 +35,21 @@ class SearchFragment : Fragment() {
 
 
 
+
         binding.searchTil.editText?.setOnEditorActionListener { _, keyCode, event ->
             if ((keyCode == EditorInfo.IME_ACTION_DONE)
             ) {
                 query = binding.searchTil.editText?.text.toString()
 
-                viewModel.searchInImages(query).observe(viewLifecycleOwner){
-                    viewModel.setImageList(it?.results)
-                }
+                viewModel.searchInImages(query)
 
 
                 viewModel.searchInUsers(query).observe(viewLifecycleOwner){
                     viewModel.setUsersList(it?.results)
                 }
 
-                binding.searchTil.editText?.isFocusable = false
+//                binding.searchTil.editText?.isFocusable = false
+//                binding.searchTil.editText?.isFocusableInTouchMode = false
 //                binding.searchTil.editText?.isSelected = false
 
 
@@ -62,6 +60,9 @@ class SearchFragment : Fragment() {
 
         binding.searchTil.setOnClickListener {
             binding.searchTil.editText?.isFocusable = true
+            binding.searchTil.editText?.isFocusableInTouchMode = true
+
+//            binding.searchTil.editText?.requestFocus()
         }
 
 

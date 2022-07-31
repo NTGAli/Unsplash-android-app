@@ -11,13 +11,12 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.adapter.FeedListAdapter
+import com.example.pic.view.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentPhotographerDetailsBinding
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
@@ -45,7 +44,8 @@ class PhotographerDetailsFragment : Fragment() {
         viewModel.getUserByUsername(requireArguments().getString("username")!!).observe(viewLifecycleOwner){
             binding.details = it
             loadImage(binding.profileImage, it!!.profile_image.large)
-//            itemsAdapter.submitList(it.photos)
+            itemsAdapter.submitList(it.photos)
+
         }
 
 
@@ -67,7 +67,7 @@ class PhotographerDetailsFragment : Fragment() {
     }
 
     private fun setUpList(){
-        itemsAdapter = FeedListAdapter(){feed, onLong ->
+        itemsAdapter = FeedListAdapter(){ feed, onLong ->
             if (onLong){
                 imgPreview(feed?.urls?.regular)
             }else {
