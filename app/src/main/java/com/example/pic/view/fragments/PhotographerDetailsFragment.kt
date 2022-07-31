@@ -14,6 +14,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.adapter.FeedListAdapter
@@ -23,6 +24,8 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@OptIn(ExperimentalPagingApi::class)
+
 class PhotographerDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentPhotographerDetailsBinding
@@ -42,7 +45,7 @@ class PhotographerDetailsFragment : Fragment() {
         viewModel.getUserByUsername(requireArguments().getString("username")!!).observe(viewLifecycleOwner){
             binding.details = it
             loadImage(binding.profileImage, it!!.profile_image.large)
-            itemsAdapter.submitList(it.photos)
+//            itemsAdapter.submitList(it.photos)
         }
 
 
@@ -59,16 +62,16 @@ class PhotographerDetailsFragment : Fragment() {
     }
 
     @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String) {
+    fun loadImage(view: ImageView, url: String?) {
         Picasso.get().load(url).into(view)
     }
 
     private fun setUpList(){
         itemsAdapter = FeedListAdapter(){feed, onLong ->
             if (onLong){
-                imgPreview(feed.urls.regular)
+                imgPreview(feed?.urls?.regular)
             }else {
-                bundle.putString("imageID", feed.id)
+                bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
@@ -79,7 +82,7 @@ class PhotographerDetailsFragment : Fragment() {
         }
     }
 
-    private fun imgPreview(imgLink: String) {
+    private fun imgPreview(imgLink: String?) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)

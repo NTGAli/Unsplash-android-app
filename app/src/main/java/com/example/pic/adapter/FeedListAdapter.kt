@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.example.pic.model.Feed
 import com.squareup.picasso.Picasso
 
 
-class FeedListAdapter(private val onClick: (Feed, Boolean) -> Unit): ListAdapter<Feed, FeedListAdapter.FeedViewHolder>(FeedDiffUtil()) {
+class FeedListAdapter(private val onClick: (Feed?, Boolean) -> Unit): PagingDataAdapter<Feed, FeedListAdapter.FeedViewHolder>(FeedDiffUtil()) {
 
     class FeedViewHolder(private val binding: FeedItemBinding): RecyclerView.ViewHolder(binding.root){
         var cardItem: CardView = binding.feedItemCard
@@ -35,7 +36,7 @@ class FeedListAdapter(private val onClick: (Feed, Boolean) -> Unit): ListAdapter
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.bindData(getItem(position))
+        holder.bindData(getItem(position)!!)
         holder.cardItem.setOnClickListener {
             onClick.invoke(getItem(position), false)
         }

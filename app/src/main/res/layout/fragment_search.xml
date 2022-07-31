@@ -2,13 +2,10 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-
-
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -18,12 +15,10 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
-
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways"
-                >
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -34,19 +29,18 @@
                     android:theme="?attr/actionBarTheme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    >
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/toolbar_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:text="@string/search"
+                        android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/yekan_regular"
+                        android:text="@string/search"
                         android:textColor="@color/black"
-                        android:layout_gravity="center"
-                        android:id="@+id/toolbar_title" />
+                        android:textSize="24sp" />
 
 
                 </androidx.cardview.widget.CardView>
@@ -55,47 +49,43 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-
-
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="16dp"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlways" >
-
-
-
+                app:layout_scrollFlags="scroll|enterAlways">
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/search_til"
-                    app:layout_behavior="id"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintTextColor="@color/black"
-                    android:layout_marginRight="8dp"
                     android:layout_marginLeft="8dp"
-                    app:errorTextColor="@color/black"
+                    android:layout_marginRight="8dp"
                     android:hint="@string/search_text"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    app:errorTextColor="@color/black"
+                    app:hintTextColor="@color/black"
+                    app:layout_behavior="id">
 
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/black"
-                        android:maxLines="1"
+                        android:imeOptions="actionDone"
                         android:inputType="text"
-                        android:imeOptions="actionDone"/>
+                        android:maxLines="1"
+                        android:textColor="@color/black" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
 
 
             <LinearLayout
@@ -127,43 +117,17 @@
                 </com.google.android.material.tabs.TabLayout>
 
 
-
             </LinearLayout>
-
-
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:visibility="gone"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:id="@+id/searchImg_rcv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchUsers_rcv"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

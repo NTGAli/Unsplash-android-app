@@ -13,6 +13,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,6 +24,8 @@ import com.example.pic.model.Feed
 import com.example.pic.viewModel.SearchViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ImageSearchFragment : Fragment() {
@@ -41,8 +44,16 @@ class ImageSearchFragment : Fragment() {
         // Inflate the layout for this fragment
         imageSearchView = inflater.inflate(R.layout.fragment_image_search, container, false)
 
+        viewModel.getSomeImages().observe(viewLifecycleOwner){
+            lifecycleScope.launch(Dispatchers.IO) {
+                searchImagesAdapter.submitData(it)
+            }
+        }
+
         viewModel.getListOfImagesSearched().observe(viewLifecycleOwner){
-            searchImagesAdapter.submitList(it)
+            lifecycleScope.launch {
+                searchImagesAdapter.submitData(it)
+            }
         }
 
         init()
@@ -60,9 +71,9 @@ class ImageSearchFragment : Fragment() {
 
         searchImagesAdapter = FeedListAdapter(){ feed, onLong ->
             if (onLong){
-                imgPreview(feed.urls.regular)
+                imgPreview(feed?.urls?.regular)
             }else{
-                bundle.putString("imageID", feed.id)
+                bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
@@ -75,7 +86,7 @@ class ImageSearchFragment : Fragment() {
     }
 
 
-    private fun imgPreview(imgLink: String) {
+    private fun imgPreview(imgLink: String?) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)
@@ -87,7 +98,7 @@ class ImageSearchFragment : Fragment() {
     }
 
     @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String) {
+    fun loadImage(view: ImageView, url: String?) {
         Picasso.get().load(url).into(view)
     }
 

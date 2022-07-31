@@ -38,8 +38,7 @@ class TopicDetailsFragment : Fragment() {
         binding = FragmentTopicDetailsBinding.inflate(LayoutInflater.from(context), container, false)
 
         viewModel.getTopicById(TopicFragment.topic.id).observe(viewLifecycleOwner){
-            topicDetailsAdapter.submitList(it?.preview_photos)
-//            println("ddddddddddddddddddddddd ${it.toString()}")
+//            topicDetailsAdapter.submitList(it?.preview_photos)
         }
 
         init()
@@ -62,9 +61,9 @@ class TopicDetailsFragment : Fragment() {
     private fun setUpList(){
         topicDetailsAdapter = FeedListAdapter(){feed, onLong ->
             if (onLong){
-                imgPreview(feed.urls.regular)
+                imgPreview(feed?.urls?.regular)
             }else{
-                bundle.putString("imageID", feed.id)
+                bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
 
@@ -79,11 +78,11 @@ class TopicDetailsFragment : Fragment() {
     }
 
     @BindingAdapter("ImageUrl")
-    fun loadImage(view: ImageView, link: String){
+    fun loadImage(view: ImageView, link: String?){
         Picasso.get().load(link).into(view)
     }
 
-    private fun imgPreview(imgLink: String) {
+    private fun imgPreview(imgLink: String?) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)

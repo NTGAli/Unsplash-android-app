@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import com.example.pic.R
 import com.example.pic.databinding.FragmentDetailsFeedBinding
 import com.example.pic.model.ImageDetails
@@ -25,6 +26,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
+@OptIn(ExperimentalPagingApi::class)
 class DetailsFeedFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsFeedBinding

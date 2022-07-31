@@ -3,16 +3,17 @@ package com.example.pic.network
 import com.example.pic.model.*
 import com.example.pic.util.Constants.API_KEY
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface UnsplashApi {
 
     @Headers("Authorization: Client-ID $API_KEY")
     @GET("/photos")
-    fun getAllImages(
+    suspend fun getAllImages(
         @Query("page")page: Int,
         @Query("per_page")per_page: Int
-    ):Call<List<Feed>>
+    ):Response<List<Feed>>
 
 
     @Headers("Authorization: Client-ID $API_KEY")
@@ -50,8 +51,9 @@ interface UnsplashApi {
     @Headers("Authorization: Client-ID $API_KEY")
     @GET("/search/photos")
     fun searchInImages(
-        @Query("query") query: String
-    ): Call<ResultImage>
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Response<ResultImage>
 
     @Headers("Authorization: Client-ID $API_KEY")
     @GET("/search/users")

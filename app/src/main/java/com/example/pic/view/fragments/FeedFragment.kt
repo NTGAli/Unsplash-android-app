@@ -12,7 +12,9 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.adapter.FeedListAdapter
@@ -21,9 +23,12 @@ import com.example.pic.model.Feed
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlin.coroutines.suspendCoroutine
 
 
 @AndroidEntryPoint
+@OptIn(ExperimentalPagingApi::class)
 class FeedFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
@@ -37,6 +42,7 @@ class FeedFragment : Fragment() {
 //        lateinit var imageID: String
 //        lateinit var username: String
     }
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +52,19 @@ class FeedFragment : Fragment() {
 
         init()
 
-        getPage()
+//        getPage()
+
+
+
+//        viewModel.getImages().observe(viewLifecycleOwner){
+//            feedAdapter.submitData(it)
+//        }
+
+        viewModel.getImages().observe(viewLifecycleOwner){
+            lifecycleScope.launch(Dispatchers.IO){
+                feedAdapter.submitData(it)
+            }
+        }
 
 
 //        binding.idNestedSV.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
@@ -61,17 +79,16 @@ class FeedFragment : Fragment() {
     }
 
     private fun init(){
-        activity?.title = "HH"
         setUpList()
     }
 
     private fun setUpList(){
         feedAdapter = FeedListAdapter(){feed, onLong ->
             if (onLong){
-                imgPreview(feed.urls.regular)
+                imgPreview(feed?.urls?.regular)
             }else {
 //                imageID = feed.id
-                bundle.putString("imageID", feed.id)
+                bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
@@ -82,14 +99,10 @@ class FeedFragment : Fragment() {
             adapter = feedAdapter
         }
     }
-    private fun getPage(){
-        viewModel.getPage(page).observe(viewLifecycleOwner) {
-            users = (users?.plus(it as ArrayList<Feed>)) as ArrayList<Feed>
-            feedAdapter.submitList(users!!.distinct())
-        }
-    }
 
-    private fun imgPreview(imgLink: String) {
+
+
+    private fun imgPreview(imgLink: String?) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)
@@ -101,7 +114,7 @@ class FeedFragment : Fragment() {
     }
 
     @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String) {
+    fun loadImage(view: ImageView, url: String?) {
         Picasso.get().load(url).into(view)
     }
 
