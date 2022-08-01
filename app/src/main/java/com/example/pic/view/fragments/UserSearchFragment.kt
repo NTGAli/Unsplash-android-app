@@ -68,17 +68,6 @@ class UserSearchFragment : Fragment() {
         }
     }
 
-    private fun imgPreview(imgLink: String) {
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_image_preview)
-        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
-        loadImage(imgPreview, imgLink)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCancelable(true)
-        dialog.show()
-    }
-
     @BindingAdapter("imageUrl")
     fun loadImage(view: ImageView, url: String) {
         Picasso.get().load(url).into(view)

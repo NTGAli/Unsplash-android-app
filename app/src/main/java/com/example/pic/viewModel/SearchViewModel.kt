@@ -1,8 +1,6 @@
 package com.example.pic.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
@@ -16,6 +14,8 @@ import com.example.pic.model.ResultUser
 import com.example.pic.model.UnsplashUser
 import com.example.pic.network.UnsplashApi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +24,7 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
     private var imagesSearch: MutableLiveData<List<Feed>?> = MutableLiveData()
     private var usersSearch: MutableLiveData<List<UnsplashUser>?> = MutableLiveData()
     private var query: MutableLiveData<String> = MutableLiveData()
+    private val searchedUser: MutableLiveData<ResultUser?> = MutableLiveData()
 
     fun getSomeImages() =
         Pager(
@@ -39,7 +40,10 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
     }
 
     fun searchInUsers(query: String): MutableLiveData<ResultUser?>{
-        return repository.searchInUsers(query)
+        viewModelScope.launch(Dispatchers.IO){
+            searchedUser.postValue(repository.searchInUsers(query))
+        }
+        return searchedUser
     }
 
     fun setImageList(feeds: List<Feed>?){

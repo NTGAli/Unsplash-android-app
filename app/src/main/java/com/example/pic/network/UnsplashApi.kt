@@ -16,31 +16,31 @@ interface UnsplashApi {
 
 
     @GET("/photos/{id}")
-    fun getSpecificImage(
+    suspend fun getSpecificImage(
         @Path("id")id: String
-    ):Call<ImageDetails>
+    ):ImageDetails
 
 
     @GET("/users/{username}")
-    fun getUserByUsername(
+    suspend fun getUserByUsername(
         @Path("username")username: String
-    ):Call<UnsplashUser>
+    ):UnsplashUser
 
     @GET("/topics")
-    fun getTopics(): Call<List<Topic>>
+    suspend fun getTopics(): List<Topic>
 
     @GET("/topics/{id}")
-    fun getTopicById(
+    suspend fun getTopicById(
         @Path("id") topicID: String
-    ): Call<Preview>
+    ): Preview
 
 
     @GET("/photos")
-    fun getAllImagesByOrder(
+    suspend fun getAllImagesByOrder(
         @Query("page")page: Int,
         @Query("per_page")per_page: Int,
         @Query("order_by") order_by : String
-    ):Call<List<Feed>>
+    ):List<Feed>
 
     @GET("/search/photos")
     suspend fun searchInImages(
@@ -49,8 +49,8 @@ interface UnsplashApi {
     ): Response<ResultImage>
 
     @GET("/search/users")
-    fun searchInUsers(
+    suspend fun searchInUsers(
         @Query("query") query: String
-        ):Call<ResultUser>
+        ):ResultUser
 
 }

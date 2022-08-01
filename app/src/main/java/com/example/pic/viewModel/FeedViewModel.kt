@@ -23,18 +23,22 @@ class FeedViewModel @Inject constructor(
     private val apiService: UnsplashApi
     ): ViewModel() {
 
-//    val getAllPage = repository.getImages()
 
-//    fun getPage(page: Int): MutableLiveData<List<Feed>?> {
-//        return repository.getImages(page)
-//    }
+    private val imageDetails: MutableLiveData<ImageDetails?> = MutableLiveData()
+    private val userViewModel: MutableLiveData<UnsplashUser?> = MutableLiveData()
 
     fun getSpecificImage(id: String): MutableLiveData<ImageDetails?>{
-        return repository.getSpecificImage(id)
+        viewModelScope.launch(Dispatchers.IO){
+            imageDetails.postValue(repository.getSpecificImage(id))
+        }
+        return imageDetails
     }
 
     fun getUserByUsername(username: String): MutableLiveData<UnsplashUser?>{
-        return repository.getUserDetails(username)
+        viewModelScope.launch(Dispatchers.IO) {
+            userViewModel.postValue(repository.getUserDetails(username))
+        }
+        return userViewModel
     }
 
     fun getImages() =

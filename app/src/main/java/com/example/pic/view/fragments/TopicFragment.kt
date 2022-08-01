@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
@@ -14,6 +15,8 @@ import com.example.pic.databinding.FragmentTopicBinding
 import com.example.pic.model.Topic
 import com.example.pic.viewModel.TopicViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -22,7 +25,8 @@ class TopicFragment : Fragment() {
     private lateinit var binding: FragmentTopicBinding
     private val viewModel: TopicViewModel by viewModels()
     lateinit var topicAdapter: TopicListAdapter
-    companion object{
+
+    companion object {
         lateinit var topic: Topic
     }
 
@@ -36,7 +40,7 @@ class TopicFragment : Fragment() {
 
         init()
 
-        viewModel.getTopics().observe(viewLifecycleOwner){
+        viewModel.getTopics().observe(viewLifecycleOwner) {
             topicAdapter.submitList(it)
         }
 
@@ -45,8 +49,8 @@ class TopicFragment : Fragment() {
     }
 
 
-    private fun init(){
-        topicAdapter = TopicListAdapter(){
+    private fun init() {
+        topicAdapter = TopicListAdapter() {
             topic = it
             findNavController().navigate(R.id.topicDetailsFragment)
         }
@@ -54,10 +58,10 @@ class TopicFragment : Fragment() {
         setUpList()
     }
 
-    private fun setUpList(){
-        val gridLayoutManager= GridLayoutManager(requireContext(), 2)
+    private fun setUpList() {
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.topicRcv.apply {
-            layoutManager= gridLayoutManager
+            layoutManager = gridLayoutManager
             adapter = topicAdapter
         }
     }

@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
@@ -21,6 +22,8 @@ import com.example.pic.model.ImageDetails
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +35,7 @@ class DetailsFeedFragment : Fragment() {
     private lateinit var binding: FragmentDetailsFeedBinding
     private val viewModel: FeedViewModel by viewModels()
     private val bundle = Bundle()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +45,14 @@ class DetailsFeedFragment : Fragment() {
 
 
 
-        viewModel.getSpecificImage(requireArguments().getString("imageID")!!).observe(viewLifecycleOwner){
-            it!!.created_at = getDate(it.created_at)
-            loadImage(binding.regularImgDetails, it.urls.regular)
-            loadImage(binding.profileImage, it.user.profile_image.large)
-            bundle.putString("username", it.user.username)
-            binding.detail = it
-        }
+        viewModel.getSpecificImage(requireArguments().getString("imageID")!!)
+            .observe(viewLifecycleOwner) {
+                it!!.created_at = getDate(it.created_at)
+                loadImage(binding.regularImgDetails, it.urls.regular)
+                loadImage(binding.profileImage, it.user.profile_image.large)
+                bundle.putString("username", it.user.username)
+                binding.detail = it
+            }
 
 
         binding.txtNameUser.setOnClickListener {
@@ -57,7 +62,7 @@ class DetailsFeedFragment : Fragment() {
             loadUser(bundle)
         }
 
-        binding.feedDetailsTooBar.setNavigationOnClickListener{
+        binding.feedDetailsTooBar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
 
@@ -71,7 +76,7 @@ class DetailsFeedFragment : Fragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getDate(imgDate: String): String{
+    private fun getDate(imgDate: String): String {
 //        var today = Date()
 //        var date = SimpleDateFormat("dd-MM-yyyy").parse(imgDate)
 //        var diff: Long = today.time - date!!.time
@@ -89,7 +94,7 @@ class DetailsFeedFragment : Fragment() {
         return "8 days ago"
     }
 
-    private fun loadUser(userBundle: Bundle){
+    private fun loadUser(userBundle: Bundle) {
         findNavController().navigate(R.id.photographerDetailsFragment, userBundle)
     }
 

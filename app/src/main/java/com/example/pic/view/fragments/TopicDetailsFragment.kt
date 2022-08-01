@@ -12,6 +12,7 @@ import android.view.Window
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
@@ -20,6 +21,8 @@ import com.example.pic.databinding.FragmentTopicDetailsBinding
 import com.example.pic.viewModel.TopicViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TopicDetailsFragment : Fragment() {
@@ -27,18 +30,20 @@ class TopicDetailsFragment : Fragment() {
     private lateinit var binding: FragmentTopicDetailsBinding
     private val viewModel: TopicViewModel by viewModels()
     private lateinit var topicDetailsAdapter: FeedListAdapter
-    private val bundle= Bundle()
+    private val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentTopicDetailsBinding.inflate(LayoutInflater.from(context), container, false)
+        binding =
+            FragmentTopicDetailsBinding.inflate(LayoutInflater.from(context), container, false)
 
-        viewModel.getTopicById(TopicFragment.topic.id).observe(viewLifecycleOwner){
+        viewModel.getTopicById(TopicFragment.topic.id).observe(viewLifecycleOwner) {
             topicDetailsAdapter.submitList(it?.preview_photos)
         }
+
 
         init()
 
@@ -50,18 +55,18 @@ class TopicDetailsFragment : Fragment() {
         return binding.root
     }
 
-    private fun init(){
+    private fun init() {
         binding.detail = TopicFragment.topic
         loadImage(binding.topicImgMain, TopicFragment.topic.cover_photo.urls.regular)
 
         setUpList()
     }
 
-    private fun setUpList(){
-        topicDetailsAdapter = FeedListAdapter(){ feed, onLong ->
-            if (onLong){
+    private fun setUpList() {
+        topicDetailsAdapter = FeedListAdapter() { feed, onLong ->
+            if (onLong) {
                 imgPreview(feed?.urls?.regular)
-            }else{
+            } else {
                 bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
@@ -77,7 +82,7 @@ class TopicDetailsFragment : Fragment() {
     }
 
     @BindingAdapter("ImageUrl")
-    fun loadImage(view: ImageView, link: String?){
+    fun loadImage(view: ImageView, link: String?) {
         Picasso.get().load(link).into(view)
     }
 

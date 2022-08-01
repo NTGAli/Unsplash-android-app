@@ -12,39 +12,20 @@ import javax.inject.Inject
 
 class TopicRepository @Inject constructor(private val unsplashApi: UnsplashApi) {
 
-    val liveData: MutableLiveData<List<Topic>?> = MutableLiveData()
-    val feedLiveData: MutableLiveData<Preview?> = MutableLiveData()
+    var topics: List<Topic>? = listOf()
+    var preview: Preview? = null
 
-    fun getTopics(): MutableLiveData<List<Topic>?>{
-        val call: Call<List<Topic>> = unsplashApi.getTopics()
-        call.enqueue(object: Callback<List<Topic>>{
-            override fun onResponse(call: Call<List<Topic>>, response: Response<List<Topic>>) {
-                liveData.postValue(response.body())
-            }
-
-            override fun onFailure(call: Call<List<Topic>>, t: Throwable) {
-                liveData.postValue(null)
-            }
-
-        })
-
-        return liveData
+    suspend fun getTopics():List<Topic>?{
+        topics = unsplashApi.getTopics()
+        return topics
     }
 
 
-    fun getTopicById(topicID: String): MutableLiveData<Preview?>{
-        val call: Call<Preview> = unsplashApi.getTopicById(topicID)
-        call.enqueue(object: Callback<Preview>{
-            override fun onResponse(call: Call<Preview>, response: Response<Preview>) {
-                feedLiveData.postValue(response.body())
-            }
+    suspend fun getTopicById(topicID: String): Preview?{
 
-            override fun onFailure(call: Call<Preview>, t: Throwable) {
-                feedLiveData.postValue(null)
-            }
-
-        })
-
-        return feedLiveData
+        preview = unsplashApi.getTopicById(topicID)
+        return preview
     }
+
+
 }

@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.pic.view.adapter.SearchPagerAdapter
 import com.example.pic.databinding.FragmentSearchBinding
 import com.example.pic.viewModel.SearchViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -22,7 +25,7 @@ class SearchFragment : Fragment() {
     private val tabsTitle = arrayOf("Photos", "Users")
     private val viewModel: SearchViewModel by activityViewModels()
 
-    companion object{
+    companion object {
         lateinit var query: String
     }
 
@@ -44,9 +47,10 @@ class SearchFragment : Fragment() {
                 viewModel.searchInImages(query)
 
 
-                viewModel.searchInUsers(query).observe(viewLifecycleOwner){
+                viewModel.searchInUsers(query).observe(viewLifecycleOwner) {
                     viewModel.setUsersList(it?.results)
                 }
+
 
 //                binding.searchTil.editText?.isFocusable = false
 //                binding.searchTil.editText?.isFocusableInTouchMode = false
@@ -66,18 +70,15 @@ class SearchFragment : Fragment() {
         }
 
 
-        binding.viewPager.adapter = SearchPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
-        TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
+        binding.viewPager.adapter =
+            SearchPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabsTitle[position]
         }.attach()
 
 
         return binding.root
     }
-
-
-
-
 
 
 }

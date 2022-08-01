@@ -12,6 +12,7 @@ import android.view.Window
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +22,8 @@ import com.example.pic.databinding.FragmentPhotographerDetailsBinding
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @OptIn(ExperimentalPagingApi::class)
@@ -37,16 +40,22 @@ class PhotographerDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentPhotographerDetailsBinding.inflate(LayoutInflater.from(context), container, false)
+        binding = FragmentPhotographerDetailsBinding.inflate(
+            LayoutInflater.from(context),
+            container,
+            false
+        )
 
         init()
 
-        viewModel.getUserByUsername(requireArguments().getString("username")!!).observe(viewLifecycleOwner){
-            binding.details = it
-            loadImage(binding.profileImage, it!!.profile_image.large)
-            itemsAdapter.submitList(it.photos)
+        viewModel.getUserByUsername(requireArguments().getString("username")!!)
+            .observe(viewLifecycleOwner) {
+                binding.details = it
+                loadImage(binding.profileImage, it!!.profile_image.large)
+                itemsAdapter.submitList(it.photos)
 
-        }
+            }
+
 
 
         binding.toolbarPhotographDetail.setNavigationOnClickListener {
@@ -56,7 +65,7 @@ class PhotographerDetailsFragment : Fragment() {
         return binding.root
     }
 
-    private fun init(){
+    private fun init() {
 
         setUpList()
     }
@@ -66,18 +75,18 @@ class PhotographerDetailsFragment : Fragment() {
         Picasso.get().load(url).into(view)
     }
 
-    private fun setUpList(){
-        itemsAdapter = FeedListAdapter(){ feed, onLong ->
-            if (onLong){
+    private fun setUpList() {
+        itemsAdapter = FeedListAdapter() { feed, onLong ->
+            if (onLong) {
                 imgPreview(feed?.urls?.regular)
-            }else {
+            } else {
                 bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
 
         binding.recvUserItem.apply {
-            layoutManager = GridLayoutManager(requireContext(),2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = itemsAdapter
         }
     }
