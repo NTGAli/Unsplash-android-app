@@ -8,9 +8,8 @@ data class UnsplashUser(
     val username: String,
     val name: String,
     val profile_image: ProfileImg,
-    val bio: String,
-    val photos: List<Feed>
-)
+    val bio: String
+    )
 
 data class ResultUser(
     val results: List<UnsplashUser>

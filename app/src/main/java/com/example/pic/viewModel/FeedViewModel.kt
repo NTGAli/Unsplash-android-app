@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.example.pic.data.paging.PhotoPagingSource
+import com.example.pic.data.paging.UserImagesPaging
 import com.example.pic.data.repository.UnsplashImageRepository
 import com.example.pic.model.Feed
 import com.example.pic.model.ImageDetails
@@ -48,4 +49,14 @@ class FeedViewModel @Inject constructor(
             ),
             pagingSourceFactory = { PhotoPagingSource(apiService) }
         ).liveData.cachedIn(viewModelScope)
+
+    fun getUsersPhotos(username: String) =
+        Pager(
+            config = PagingConfig(
+                pageSize = 10,
+            ),
+            pagingSourceFactory = { UserImagesPaging(apiService, username) }
+        ).liveData.cachedIn(viewModelScope)
+
+
 }

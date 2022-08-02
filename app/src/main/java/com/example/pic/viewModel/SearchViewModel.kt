@@ -64,6 +64,7 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
 
 
     fun setUsersList(users: List<UnsplashUser>?){
+
         usersSearch.postValue(users)
     }
 

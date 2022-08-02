@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.view.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentPhotographerDetailsBinding
+import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,7 @@ class PhotographerDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentPhotographerDetailsBinding
     private val viewModel: FeedViewModel by viewModels()
-    private lateinit var itemsAdapter: FeedListAdapter
+    private lateinit var itemsAdapter: FeedPagerDataAdapter
     private val bundle = Bundle()
 
     override fun onCreateView(
@@ -52,9 +53,15 @@ class PhotographerDetailsFragment : Fragment() {
             .observe(viewLifecycleOwner) {
                 binding.details = it
                 loadImage(binding.profileImage, it!!.profile_image.large)
-                itemsAdapter.submitList(it.photos)
 
             }
+
+        viewModel.getUsersPhotos(requireArguments().getString("username")!!).observe(viewLifecycleOwner){
+            lifecycleScope.launch(Dispatchers.IO){
+                itemsAdapter.submitData(it)
+            }
+
+        }
 
 
 
@@ -76,7 +83,7 @@ class PhotographerDetailsFragment : Fragment() {
     }
 
     private fun setUpList() {
-        itemsAdapter = FeedListAdapter() { feed, onLong ->
+        itemsAdapter = FeedPagerDataAdapter() { feed, onLong ->
             if (onLong) {
                 imgPreview(feed?.urls?.regular)
             } else {

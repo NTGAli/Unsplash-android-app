@@ -26,6 +26,13 @@ interface UnsplashApi {
         @Path("username")username: String
     ):UnsplashUser
 
+    @GET("/users/{username}/photos")
+    suspend fun getUserPhotosByUsername(
+        @Path("username")username: String,
+        @Query("page") page: Int,
+        @Query("per_page")per_page: Int
+    ):Response<List<Feed>>
+
     @GET("/topics")
     suspend fun getTopics(): List<Topic>
 
@@ -33,6 +40,8 @@ interface UnsplashApi {
     suspend fun getTopicById(
         @Path("id") topicID: String
     ): Preview
+
+
 
 
     @GET("/photos")
