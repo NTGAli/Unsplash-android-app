@@ -7,11 +7,9 @@ import androidx.paging.*
 import com.example.pic.data.paging.PhotoPagingSource
 import com.example.pic.data.paging.UserImagesPaging
 import com.example.pic.data.repository.UnsplashImageRepository
-import com.example.pic.model.Feed
-import com.example.pic.model.ImageDetails
-import com.example.pic.model.UnsplashUser
-import com.example.pic.model.User
-import com.example.pic.network.UnsplashApi
+import com.example.pic.model.res.ImageDetailsRes
+import com.example.pic.model.res.UnsplashUser
+import com.example.pic.data.remote.UnsplashApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,10 +23,10 @@ class FeedViewModel @Inject constructor(
     ): ViewModel() {
 
 
-    private val imageDetails: MutableLiveData<ImageDetails?> = MutableLiveData()
+    private val imageDetails: MutableLiveData<ImageDetailsRes?> = MutableLiveData()
     private val userViewModel: MutableLiveData<UnsplashUser?> = MutableLiveData()
 
-    fun getSpecificImage(id: String): MutableLiveData<ImageDetails?>{
+    fun getSpecificImage(id: String): MutableLiveData<ImageDetailsRes?>{
         viewModelScope.launch(Dispatchers.IO){
             imageDetails.postValue(repository.getSpecificImage(id))
         }
@@ -45,7 +43,7 @@ class FeedViewModel @Inject constructor(
     fun getImages() =
         Pager(
             config = PagingConfig(
-                pageSize = 10,
+                pageSize = 10
             ),
             pagingSourceFactory = { PhotoPagingSource(apiService) }
         ).liveData.cachedIn(viewModelScope)
@@ -53,7 +51,7 @@ class FeedViewModel @Inject constructor(
     fun getUsersPhotos(username: String) =
         Pager(
             config = PagingConfig(
-                pageSize = 10,
+                pageSize = 10
             ),
             pagingSourceFactory = { UserImagesPaging(apiService, username) }
         ).liveData.cachedIn(viewModelScope)

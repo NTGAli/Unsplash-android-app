@@ -1,11 +1,11 @@
 package com.example.pic.viewModel
 
-import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pic.data.local.dao.UserLoginDao
-import com.example.pic.model.User
+import com.example.pic.model.entity.UserEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,12 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val userLoginDao: UserLoginDao): ViewModel() {
 
-    private var liveData: MutableLiveData<User?> = MutableLiveData()
+    private var liveData: MutableLiveData<UserEntity?> = MutableLiveData()
 
 
-    fun getUser(email: String): MutableLiveData<User?>{
-        liveData.postValue(userLoginDao.getUser(email))
-        return liveData
+    fun getUser(email: String): LiveData<UserEntity?>{
+
+        return userLoginDao.getUser(email)
     }
 
     fun updateFirstName(fistName: String, id: Int){
@@ -59,7 +59,7 @@ class ProfileViewModel @Inject constructor(private val userLoginDao: UserLoginDa
     }
 
     private fun updateData(id: Int){
-        liveData.postValue(userLoginDao.getUserById(id))
+        liveData.postValue(userLoginDao.getUserById(id).value)
     }
 
 

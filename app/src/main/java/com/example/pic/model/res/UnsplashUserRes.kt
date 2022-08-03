@@ -1,13 +1,12 @@
-package com.example.pic.model
+package com.example.pic.model.res
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity
 data class UnsplashUser(
     val username: String,
     val name: String,
-    val profile_image: ProfileImg,
+    val profile_image: ProfileImgRes,
     val bio: String
     )
 

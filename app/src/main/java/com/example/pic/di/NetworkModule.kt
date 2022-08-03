@@ -1,7 +1,8 @@
 package com.example.pic.di
 
+import com.example.pic.data.remote.HeaderInterceptor
 import com.example.pic.data.repository.SearchRepository
-import com.example.pic.network.UnsplashApi
+import com.example.pic.data.remote.UnsplashApi
 import com.example.pic.util.Constants
 import com.example.pic.util.Constants.BASE_URL
 import dagger.Module
@@ -11,11 +12,9 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -56,15 +55,4 @@ class NetworkModule {
         return SearchRepository(unsplashApi)
     }
 
-
-    class HeaderInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response = chain.run {
-            proceed(
-                request()
-                    .newBuilder()
-                    .addHeader("Authorization", "Client-ID ${Constants.API_KEY}")
-                    .build()
-            )
-        }
-    }
 }

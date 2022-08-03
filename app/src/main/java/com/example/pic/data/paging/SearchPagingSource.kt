@@ -2,8 +2,8 @@ package com.example.pic.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.pic.model.Feed
-import com.example.pic.network.UnsplashApi
+import com.example.pic.model.res.Feed
+import com.example.pic.data.remote.UnsplashApi
 import com.example.pic.util.Constants.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException

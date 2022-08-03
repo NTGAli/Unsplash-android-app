@@ -6,17 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.view.adapter.TopicListAdapter
 import com.example.pic.databinding.FragmentTopicBinding
-import com.example.pic.model.Topic
+import com.example.pic.model.res.Topic
 import com.example.pic.viewModel.TopicViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint

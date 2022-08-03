@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.view.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentTopicDetailsBinding
+import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.viewModel.TopicViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,7 @@ class TopicDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentTopicDetailsBinding
     private val viewModel: TopicViewModel by viewModels()
-    private lateinit var topicDetailsAdapter: FeedListAdapter
+    private lateinit var topicDetailsAdapter: FeedPagerDataAdapter
     private val bundle = Bundle()
 
     override fun onCreateView(
@@ -40,8 +41,14 @@ class TopicDetailsFragment : Fragment() {
         binding =
             FragmentTopicDetailsBinding.inflate(LayoutInflater.from(context), container, false)
 
-        viewModel.getTopicById(TopicFragment.topic.id).observe(viewLifecycleOwner) {
-            topicDetailsAdapter.submitList(it?.preview_photos)
+//        viewModel.getPhotosTopic(TopicFragment.topic.id).observe(viewLifecycleOwner) {
+//            topicDetailsAdapter.submitData(it)
+//        }
+
+        viewModel.getPhotosTopic(TopicFragment.topic.id).observe(viewLifecycleOwner){
+            lifecycleScope.launch(Dispatchers.IO){
+                topicDetailsAdapter.submitData(it)
+            }
         }
 
 
@@ -63,7 +70,7 @@ class TopicDetailsFragment : Fragment() {
     }
 
     private fun setUpList() {
-        topicDetailsAdapter = FeedListAdapter() { feed, onLong ->
+        topicDetailsAdapter = FeedPagerDataAdapter() { feed, onLong ->
             if (onLong) {
                 imgPreview(feed?.urls?.regular)
             } else {

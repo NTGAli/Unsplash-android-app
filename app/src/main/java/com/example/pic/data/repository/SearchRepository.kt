@@ -1,13 +1,8 @@
 package com.example.pic.data.repository
 
-import androidx.lifecycle.MutableLiveData
-import com.example.pic.model.Feed
-import com.example.pic.model.ResultImage
-import com.example.pic.model.ResultUser
-import com.example.pic.network.UnsplashApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.pic.model.res.Feed
+import com.example.pic.model.res.ResultUser
+import com.example.pic.data.remote.UnsplashApi
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val unsplashApi: UnsplashApi) {

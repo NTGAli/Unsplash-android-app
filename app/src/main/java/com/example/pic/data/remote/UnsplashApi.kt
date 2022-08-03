@@ -1,8 +1,6 @@
-package com.example.pic.network
+package com.example.pic.data.remote
 
-import com.example.pic.model.*
-import com.example.pic.util.Constants.API_KEY
-import retrofit2.Call
+import com.example.pic.model.res.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -18,13 +16,13 @@ interface UnsplashApi {
     @GET("/photos/{id}")
     suspend fun getSpecificImage(
         @Path("id")id: String
-    ):ImageDetails
+    ): ImageDetailsRes
 
 
     @GET("/users/{username}")
     suspend fun getUserByUsername(
         @Path("username")username: String
-    ):UnsplashUser
+    ): UnsplashUser
 
     @GET("/users/{username}/photos")
     suspend fun getUserPhotosByUsername(
@@ -39,9 +37,14 @@ interface UnsplashApi {
     @GET("/topics/{id}")
     suspend fun getTopicById(
         @Path("id") topicID: String
-    ): Preview
+    ): PreviewRes
 
-
+    @GET("/topics/{id}/photos")
+    suspend fun getTopicPhotosById(
+        @Path("id") topicID: String,
+        @Query("page") page: Int,
+        @Query("per_page")per_page: Int
+    ): Response<List<Feed>>
 
 
     @GET("/photos")
@@ -55,11 +58,11 @@ interface UnsplashApi {
     suspend fun searchInImages(
         @Query("query") query: String,
         @Query("page") page: Int
-    ): Response<ResultImage>
+    ): Response<ResultImageRes>
 
     @GET("/search/users")
     suspend fun searchInUsers(
         @Query("query") query: String
-        ):ResultUser
+        ): ResultUser
 
 }

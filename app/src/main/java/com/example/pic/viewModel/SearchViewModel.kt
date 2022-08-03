@@ -8,11 +8,10 @@ import androidx.paging.liveData
 import com.example.pic.data.paging.PhotoPagingSource
 import com.example.pic.data.paging.SearchPagingSource
 import com.example.pic.data.repository.SearchRepository
-import com.example.pic.model.Feed
-import com.example.pic.model.ResultImage
-import com.example.pic.model.ResultUser
-import com.example.pic.model.UnsplashUser
-import com.example.pic.network.UnsplashApi
+import com.example.pic.model.res.Feed
+import com.example.pic.model.res.ResultUser
+import com.example.pic.model.res.UnsplashUser
+import com.example.pic.data.remote.UnsplashApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

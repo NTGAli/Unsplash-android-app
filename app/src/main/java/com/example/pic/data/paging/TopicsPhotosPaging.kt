@@ -4,25 +4,24 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.pic.model.res.Feed
 import com.example.pic.data.remote.UnsplashApi
-import com.example.pic.util.Constants.STARTING_PAGE_INDEX
+import com.example.pic.util.Constants
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.RuntimeException
 
-
-
-class PhotoPagingSource(var api: UnsplashApi) : PagingSource<Int, Feed>() {
+class TopicsPhotosPaging (var api: UnsplashApi, val id: String) : PagingSource<Int, Feed>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Feed> {
-        val position = params.key ?: STARTING_PAGE_INDEX
+        val position = params.key ?: Constants.STARTING_PAGE_INDEX
 
         return try {
-            val response = api.getAllImages(position, params.loadSize)
+            val response = api.getTopicPhotosById(id, position, params.loadSize)
+            println("aaaaaaaaaaaaaaaaaaa $id")
             val body = response.body()
             if (response.isSuccessful){
                 LoadResult.Page(
                     data = body ?: listOf(),
-                    prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
+                    prevKey = if (position == Constants.STARTING_PAGE_INDEX) null else position - 1,
                     nextKey = if (body.isNullOrEmpty()) null else position + 1
                 )
             }

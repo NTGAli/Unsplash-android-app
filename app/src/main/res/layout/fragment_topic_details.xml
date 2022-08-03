@@ -5,7 +5,7 @@
 
         <variable
             name="detail"
-            type="com.example.pic.model.Topic" />
+            type="com.example.pic.model.res.Topic" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="24sp"
                         android:text="@{detail.title}"
-                        android:fontFamily="@font/yekan_regular"
+                        android:fontFamily="@font/outfit_regular"
                         android:textColor="@color/black"
                         android:id="@+id/toolbar_title_photograph_detail" />
 

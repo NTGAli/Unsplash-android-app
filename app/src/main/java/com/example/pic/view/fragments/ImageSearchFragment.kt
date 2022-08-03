@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.view.adapter.FeedPagerDataAdapter
-import com.example.pic.model.Feed
+import com.example.pic.model.res.Feed
 import com.example.pic.viewModel.SearchViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint

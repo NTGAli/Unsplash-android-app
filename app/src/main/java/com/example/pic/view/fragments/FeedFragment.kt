@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.databinding.FragmentHomeBinding
-import com.example.pic.model.Feed
+import com.example.pic.model.res.Feed
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint

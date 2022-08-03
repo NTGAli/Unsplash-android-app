@@ -6,7 +6,7 @@
 
         <variable
             name="user"
-            type="com.example.pic.model.User" />
+            type="com.example.pic.model.entity.UserEntity" />
     </data>
 
     <RelativeLayout

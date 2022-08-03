@@ -5,10 +5,11 @@
 
         <variable
             name="details"
-            type="com.example.pic.model.UnsplashUser" />
+            type="com.example.pic.model.res.UnsplashUser" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -16,93 +17,102 @@
         tools:context=".view.fragments.PhotographerDetailsFragment">
 
 
-        <RelativeLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:elevation="8dp">
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_photograph_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/ic_icon_arrowleft"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:text="@{details.name}"
+                    android:fontFamily="@font/outfit_regular"
+                    android:textColor="@color/black"
+                    android:id="@+id/toolbar_title_photograph_detail" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="8dp"
-                app:elevation="8dp">
+                android:layout_height="match_parent">
 
 
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_photograph_detail"
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:civ_border_width="2dp"
+                    android:src="@color/dark_200"
+                    android:layout_marginTop="32dp"
+                    android:layout_centerHorizontal="true"
+                    app:civ_border_color="@color/white"/>
+
+                <TextView
+                    android:id="@+id/txt_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{details.name}"
+                    android:layout_below="@id/profile_image"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/outfit_extra_bold"/>
+
+                <TextView
+                    android:id="@+id/txt_bio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="@{details.bio}"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_below="@id/txt_username"
+                    android:layout_centerHorizontal="true"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recv_user_item"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:navigationIcon="@drawable/ic_icon_arrowleft"
-                    >
+                    android:layout_below="@id/txt_bio"
+                    android:layout_marginTop="32dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:text="@{details.name}"
-                        android:fontFamily="@font/yekan_regular"
-                        android:textColor="@color/black"
-                        android:id="@+id/toolbar_title_photograph_detail" />
+            </RelativeLayout>
 
-                </androidx.appcompat.widget.Toolbar>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_below="@id/appBarLayout"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:civ_border_width="2dp"
-                android:src="@color/dark_200"
-                android:layout_marginTop="32dp"
-                android:layout_centerHorizontal="true"
-                app:civ_border_color="@color/white"/>
-
-            <TextView
-                android:id="@+id/txt_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{details.name}"
-                android:layout_below="@id/profile_image"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/yekan_extra_black"/>
-
-            <TextView
-                android:id="@+id/txt_bio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:text="@{details.bio}"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_below="@id/txt_username"
-                android:layout_centerHorizontal="true"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recv_user_item"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/txt_bio"
-                android:layout_marginTop="32dp"/>
-
-        </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
 
-    </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
 </layout>

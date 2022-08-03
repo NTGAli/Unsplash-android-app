@@ -28,7 +28,6 @@ class DatabaseModule {
             UserDB::class.java,
             LOGIN_DB
         )
-            .allowMainThreadQueries()
             .build()
     }
 

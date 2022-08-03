@@ -3,7 +3,6 @@ package com.example.pic.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -15,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.pic.R
 import com.example.pic.databinding.ActivityLoginBinding
-import com.example.pic.model.User
+import com.example.pic.model.entity.UserEntity
 import com.example.pic.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
@@ -53,16 +52,16 @@ class LoginActivity : AppCompatActivity() {
             }else if (!isValidPassword(pass)){
                 showSnackBar("Easy Password", "use at least one word")
             }
-            else if(viewModel.isUserExist(email, pass) == Pair(true, second = false)){
+            else if(isUserExist(email, pass) == Pair(true, second = false)){
                 showSnackBar("Password is incorrect", "check your password, and try again!")
-            }else if (viewModel.isUserExist(email, pass) == Pair(true, second = true)){
+            }else if (isUserExist(email, pass) == Pair(true, second = true)){
                 startActivity(Intent(this, MainActivity::class.java))
                 submitLogin(email)
                 finish()
             }
             else {
                 viewModel.addUser(
-                    User(
+                    UserEntity(
                         0,
                         email,
                         pass,
@@ -127,5 +126,25 @@ class LoginActivity : AppCompatActivity() {
         val editor = sharedPreference.edit()
         editor.putString("email",email)
         editor.apply()
+    }
+
+    private fun isUserExist(email: String, password: String): Pair<Boolean,Boolean>{
+        var user: UserEntity? = null
+
+        viewModel.getUser(email).observe(this){
+            user = it
+
+        }
+
+        if (user?.email == null){
+            return Pair(false, second = false)
+        }
+        else if (user?.password != password) {
+            return Pair(true, second = false)
+        }
+
+        return Pair(true, second = true)
+
+
     }
 }

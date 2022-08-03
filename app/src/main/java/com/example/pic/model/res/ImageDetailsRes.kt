@@ -1,16 +1,16 @@
-package com.example.pic.model
+package com.example.pic.model.res
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class ImageDetails(
+data class ImageDetailsRes(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     var created_at: String,
     val downloads: String,
     val likes: Int,
-    val exif: CameraModel,
+    val exif: CameraModelRes,
     val user: UnsplashUser,
-    val urls: Link
+    val urls: LinkRes
 )

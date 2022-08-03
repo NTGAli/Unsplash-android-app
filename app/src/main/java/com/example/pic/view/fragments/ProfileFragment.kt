@@ -2,7 +2,6 @@ package com.example.pic.view.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -25,11 +24,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.pic.R
 import com.example.pic.databinding.FragmentProfileBinding
-import com.example.pic.model.User
+import com.example.pic.model.entity.UserEntity
 import com.example.pic.view.LoginActivity
 import com.example.pic.viewModel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,7 +51,7 @@ class ProfileFragment : Fragment() {
         }
 
     companion object{
-        private var mUser: User? = null
+        private var mUser: UserEntity? = null
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +62,7 @@ class ProfileFragment : Fragment() {
 
             viewModel.getUser(getUserEmail()!!).observe(viewLifecycleOwner){
                 mUser = it
+//                println("bbbbbbbbbbbbbbbbbbb ${mUser.toString()}")
                 binding.user = it
                 setImageUri(binding.userProfile, it?.profile?.toUri())
             }

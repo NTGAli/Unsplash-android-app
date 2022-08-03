@@ -9,7 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.databinding.FeedItemBinding
-import com.example.pic.model.Feed
+import com.example.pic.model.res.Feed
 import com.squareup.picasso.Picasso
 
 

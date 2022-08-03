@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
-import com.example.pic.model.Topic
+import com.example.pic.model.res.Topic
 
 class TopicListAdapter(private val onClick: (Topic) -> Unit): ListAdapter<Topic, TopicListAdapter.TopicViewHolder>(DiffTopic()) {
     override fun onCreateViewHolder(
