@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.databinding.FeedItemBinding
 import com.example.pic.model.res.Feed
 import com.squareup.picasso.Picasso
+import loadImage
 
 
 class FeedPagerDataAdapter(private val onClick: (Feed?, Boolean) -> Unit): PagingDataAdapter<Feed, FeedPagerDataAdapter.FeedViewHolder>(FeedDiffUtil()) {
@@ -22,10 +23,6 @@ class FeedPagerDataAdapter(private val onClick: (Feed?, Boolean) -> Unit): Pagin
 
         }
 
-        @BindingAdapter("imageUrl")
-        fun loadImage(view: ImageView, url: String) {
-            Picasso.get().load(url).into(view)
-        }
 
 
     }

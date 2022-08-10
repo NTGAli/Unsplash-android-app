@@ -68,10 +68,7 @@ class UserSearchFragment : Fragment() {
         }
     }
 
-    @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String) {
-        Picasso.get().load(url).into(view)
-    }
+
 
     private fun loadUser(userBundle: Bundle){
         findNavController().navigate(R.id.photographerDetailsFragment, userBundle)

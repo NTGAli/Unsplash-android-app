@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import loadImage
 
 @AndroidEntryPoint
 class ImageSearchFragment : Fragment() {
@@ -94,16 +95,13 @@ class ImageSearchFragment : Fragment() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)
         var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
-        loadImage(imgPreview, imgLink)
+        loadImage(imgPreview, imgLink!!)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCancelable(true)
         dialog.show()
     }
 
-    @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String?) {
-        Picasso.get().load(url).into(view)
-    }
+
 
 
 }

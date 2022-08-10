@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var email: String
     private lateinit var pass: String
+    private var user: UserEntity? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,44 +43,62 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             email = binding.emailLoginTil.editText?.text.toString()
             pass = binding.passwordLoginTil.editText?.text.toString()
+            binding.emailLoginTil.isErrorEnabled = false
+            binding.passwordLoginTil.isErrorEnabled = false
 
-            if (email.isEmpty() || pass.isEmpty()){
-                showSnackBar("Fill blank","Email or Password cant be empty")
-            }else if (!isValidEmail(email)){
-                showSnackBar("Invalid Email", "Please enter a valid email")
-            }else if (pass.length < 8){
-                showSnackBar("Invalid Password", "your password must be more than 8 characters")
-            }else if (!isValidPassword(pass)){
-                showSnackBar("Easy Password", "use at least one word")
+            viewModel.isUserExist(email).observe(this) { userExist ->
+                if (userExist) {
+
+                    viewModel.getUser(email).observe(this) { user ->
+                        if (user?.password != pass) {
+                            showSnackBar("Something wrong!", "Check your email or password and try again!", "password")
+                        } else {
+                            submitLogin(email)
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+                    }
+
+                } else {
+                    if (email.isEmpty()) {
+                        showSnackBar("Fill blank", "Email cant be empty","email")
+                    }else if (pass.isEmpty()){
+                        showSnackBar("Fill blank", "Password cant be empty","password")
+                    }
+                    else if (!isValidEmail(email)) {
+                        showSnackBar("Invalid Email", "Please enter a valid email","email")
+                    } else if (pass.length < 8) {
+                        showSnackBar(
+                            "Invalid Password",
+                            "your password must be more than 8 characters",
+                            "password"
+                        )
+                    } else if (!isValidPassword(pass)) {
+                        showSnackBar("Easy Password", "use at least one word","password")
+                    } else {
+                        viewModel.addUser(
+                            UserEntity(
+                                0,
+                                email,
+                                pass,
+                                "-",
+                                "-",
+                                null
+                            )
+                        )
+                        submitLogin(email)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                }
             }
-            else if(isUserExist(email, pass) == Pair(true, second = false)){
-                showSnackBar("Password is incorrect", "check your password, and try again!")
-            }else if (isUserExist(email, pass) == Pair(true, second = true)){
-                startActivity(Intent(this, MainActivity::class.java))
-                submitLogin(email)
-                finish()
-            }
-            else {
-                viewModel.addUser(
-                    UserEntity(
-                        0,
-                        email,
-                        pass,
-                        "-",
-                        "-",
-                        null
-                    )
-                )
-                submitLogin(email)
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
+
         }
     }
 
     private fun checkIfUserLogged() {
-        val sharedPreference =  getSharedPreferences("UserData", Context.MODE_PRIVATE)
-        if (sharedPreference.getString("email",null) != null)
+        val sharedPreference = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        if (sharedPreference.getString("email", null) != null)
             startActivity(Intent(this, MainActivity::class.java))
 
     }
@@ -93,12 +112,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     @SuppressLint("InflateParams", "CutPasteId")
-    private fun showSnackBar(errorTitle: String, errorMassage: String){
+    private fun showSnackBar(errorTitle: String, errorMassage: String, status: String) {
 
         val snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_LONG)
 
+        if (status == "email"){
+            binding.emailLoginTil.error = "error"
+            if (binding.emailLoginTil.childCount == 2)
+                binding.emailLoginTil.getChildAt(1).visibility = View.GONE
+        }else{
+            binding.passwordLoginTil.error = "error"
+            if (binding.passwordLoginTil.childCount == 2)
+                binding.passwordLoginTil.getChildAt(1).visibility = View.GONE
+        }
+
         val layout = snackbar.view as SnackbarLayout
-        val snackView: View = LayoutInflater.from(applicationContext).inflate(R.layout.my_snackbar, null)
+        val snackView: View =
+            LayoutInflater.from(applicationContext).inflate(R.layout.my_snackbar, null)
         val errorTitleTV: TextView = snackView.findViewById(R.id.txt_error_title)
         val errorMassageTV: TextView = snackView.findViewById(R.id.txt_error_massage)
 
@@ -107,8 +137,10 @@ class LoginActivity : AppCompatActivity() {
 
         layout.addView(snackView, 0)
 
+        snackView.setPadding(0, 0, 0, 0)
         snackbar.show()
     }
+
 
     private fun isValidPassword(password: String): Boolean {
         val pattern: Pattern
@@ -120,31 +152,13 @@ class LoginActivity : AppCompatActivity() {
         return matcher.matches()
     }
 
-    private fun submitLogin(email: String){
+    private fun submitLogin(email: String) {
 
-        val sharedPreference =  getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val sharedPreference = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        editor.putString("email",email)
+        editor.putString("email", email)
         editor.apply()
     }
 
-    private fun isUserExist(email: String, password: String): Pair<Boolean,Boolean>{
-        var user: UserEntity? = null
 
-        viewModel.getUser(email).observe(this){
-            user = it
-
-        }
-
-        if (user?.email == null){
-            return Pair(false, second = false)
-        }
-        else if (user?.password != password) {
-            return Pair(true, second = false)
-        }
-
-        return Pair(true, second = true)
-
-
-    }
 }

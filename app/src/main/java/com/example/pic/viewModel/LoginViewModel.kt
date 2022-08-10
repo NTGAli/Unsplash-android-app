@@ -12,6 +12,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val userLoginDao: UserLoginDao): ViewModel() {
 
     var users: LiveData<List<UserEntity>> = MutableLiveData()
+    var userEmail: MutableLiveData<String>? = MutableLiveData()
+    var userEntity: LiveData<UserEntity?> = MutableLiveData()
     private val allRecords: LiveData<List<UserEntity>> = userLoginDao.getAllUser()
 
     private fun loadRecords(){
@@ -20,13 +22,26 @@ class LoginViewModel @Inject constructor(private val userLoginDao: UserLoginDao)
 
     fun addUser(user: UserEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            userLoginDao.addUser(user)
-            loadRecords()
+
+            if (userLoginDao.getUser(user.email).value == null){
+                userLoginDao.addUser(user)
+                loadRecords()
+            }
         }
     }
 
+    fun submitUser(email: String){
+        userEmail?.postValue(email)
+        getUser(email)
+    }
+
     fun getUser(email: String): LiveData<UserEntity?>{
-        return userLoginDao.getUser(email)
+        userEntity = userLoginDao.getUser(email)
+        return userEntity
+    }
+
+    fun isUserExist(email: String): LiveData<Boolean>{
+        return userLoginDao.isUserExist(email)
     }
 
 }

@@ -134,6 +134,8 @@ dependencies {
     //Ripple
     implementation 'com.balysv:material-ripple:1.0.2'
 
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
 }
 
 kapt {

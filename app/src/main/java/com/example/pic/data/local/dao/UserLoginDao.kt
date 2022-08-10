@@ -22,6 +22,9 @@ interface UserLoginDao {
     @Query("SELECT * FROM UserEntity WHERE email LIKE :email")
     fun getUser(email: String): LiveData<UserEntity?>
 
+    @Query("SELECT EXISTS(SELECT * FROM UserEntity WHERE email =:email)")
+    fun isUserExist(email: String): LiveData<Boolean>
+
     @Query("SELECT * FROM UserEntity WHERE id LIKE :id")
     fun getUserById(id: Int): LiveData<UserEntity?>
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.databinding.FeedItemBinding
 import com.example.pic.model.res.Feed
 import com.squareup.picasso.Picasso
+import loadImage
 
 class FeedListAdapter (private val onClick: (Feed?, Boolean) -> Unit): ListAdapter<Feed, FeedListAdapter.FeedViewHolder>(FeedListDiffUtil()) {
 
@@ -22,10 +23,7 @@ class FeedListAdapter (private val onClick: (Feed?, Boolean) -> Unit): ListAdapt
 
         }
 
-        @BindingAdapter("imageUrl")
-        fun loadImage(view: ImageView, url: String) {
-            Picasso.get().load(url).into(view)
-        }
+
 
 
     }

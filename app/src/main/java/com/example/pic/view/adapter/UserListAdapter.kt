@@ -16,6 +16,7 @@ import com.example.pic.R
 import com.example.pic.model.res.UnsplashUser
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import loadImage
 
 
 class UserListAdapter (private val onClick: (UnsplashUser) -> Unit): ListAdapter<UnsplashUser, UserListAdapter.UserViewHolder>(UserDiffUtil()) {
@@ -46,10 +47,6 @@ class UserListAdapter (private val onClick: (UnsplashUser) -> Unit): ListAdapter
             loadImage(profileImg, unsplashUser.profile_image.large)
         }
 
-        @BindingAdapter("ImageUrl")
-        fun loadImage(view: ImageView, link: String){
-            Picasso.get().load(link).into(view)
-        }
     }
 
     class UserDiffUtil : DiffUtil.ItemCallback<UnsplashUser>(){

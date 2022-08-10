@@ -17,13 +17,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.databinding.FragmentHomeBinding
-import com.example.pic.model.res.Feed
+import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import loadImage
 
 
 @AndroidEntryPoint
@@ -33,8 +33,6 @@ class FeedFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private val viewModel: FeedViewModel by viewModels()
     private lateinit var feedAdapter: FeedPagerDataAdapter
-    var page = 1
-    var users: ArrayList<Feed>? = arrayListOf()
     val bundle = Bundle()
 
     companion object{
@@ -51,17 +49,13 @@ class FeedFragment : Fragment() {
 
         init()
 
-//        getPage()
-
-
-
-//        viewModel.getImages().observe(viewLifecycleOwner){
-//            feedAdapter.submitData(it)
-//        }
 
         viewModel.getImages().observe(viewLifecycleOwner){
             lifecycleScope.launch(Dispatchers.IO){
                 feedAdapter.submitData(it)
+
+                binding.shimmerViewContainer.stopShimmerAnimation()
+                binding.shimmerViewContainer.visibility = View.GONE
             }
         }
 
@@ -106,15 +100,23 @@ class FeedFragment : Fragment() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)
         var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
-        loadImage(imgPreview, imgLink)
+        loadImage(imgPreview, imgLink!!)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCancelable(true)
         dialog.show()
     }
 
-    @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String?) {
-        Picasso.get().load(url).into(view)
+
+
+    override fun onResume() {
+        super.onResume()
+        binding.shimmerViewContainer.startShimmerAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.shimmerViewContainer.stopShimmerAnimation()
+        super.onPause()
     }
 
 

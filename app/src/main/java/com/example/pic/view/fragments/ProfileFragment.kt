@@ -62,7 +62,6 @@ class ProfileFragment : Fragment() {
 
             viewModel.getUser(getUserEmail()!!).observe(viewLifecycleOwner){
                 mUser = it
-//                println("bbbbbbbbbbbbbbbbbbb ${mUser.toString()}")
                 binding.user = it
                 setImageUri(binding.userProfile, it?.profile?.toUri())
             }
@@ -70,6 +69,7 @@ class ProfileFragment : Fragment() {
 
         binding.firstNameItem.setOnClickListener {
             showBottomSheet(true,"First Name", mUser?.firstName)
+
         }
 
         binding.lastNaemItem.setOnClickListener {
@@ -132,7 +132,9 @@ class ProfileFragment : Fragment() {
 
 
     private fun showBottomSheet(isSingleItem: Boolean, txtHint: String, txtData:String?, isLogout: Boolean = false){
-        val dialog = BottomSheetDialog(requireContext())
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+
+
 
         dialog.setContentView(R.layout.bottom_sheet_profile)
 

@@ -94,8 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginRight="32dp"
-                android:layout_marginLeft="32dp"
+
                 android:layout_marginTop="60dp"
                 android:layout_below="@id/user_profile">
 
@@ -107,6 +106,8 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:weightSum="1"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -153,6 +154,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@color/dark_100"/>
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -164,6 +167,8 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:weightSum="1"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -210,6 +215,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@color/dark_100"/>
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -221,6 +228,8 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:weightSum="1"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -267,6 +276,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@color/dark_100"/>
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/password_item"
@@ -277,6 +288,8 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:weightSum="1"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -293,13 +306,14 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="16dp"
                             android:orientation="vertical">
+
                             <TextView
                                 android:id="@+id/txt_pass"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/stars"
                                 android:textColor="@color/black"
-                                android:textSize="20sp"/>
+                                android:textSize="20sp" />
                             <TextView
                                 android:layout_below="@+id/txt_pass"
                                 android:layout_width="wrap_content"
@@ -323,6 +337,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@color/dark_100"/>
 
                 <com.balysv.materialripple.MaterialRippleLayout
@@ -335,6 +351,8 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:weightSum="1"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
                         android:layout_height="wrap_content">
 
                         <ImageView

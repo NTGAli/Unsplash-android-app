@@ -18,6 +18,7 @@ import com.example.pic.databinding.FragmentDetailsFeedBinding
 import com.example.pic.viewModel.FeedViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import loadImage
 
 
 @AndroidEntryPoint
@@ -62,10 +63,7 @@ class DetailsFeedFragment : Fragment() {
         return binding.root
     }
 
-    @BindingAdapter("imageUrl")
-    fun loadImage(view: ImageView, url: String) {
-        Picasso.get().load(url).into(view)
-    }
+
 
     @SuppressLint("SimpleDateFormat")
     private fun getDate(imgDate: String): String {
