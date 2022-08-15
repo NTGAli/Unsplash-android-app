@@ -12,7 +12,6 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -26,6 +25,7 @@ import com.example.pic.R
 import com.example.pic.databinding.FragmentProfileBinding
 import com.example.pic.model.entity.UserEntity
 import com.example.pic.view.LoginActivity
+import com.example.pic.view.custom.CustomButton
 import com.example.pic.viewModel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
@@ -38,7 +38,6 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentProfileBinding
     lateinit var imageView: ImageView
-    lateinit var button: Button
     private val pickImage = 100
     private var imageUri: Uri? = null
     private val requestPermission =
@@ -56,7 +55,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(LayoutInflater.from(context), container, false)
 
@@ -96,7 +95,6 @@ class ProfileFragment : Fragment() {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // Pass any permission you want while launching
                 requestPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 
             }else{
@@ -144,9 +142,9 @@ class ProfileFragment : Fragment() {
         val singleTIL = dialog.findViewById<TextInputLayout>(R.id.til_bottom_sheet)
         val passTIL = dialog.findViewById<TextInputLayout>(R.id.pass_profile_til)
         val confirmPassTil = dialog.findViewById<TextInputLayout>(R.id.confirm_pass_profile_til)
-        val button = dialog.findViewById<Button>(R.id.btn_submit_bottom_sheet)
-        val buttonYse = dialog.findViewById<Button>(R.id.btn_logout_yes)
-        val buttonNo = dialog.findViewById<Button>(R.id.byn_logout_no)
+        val button = dialog.findViewById<CustomButton>(R.id.btn_submit_bottom_sheet)
+        val buttonYse = dialog.findViewById<CustomButton>(R.id.btn_logout_yes)
+        val buttonNo = dialog.findViewById<CustomButton>(R.id.byn_logout_no)
 
 
 
@@ -246,29 +244,5 @@ class ProfileFragment : Fragment() {
     fun setImageUri(view: ImageView, imageUri: Uri?) {
         view.setImageURI(imageUri)
     }
-
-
-
-
-//    @Deprecated("Deprecated in Java")
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-//                                            grantResults: IntArray) {
-//        when (requestCode) {
-//            1 -> {
-//                if (grantResults.isNotEmpty() && grantResults[0] ==
-//                    PackageManager.PERMISSION_GRANTED) {
-//                    if ((ContextCompat.checkSelfPermission(requireContext(),
-//                            Manifest.permission.ACCESS_FINE_LOCATION) ===
-//                                PackageManager.PERMISSION_GRANTED)) {
-//                        Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
-//                    }
-//                } else {
-//                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
-//                }
-//                return
-//            }
-//        }
-//    }
-
 
 }

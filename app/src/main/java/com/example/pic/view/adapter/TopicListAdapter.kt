@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.model.res.Topic
+import com.example.pic.view.custom.CustomButton
 
 class TopicListAdapter(private val onClick: (Topic) -> Unit): ListAdapter<Topic, TopicListAdapter.TopicViewHolder>(DiffTopic()) {
     override fun onCreateViewHolder(

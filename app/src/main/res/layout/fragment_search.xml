@@ -12,41 +12,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:elevation="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_photograph_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:background="@color/white"
+                android:elevation="8dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <androidx.cardview.widget.CardView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/toolbar_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/outfit_extra_bold"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
                         android:text="@string/search"
                         android:textColor="@color/black"
-                        android:textSize="24sp" />
+                        android:textSize="14sp" />
 
+                </RelativeLayout>
 
-                </androidx.cardview.widget.CardView>
-
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </androidx.appcompat.widget.Toolbar>
 
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -55,7 +57,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="16dp"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -63,12 +65,15 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:hint="@string/search_text"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
                     app:errorTextColor="@color/black"
                     app:hintTextColor="@color/black"
-
                     app:layout_behavior="id">
 
 
@@ -78,15 +83,14 @@
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
 
 
             <LinearLayout
@@ -101,12 +105,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
+                    android:textSize="16sp"
                     app:tabBackground="@android:color/transparent"
                     app:tabGravity="fill"
                     app:tabIndicator="@drawable/shape_round_corner"
                     app:tabIndicatorColor="@color/secondary_500"
                     app:tabIndicatorFullWidth="false"
-
                     app:tabIndicatorGravity="bottom"
                     app:tabIndicatorHeight="4dp"
                     app:tabRippleColor="@android:color/transparent"
@@ -117,6 +121,10 @@
 
                 </com.google.android.material.tabs.TabLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_100" />
 
             </LinearLayout>
 
@@ -127,7 +135,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

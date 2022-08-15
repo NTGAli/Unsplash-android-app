@@ -4,28 +4,29 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.view.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentPhotographerDetailsBinding
+import com.example.pic.util.loadImage
 import com.example.pic.view.adapter.FeedPagerDataAdapter
+import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.FeedViewModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import loadImage
 
 @AndroidEntryPoint
 @OptIn(ExperimentalPagingApi::class)
@@ -40,7 +41,7 @@ class PhotographerDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentPhotographerDetailsBinding.inflate(
             LayoutInflater.from(context),
@@ -57,13 +58,25 @@ class PhotographerDetailsFragment : Fragment() {
 
             }
 
-        viewModel.getUsersPhotos(requireArguments().getString("username")!!).observe(viewLifecycleOwner){
-            lifecycleScope.launch(Dispatchers.IO){
-                itemsAdapter.submitData(it)
+        viewModel.getUsersPhotos(requireArguments().getString("username")!!)
+            .observe(viewLifecycleOwner) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    itemsAdapter.submitData(it)
+                }
+
             }
 
+        lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+            itemsAdapter.loadStateFlow.collectLatest { loadStates ->
+                if (loadStates.refresh == LoadState.Loading){
+                    binding.shimmerDetailsPhotographer.startShimmerAnimation()
+                    binding.shimmerDetailsPhotographer.visible()
+                }else{
+                    binding.shimmerDetailsPhotographer.stopShimmerAnimation()
+                    binding.shimmerDetailsPhotographer.gone()
+                }
+            }
         }
-
 
 
         binding.toolbarPhotographDetail.setNavigationOnClickListener {
@@ -76,6 +89,12 @@ class PhotographerDetailsFragment : Fragment() {
     private fun init() {
 
         setUpList()
+
+//        ViewCompat.setElevation(
+//            binding.appBarLayoutPhotographDetails,
+//            8f
+//        )
+
     }
 
 
@@ -99,7 +118,7 @@ class PhotographerDetailsFragment : Fragment() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)
-        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
+        val imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
         loadImage(imgPreview, imgLink!!)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCancelable(true)

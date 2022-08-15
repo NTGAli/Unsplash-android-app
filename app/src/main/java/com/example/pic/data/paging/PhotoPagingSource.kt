@@ -22,7 +22,7 @@ class PhotoPagingSource(var api: UnsplashApi) : PagingSource<Int, Feed>() {
             if (response.isSuccessful){
                 LoadResult.Page(
                     data = body ?: listOf(),
-                    prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
+                    prevKey = null,
                     nextKey = if (body.isNullOrEmpty()) null else position + 1
                 )
             }

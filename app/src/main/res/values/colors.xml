@@ -47,4 +47,34 @@
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 
+
+    <color name="primary_btn__300">#AEBDFF</color>
+    <color name="primary_btn_500">#5D7BFF</color>
+    <color name="primary_btn_700">#3349CC</color>
+    <color name="primary_btn_900">#111E7F</color>
+
+    <color name="secondary_btn_300">#CBD1DC</color>
+    <color name="secondary_btn_500">#97A3B9</color>
+    <color name="secondary_btn_700">#606B7F</color>
+    <color name="secondary_btn_900">#2D3442</color>
+
+    <color name="success_300">#8AE6C7</color>
+    <color name="success_500">#14CC8F</color>
+    <color name="success_700">#0F9573</color>
+    <color name="success_900">#095658</color>
+
+    <color name="warning_300">#FFDD8A</color>
+    <color name="warning_500">#FFBA14</color>
+    <color name="warning_700">#CC8009</color>
+    <color name="warning_900">#7F4301</color>
+
+    <color name="danger_300">#FFA0A0</color>
+    <color name="danger_500">#FF4141</color>
+    <color name="danger_700">#CC2121</color>
+    <color name="danger_900">#7F0808</color>
+
+    <color name="info_300">#DCD3B8</color>
+    <color name="info_500">#B9A771</color>
+    <color name="info_700">#7F6F42</color>
+    <color name="info_900">#423619</color>
 </resources>

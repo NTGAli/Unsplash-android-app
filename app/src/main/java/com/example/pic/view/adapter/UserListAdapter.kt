@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.model.res.UnsplashUser
-import com.squareup.picasso.Picasso
+import com.example.pic.util.loadImage
 import de.hdodenhof.circleimageview.CircleImageView
-import loadImage
 
 
 class UserListAdapter (private val onClick: (UnsplashUser) -> Unit): ListAdapter<UnsplashUser, UserListAdapter.UserViewHolder>(UserDiffUtil()) {

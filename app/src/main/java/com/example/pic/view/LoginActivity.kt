@@ -30,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var email: String
     private lateinit var pass: String
-    private var user: UserEntity? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

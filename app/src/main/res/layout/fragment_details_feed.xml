@@ -44,7 +44,7 @@
                     android:fontFamily="@font/outfit_regular"
                     android:text="@string/feed"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="16sp" />
 
             </androidx.appcompat.widget.Toolbar>
 

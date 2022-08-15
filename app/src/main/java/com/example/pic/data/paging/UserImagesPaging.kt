@@ -20,7 +20,7 @@ class UserImagesPaging (var api: UnsplashApi, var userName: String) : PagingSour
             if (response.isSuccessful){
                 LoadResult.Page(
                     data = body ?: listOf(),
-                    prevKey = if (position == Constants.STARTING_PAGE_INDEX) null else position - 1,
+                    prevKey = null,
                     nextKey = if (body.isNullOrEmpty()) null else position + 1
                 )
             }

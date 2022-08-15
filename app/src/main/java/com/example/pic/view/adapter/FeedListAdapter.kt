@@ -2,24 +2,19 @@ package com.example.pic.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.recyclerview.widget.ListAdapter
-
-import androidx.cardview.widget.CardView
-import androidx.databinding.BindingAdapter
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.databinding.FeedItemBinding
 import com.example.pic.model.res.Feed
-import com.squareup.picasso.Picasso
-import loadImage
 
 class FeedListAdapter (private val onClick: (Feed?, Boolean) -> Unit): ListAdapter<Feed, FeedListAdapter.FeedViewHolder>(FeedListDiffUtil()) {
 
     class FeedViewHolder(private val binding: FeedItemBinding): RecyclerView.ViewHolder(binding.root){
-        var cardItem: CardView = binding.feedItemCard
+        var cardItem: ConstraintLayout = binding.feedItemCard
         fun bindData(feed: Feed){
-            loadImage(binding.imgFeedItem, feed.urls.regular)
+            binding.url = feed.urls.regular
 
         }
 

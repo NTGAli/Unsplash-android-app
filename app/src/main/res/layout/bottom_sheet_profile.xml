@@ -38,6 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="46dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
                 android:hint="@string/first_name"
                 app:hintTextColor="@color/black">
 
@@ -101,17 +105,13 @@
 
         </LinearLayout>
 
-        <Button
+        <com.example.pic.view.custom.CustomButton
             android:id="@+id/btn_submit_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/accept"
-            android:textColor="@color/white"
-            app:backgroundTint="@null"
-            android:background="@drawable/btn_shape_selected"
-            android:layout_marginBottom="8dp"
-            android:textAllCaps="false"/>
+            app:buttonText="@string/accept"
+            />
 
         <LinearLayout
             android:id="@+id/logout_layout"
@@ -136,29 +136,25 @@
                 android:weightSum="2"
                 >
 
-                <Button
+                <com.example.pic.view.custom.CustomButton
                     android:id="@+id/btn_logout_yes"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/yes"
-                    android:textColor="@color/primary_500"
-                    app:backgroundTint="@null"
-                    android:background="@drawable/button_logout"
-                    android:textAllCaps="false"/>
+                    app:buttonText="@string/yes"
+                    app:type="danger"
+                    app:buttonStyleType="outline"/>
 
-                <Button
+                <com.example.pic.view.custom.CustomButton
                     android:id="@+id/byn_logout_no"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/no"
-                    android:textColor="@color/primary_500"
-                    app:backgroundTint="@null"
-                    android:background="@drawable/button_logout"
-                    android:textAllCaps="false"/>
+                    app:buttonText="@string/no"
+                    app:type="danger"
+                    app:buttonStyleType="outline"/>
 
             </LinearLayout>
 

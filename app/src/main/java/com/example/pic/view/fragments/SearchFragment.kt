@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import com.example.pic.view.adapter.SearchPagerAdapter
 import com.example.pic.databinding.FragmentSearchBinding
+import com.example.pic.view.adapter.SearchPagerAdapter
 import com.example.pic.viewModel.SearchViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -32,7 +29,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(LayoutInflater.from(context), container, false)
 
@@ -42,7 +39,10 @@ class SearchFragment : Fragment() {
         binding.searchTil.editText?.setOnEditorActionListener { _, keyCode, event ->
             if ((keyCode == EditorInfo.IME_ACTION_DONE)
             ) {
+
                 query = binding.searchTil.editText?.text.toString()
+
+
 
                 viewModel.searchInImages(query)
 
@@ -51,10 +51,6 @@ class SearchFragment : Fragment() {
                     viewModel.setUsersList(it?.results)
                 }
 
-
-//                binding.searchTil.editText?.isFocusable = false
-//                binding.searchTil.editText?.isFocusableInTouchMode = false
-//                binding.searchTil.editText?.isSelected = false
 
 
                 return@setOnEditorActionListener true

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="types_item_name">
+        <item>1-textColor</item>
+        <item>2-textColorTouched</item>
+        <item>3-backgroundColor</item>
+        <item>4-borderColor</item>
+        <item>5-backgroundColorTouched</item>
+        <item>6-disableColor</item>
+        <item>7-textDisabled</item>
+        <item>8-borderDisabled</item>
+        <item>9-borderColorTouched</item>
+    </array>
+    <array name="primary_contained">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/primary_btn_500</item>
+        <item>@color/primary_btn_500</item>
+        <item>@color/primary_btn_700</item>
+        <item>@color/primary_btn__300</item>
+        <item>@color/white</item>
+        <item>@color/primary_btn__300</item>
+        <item>@color/primary_btn__300</item>
+        <item>@color/white</item>
+    </array>
+
+    <array name="primary_outline">
+        <item>@color/primary_btn_500</item>
+        <item>@color/primary_btn_900</item>
+        <item>@color/white</item>
+        <item>@color/primary_btn_500</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/primary_btn__300</item>
+        <item>@color/primary_btn__300</item>
+        <item>@color/primary_btn_900</item>
+    </array>
+
+    <array name="primary_text_only">
+        <item>@color/primary_btn_500</item>
+        <item>@color/primary_btn_900</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/primary_btn__300</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/primary_btn_500</item>
+    </array>
+
+    <array name="secondary_contained">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/secondary_btn_500</item>
+        <item>@color/secondary_btn_500</item>
+        <item>@color/secondary_700</item>
+        <item>@color/secondary_btn_300</item>
+        <item>@color/white</item>
+        <item>@color/secondary_btn_300</item>
+        <item>@color/secondary_btn_300</item>
+        <item>@color/white</item>
+    </array>
+
+    <array name="secondary_outline">
+        <item>@color/secondary_btn_500</item>
+        <item>@color/secondary_btn_900</item>
+        <item>@color/white</item>
+        <item>@color/secondary_btn_500</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/secondary_btn_300</item>
+        <item>@color/secondary_btn_300</item>
+        <item>@color/secondary_btn_900</item>
+    </array>
+
+    <array name="secondary_text_only">
+        <item>@color/secondary_btn_500</item>
+        <item>@color/secondary_btn_900</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/secondary_btn_300</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+    </array>
+
+    <array name="success_contained">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/success_500</item>
+        <item>@color/success_500</item>
+        <item>@color/success_700</item>
+        <item>@color/success_300</item>
+        <item>@color/white</item>
+        <item>@color/success_300</item>
+        <item>@color/success_300</item>
+    </array>
+
+    <array name="success_outline">
+        <item>@color/success_500</item>
+        <item>@color/success_900</item>
+        <item>@color/white</item>
+        <item>@color/success_500</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/success_300</item>
+        <item>@color/success_300</item>
+        <item>@color/success_900</item>
+    </array>
+
+    <array name="success_text_only">
+        <item>@color/success_500</item>
+        <item>@color/success_900</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/success_300</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+    </array>
+
+    <array name="warning_contained">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/warning_500</item>
+        <item>@color/warning_500</item>
+        <item>@color/warning_300</item>
+        <item>@color/warning_300</item>
+        <item>@color/white</item>
+        <item>@color/warning_300</item>
+        <item>@color/warning_300</item>
+    </array>
+
+    <array name="warning_outline">
+        <item>@color/warning_500</item>
+        <item>@color/warning_900</item>
+        <item>@color/white</item>
+        <item>@color/warning_500</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/warning_300</item>
+        <item>@color/warning_300</item>
+        <item>@color/warning_900</item>
+    </array>
+
+    <array name="warning_text_only">
+        <item>@color/warning_500</item>
+        <item>@color/warning_900</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/warning_300</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+    </array>
+
+    <array name="danger_contained">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/danger_500</item>
+        <item>@color/danger_500</item>
+        <item>@color/danger_300</item>
+        <item>@color/danger_300</item>
+        <item>@color/white</item>
+        <item>@color/danger_300</item>
+        <item>@color/danger_300</item>
+    </array>
+
+    <array name="danger_outline">
+        <item>@color/danger_500</item>
+        <item>@color/danger_900</item>
+        <item>@color/white</item>
+        <item>@color/danger_500</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/danger_300</item>
+        <item>@color/danger_300</item>
+        <item>@color/danger_900</item>
+    </array>
+
+    <array name="danger_text_only">
+    <item>@color/danger_500</item>
+    <item>@color/danger_900</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    <item>@color/danger_300</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    </array>
+
+
+    <array name="info_contained">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/info_500</item>
+        <item>@color/info_500</item>
+        <item>@color/info_300</item>
+        <item>@color/warning_300</item>
+        <item>@color/white</item>
+        <item>@color/info_300</item>
+        <item>@color/info_300</item>
+    </array>
+
+    <array name="info_outline">
+        <item>@color/info_500</item>
+        <item>@color/info_900</item>
+        <item>@color/white</item>
+        <item>@color/info_500</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/info_300</item>
+        <item>@color/info_300</item>
+        <item>@color/info_900</item>
+    </array>
+
+    <array name="info_text_only">
+    <item>@color/info_500</item>
+    <item>@color/info_900</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    <item>@color/info_300</item>
+    <item>@color/white</item>
+    <item>@color/white</item>
+    </array>
+
+</resources>

@@ -29,7 +29,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="centerCrop"
-                    android:background="@color/dark_200"
+                    android:background="@color/dark_100"
                     tools:ignore="MissingConstraints" />
 
 
@@ -52,7 +52,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="centerCrop"
-                    android:background="@color/dark_200"
+                    android:background="@color/dark_100"
                     tools:ignore="MissingConstraints" />
 
 

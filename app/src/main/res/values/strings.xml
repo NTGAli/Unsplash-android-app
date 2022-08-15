@@ -40,4 +40,5 @@
     <string name="logout_message">Do you want to logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="last_name">Last Name</string>
 </resources>

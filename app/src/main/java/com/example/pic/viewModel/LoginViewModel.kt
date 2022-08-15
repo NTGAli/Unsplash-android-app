@@ -30,6 +30,7 @@ class LoginViewModel @Inject constructor(private val userLoginDao: UserLoginDao)
         }
     }
 
+
     fun submitUser(email: String){
         userEmail?.postValue(email)
         getUser(email)

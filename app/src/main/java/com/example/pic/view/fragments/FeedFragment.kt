@@ -15,15 +15,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.databinding.FragmentHomeBinding
+import com.example.pic.util.loadImage
 import com.example.pic.view.adapter.FeedPagerDataAdapter
+import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.FeedViewModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import loadImage
+import kotlinx.coroutines.flow.collectLatest
 
 
 @AndroidEntryPoint
@@ -52,21 +55,27 @@ class FeedFragment : Fragment() {
 
         viewModel.getImages().observe(viewLifecycleOwner){
             lifecycleScope.launch(Dispatchers.IO){
-                feedAdapter.submitData(it)
 
-                binding.shimmerViewContainer.stopShimmerAnimation()
-                binding.shimmerViewContainer.visibility = View.GONE
+                feedAdapter.submitData(it)
+                runBlocking {
+
+                }
+            }
+
+        }
+
+        lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+            feedAdapter.loadStateFlow.collectLatest { loadStates ->
+                if (loadStates.refresh == LoadState.Loading){
+                    binding.shimmerViewContainer.startShimmerAnimation()
+                    binding.shimmerViewContainer.visible()
+                }else{
+                    binding.shimmerViewContainer.stopShimmerAnimation()
+                    binding.shimmerViewContainer.gone()
+                }
             }
         }
 
-
-//        binding.idNestedSV.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-//
-//            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight && page < 200) {
-//                page++
-//                getPage()
-//            }
-//        })
 
         return binding.root
     }

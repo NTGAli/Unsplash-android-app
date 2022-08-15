@@ -25,7 +25,7 @@ class SearchPagingSource(var api: UnsplashApi, private var query: String): Pagin
             if (response.isSuccessful){
                 LoadResult.Page(
                     data = body?.results ?: listOf(),
-                    prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
+                    prevKey = null,
                     nextKey = if (body?.results.isNullOrEmpty()) null else position + 1
                 )
             }

@@ -8,88 +8,133 @@
             type="com.example.pic.model.res.Topic" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.TopicDetailsFragment">
 
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".view.fragments.TopicDetailsFragment">
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:elevation="0dp"
+            >
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_topic_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:elevation="8dp"
-                app:elevation="8dp">
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:navigationIcon="@drawable/ic_icon_arrowleft"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+                <TextView
+                    android:id="@+id/toolbar_title_photograph_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@{detail.title}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
+            </androidx.appcompat.widget.Toolbar>
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar_topic_detail"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                app:layout_scrollFlags="scroll">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
+                    android:orientation="vertical"
+                    android:paddingBottom="44dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:navigationIcon="@drawable/ic_icon_arrowleft"
-                    >
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.elyeproj.loaderviewlibrary.LoaderImageView
+                        android:id="@+id/topic_img_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop" />
 
                     <TextView
+                        android:id="@+id/txt_topic_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="16sp"
                         android:text="@{detail.title}"
-                        android:fontFamily="@font/outfit_regular"
                         android:textColor="@color/black"
-                        android:id="@+id/toolbar_title_photograph_detail" />
+                        android:textSize="20sp" />
 
-                </androidx.appcompat.widget.Toolbar>
+                    <TextView
+                        android:id="@+id/txt_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:text="@{detail.description}" />
+                </LinearLayout>
 
-            </com.google.android.material.appbar.AppBarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/topic_img_main"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:id="@+id/txt_topic_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{detail.title}"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:layout_marginTop="16sp"/>
 
-            <TextView
-                android:id="@+id/txt_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{detail.description}"
-                android:gravity="center"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topic_img_rcv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_details_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:visibility="gone"
+            app:duration="800">
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+                <include layout="@layout/data_placeholder_layout" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
 

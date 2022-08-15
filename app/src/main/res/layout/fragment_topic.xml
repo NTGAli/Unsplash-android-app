@@ -39,7 +39,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/topics"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
                         android:layout_centerInParent="true"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"/>
@@ -65,6 +67,8 @@
             android:id="@+id/topic_rcv"
             android:layout_below="@id/appBarLayout"
             android:layout_width="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

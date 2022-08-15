@@ -8,28 +8,28 @@ interface UnsplashApi {
 
     @GET("/photos")
     suspend fun getAllImages(
-        @Query("page")page: Int,
-        @Query("per_page")per_page: Int
-    ):Response<List<Feed>>
+        @Query("page") page: Int,
+        @Query("per_page") per_page: Int
+    ): Response<List<Feed>>
 
 
     @GET("/photos/{id}")
     suspend fun getSpecificImage(
-        @Path("id")id: String
+        @Path("id") id: String
     ): ImageDetailsRes
 
 
     @GET("/users/{username}")
     suspend fun getUserByUsername(
-        @Path("username")username: String
+        @Path("username") username: String
     ): UnsplashUser
 
     @GET("/users/{username}/photos")
     suspend fun getUserPhotosByUsername(
-        @Path("username")username: String,
+        @Path("username") username: String,
         @Query("page") page: Int,
-        @Query("per_page")per_page: Int
-    ):Response<List<Feed>>
+        @Query("per_page") per_page: Int
+    ): Response<List<Feed>>
 
     @GET("/topics")
     suspend fun getTopics(): List<Topic>
@@ -43,16 +43,16 @@ interface UnsplashApi {
     suspend fun getTopicPhotosById(
         @Path("id") topicID: String,
         @Query("page") page: Int,
-        @Query("per_page")per_page: Int
+        @Query("per_page") per_page: Int
     ): Response<List<Feed>>
 
 
     @GET("/photos")
     suspend fun getAllImagesByOrder(
-        @Query("page")page: Int,
-        @Query("per_page")per_page: Int,
-        @Query("order_by") order_by : String
-    ):List<Feed>
+        @Query("page") page: Int,
+        @Query("per_page") per_page: Int,
+        @Query("order_by") order_by: String
+    ): Response<List<Feed>>
 
     @GET("/search/photos")
     suspend fun searchInImages(
@@ -63,6 +63,6 @@ interface UnsplashApi {
     @GET("/search/users")
     suspend fun searchInUsers(
         @Query("query") query: String
-        ): ResultUser
+    ): ResultUser
 
 }

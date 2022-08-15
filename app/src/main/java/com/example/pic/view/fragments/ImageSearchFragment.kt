@@ -14,26 +14,31 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.model.res.Feed
+import com.example.pic.util.loadImage
+import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.SearchViewModel
-import com.squareup.picasso.Picasso
+import com.facebook.shimmer.ShimmerFrameLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import loadImage
 
 @AndroidEntryPoint
 class ImageSearchFragment : Fragment() {
 
     private lateinit var imageSearchView: View
     private lateinit var searchImagesAdapter: FeedPagerDataAdapter
-    lateinit var lists: List<Feed>
     private val bundle= Bundle()
     private lateinit var rcv: RecyclerView
+    private lateinit var shimmer: ShimmerFrameLayout
+
     val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -42,6 +47,8 @@ class ImageSearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         imageSearchView = inflater.inflate(R.layout.fragment_image_search, container, false)
+
+
 
         viewModel.getSomeImages().observe(viewLifecycleOwner){
             lifecycleScope.launch(Dispatchers.IO) {
@@ -52,7 +59,6 @@ class ImageSearchFragment : Fragment() {
 
 
         viewModel.getQuery().observe(viewLifecycleOwner){
-            println("qqqqqqqqqqqqqqqqqqqqqqqqqqqq $it")
             viewModel.getListOfImagesSearched().observe(viewLifecycleOwner){
                 lifecycleScope.launch {
                     searchImagesAdapter.submitData(it)
@@ -60,7 +66,23 @@ class ImageSearchFragment : Fragment() {
             }
         }
 
+
+
         init()
+
+        lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+            searchImagesAdapter.loadStateFlow.collectLatest { loadStates ->
+                if (loadStates.refresh == LoadState.Loading){
+                    shimmer.startShimmerAnimation()
+                    shimmer.visible()
+                }else{
+                    shimmer.stopShimmerAnimation()
+                    shimmer.gone()
+                }
+            }
+        }
+
+
 
 
         return imageSearchView
@@ -68,6 +90,7 @@ class ImageSearchFragment : Fragment() {
 
     private fun init(){
         rcv = imageSearchView.findViewById(R.id.searchImg_rcv)
+        shimmer = imageSearchView.findViewById(R.id.shimmer_search_user)
         setUpImagesList()
     }
 

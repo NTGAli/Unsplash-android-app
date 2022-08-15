@@ -4,27 +4,28 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
-import com.example.pic.view.adapter.FeedListAdapter
 import com.example.pic.databinding.FragmentTopicDetailsBinding
+import com.example.pic.util.loadImage
 import com.example.pic.view.adapter.FeedPagerDataAdapter
+import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.TopicViewModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import loadImage
 
 @AndroidEntryPoint
 class TopicDetailsFragment : Fragment() {
@@ -37,14 +38,12 @@ class TopicDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding =
             FragmentTopicDetailsBinding.inflate(LayoutInflater.from(context), container, false)
 
-//        viewModel.getPhotosTopic(TopicFragment.topic.id).observe(viewLifecycleOwner) {
-//            topicDetailsAdapter.submitData(it)
-//        }
+        init()
 
         viewModel.getPhotosTopic(TopicFragment.topic.id).observe(viewLifecycleOwner){
             lifecycleScope.launch(Dispatchers.IO){
@@ -52,8 +51,19 @@ class TopicDetailsFragment : Fragment() {
             }
         }
 
+        lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+            topicDetailsAdapter.loadStateFlow.collectLatest { loadStates ->
+                if (loadStates.refresh == LoadState.Loading){
+                    binding.shimmerDetailsTopic.startShimmerAnimation()
+                    binding.shimmerDetailsTopic.visible()
+                }else{
+                    binding.shimmerDetailsTopic.stopShimmerAnimation()
+                    binding.shimmerDetailsTopic.gone()
+                }
+            }
+        }
 
-        init()
+
 
 
         binding.toolbarTopicDetail.setNavigationOnClickListener {
@@ -93,7 +103,7 @@ class TopicDetailsFragment : Fragment() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_image_preview)
-        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
+        val imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
         loadImage(imgPreview, imgLink!!)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCancelable(true)

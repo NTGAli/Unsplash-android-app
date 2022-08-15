@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/topic_item_layout"
+<RelativeLayout android:id="@+id/topic_item_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginLeft="8dp"
-    android:background="@drawable/topic_back">
+    android:layout_margin="8dp"
+    android:background="@drawable/topic_back"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <TextView
@@ -17,10 +15,14 @@
         android:layout_height="wrap_content"
         android:text="@string/current_event"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
+        android:textSize="14sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:maxLines="1"
         android:scrollHorizontally="true"
         android:textColor="@color/black"/>
+
+
 
 
 </RelativeLayout>

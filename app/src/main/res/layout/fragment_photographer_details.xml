@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,113 +10,150 @@
             type="com.example.pic.model.res.UnsplashUser" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragments.PhotographerDetailsFragment">
+
+        android:background="@color/white">
 
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:elevation="8dp">
-
-
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_photograph_detail"
+            android:elevation="0dp"
+            app:elevation="0dp">
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_icon_arrowleft"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                app:layout_scrollFlags="scroll">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_photograph_detail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:text="@{details.name}"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textColor="@color/black"
-                    android:id="@+id/toolbar_title_photograph_detail" />
+                    android:background="@color/white"
+                    android:elevation="8dp"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:navigationIcon="@drawable/ic_icon_arrowleft">
 
-            </androidx.appcompat.widget.Toolbar>
+                    <TextView
+                        android:id="@+id/toolbar_title_photograph_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="@{details.name}"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
+                </androidx.appcompat.widget.Toolbar>
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="0dp"
+                    android:layout_marginTop="44dp"
+                    app:layout_scrollFlags="scroll">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:minHeight="?attr/actionBarSize"
+                        android:paddingBottom="44dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_image"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="44dp"
+                            android:src="@color/dark_200"
+                            app:civ_border_color="@color/white"
+                            app:civ_border_width="2dp" />
+
+                        <TextView
+                            android:id="@+id/txt_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/profile_image"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/outfit_extra_bold"
+                            android:text="@{details.name}"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/txt_bio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txt_username"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="16dp"
+                            android:gravity="center"
+                            android:text="@{details.bio}"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <RelativeLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recv_user_item"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
 
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_details_photographer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:visibility="gone"
+            app:duration="800">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    app:civ_border_width="2dp"
-                    android:src="@color/dark_200"
-                    android:layout_marginTop="44dp"
-                    android:layout_centerHorizontal="true"
-                    app:civ_border_color="@color/white"/>
+                <include layout="@layout/data_placeholder_layout" />
 
-                <TextView
-                    android:id="@+id/txt_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{details.name}"
-                    android:layout_below="@id/profile_image"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/outfit_extra_bold"/>
+                <include layout="@layout/data_placeholder_layout" />
 
-                <TextView
-                    android:id="@+id/txt_bio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="@{details.bio}"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_below="@id/txt_username"
-                    android:layout_centerHorizontal="true"/>
+                <include layout="@layout/data_placeholder_layout" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recv_user_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_below="@id/txt_bio"
-                    android:layout_marginTop="44dp"/>
+                <include layout="@layout/data_placeholder_layout" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 
-
-
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

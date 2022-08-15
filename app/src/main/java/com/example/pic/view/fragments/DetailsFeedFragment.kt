@@ -15,10 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.example.pic.R
 import com.example.pic.databinding.FragmentDetailsFeedBinding
+import com.example.pic.util.loadImage
 import com.example.pic.viewModel.FeedViewModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import loadImage
 
 
 @AndroidEntryPoint
