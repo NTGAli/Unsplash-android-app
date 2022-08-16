@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,10 +39,6 @@ class FeedFragment : Fragment() {
     private lateinit var feedAdapter: FeedPagerDataAdapter
     val bundle = Bundle()
 
-    companion object{
-//        lateinit var imageID: String
-//        lateinit var username: String
-    }
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,12 +63,16 @@ class FeedFragment : Fragment() {
 
         lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
             feedAdapter.loadStateFlow.collectLatest { loadStates ->
-                if (loadStates.refresh == LoadState.Loading){
+                if (loadStates.refresh is LoadState.Loading){
                     binding.shimmerViewContainer.startShimmerAnimation()
                     binding.shimmerViewContainer.visible()
                 }else{
                     binding.shimmerViewContainer.stopShimmerAnimation()
                     binding.shimmerViewContainer.gone()
+                }
+
+                if (loadStates.append is LoadState.Error){
+                    println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
                 }
             }
         }
