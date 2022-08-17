@@ -9,11 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
+import com.example.pic.data.remote.NetworkResult
 import com.example.pic.view.adapter.TopicListAdapter
 import com.example.pic.databinding.FragmentTopicBinding
 import com.example.pic.model.res.Topic
+import com.example.pic.util.showSnackBar
 import com.example.pic.viewModel.TopicViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Response
 
 
 @AndroidEntryPoint
@@ -37,8 +40,19 @@ class TopicFragment : Fragment() {
 
         init()
 
-        viewModel.getTopics().observe(viewLifecycleOwner) {
-            topicAdapter.submitList(it)
+        viewModel.getTopics().observe(viewLifecycleOwner) { Response ->
+
+            when (Response){
+                is NetworkResult.Loading -> {
+                    // error state
+                }
+                is NetworkResult.Success ->{
+                    topicAdapter.submitList(Response.data)
+                }
+                is NetworkResult.Error -> {
+                    showSnackBar("Error", "Check Your Internet and try again!", binding.root, requireContext())
+                }
+            }
         }
 
 

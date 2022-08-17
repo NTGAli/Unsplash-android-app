@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.databinding.FragmentHomeBinding
 import com.example.pic.util.loadImage
+import com.example.pic.util.showSnackBar
 import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.view.custom.gone
 import com.example.pic.view.custom.visible
@@ -72,7 +73,7 @@ class FeedFragment : Fragment() {
                 }
 
                 if (loadStates.append is LoadState.Error){
-                    println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+                    showSnackBar("Error", "Check your Internet and try again!", binding.root, requireContext())
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.example.pic.util
 
-import android.media.Image
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide

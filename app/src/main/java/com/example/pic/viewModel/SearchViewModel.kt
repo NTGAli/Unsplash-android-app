@@ -7,23 +7,25 @@ import androidx.paging.cachedIn
 import androidx.paging.liveData
 import com.example.pic.data.paging.PhotoPagingSource
 import com.example.pic.data.paging.SearchPagingSource
-import com.example.pic.data.repository.SearchRepository
+import com.example.pic.data.remote.NetworkResult
 import com.example.pic.model.res.Feed
 import com.example.pic.model.res.ResultUser
 import com.example.pic.model.res.UnsplashUser
 import com.example.pic.data.remote.UnsplashApi
+import com.example.pic.view.custom.safeApiCall
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val repository: SearchRepository, private val apiService: UnsplashApi): ViewModel(){
+class SearchViewModel @Inject constructor(private val apiService: UnsplashApi): ViewModel(){
 
     private var imagesSearch: MutableLiveData<List<Feed>?> = MutableLiveData()
     private var usersSearch: MutableLiveData<List<UnsplashUser>?> = MutableLiveData()
     private var query: MutableLiveData<String> = MutableLiveData()
     private val searchedUser: MutableLiveData<ResultUser?> = MutableLiveData()
+    private var searchUserResponse: MutableLiveData<NetworkResult<ResultUser>> = MutableLiveData()
 
     fun getSomeImages() =
         Pager(
@@ -38,11 +40,14 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
 //        return repository.searchInImages(query)
     }
 
-    fun searchInUsers(query: String): MutableLiveData<ResultUser?>{
-        viewModelScope.launch(Dispatchers.IO){
-            searchedUser.postValue(repository.searchInUsers(query))
+    fun searchInUsers(query: String): MutableLiveData<NetworkResult<ResultUser>>{
+        viewModelScope.launch{
+
+            searchUserResponse = safeApiCall(Dispatchers.IO){
+                apiService.searchInUsers(query)
+            } as MutableLiveData<NetworkResult<ResultUser>>
         }
-        return searchedUser
+        return searchUserResponse
     }
 
     fun setImageList(feeds: List<Feed>?){

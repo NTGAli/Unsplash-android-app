@@ -1,15 +1,13 @@
 package com.example.pic.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.*
 import com.example.pic.data.paging.PhotoPagingSource
 import com.example.pic.data.paging.UserImagesPaging
-import com.example.pic.data.repository.UnsplashImageRepository
+import com.example.pic.data.remote.*
 import com.example.pic.model.res.ImageDetailsRes
 import com.example.pic.model.res.UnsplashUser
-import com.example.pic.data.remote.UnsplashApi
+import com.example.pic.view.custom.safeApiCall
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,26 +16,34 @@ import javax.inject.Inject
 @ExperimentalPagingApi
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val repository: UnsplashImageRepository,
     private val apiService: UnsplashApi
-    ): ViewModel() {
+) : ViewModel() {
 
 
-    private val imageDetails: MutableLiveData<ImageDetailsRes?> = MutableLiveData()
-    private val userViewModel: MutableLiveData<UnsplashUser?> = MutableLiveData()
+    var imageDetailsLiveData: MutableLiveData<NetworkResult<ImageDetailsRes>>? = MutableLiveData()
+    var userResponse: MutableLiveData<NetworkResult<UnsplashUser>> = MutableLiveData()
 
-    fun getSpecificImage(id: String): MutableLiveData<ImageDetailsRes?>{
-        viewModelScope.launch(Dispatchers.IO){
-            imageDetails.postValue(repository.getSpecificImage(id))
+
+    fun getSpecificImage(id: String): LiveData<NetworkResult<ImageDetailsRes>>? {
+        viewModelScope.launch {
+            imageDetailsLiveData = safeApiCall(Dispatchers.IO){
+                apiService.getSpecificImage(id)
+            } as MutableLiveData<NetworkResult<ImageDetailsRes>>
         }
-        return imageDetails
+
+        return imageDetailsLiveData
     }
 
-    fun getUserByUsername(username: String): MutableLiveData<UnsplashUser?>{
-        viewModelScope.launch(Dispatchers.IO) {
-            userViewModel.postValue(repository.getUserDetails(username))
+
+
+    fun getUserByUsername(username: String): MutableLiveData<NetworkResult<UnsplashUser>> {
+
+        viewModelScope.launch {
+            userResponse = safeApiCall(Dispatchers.IO){
+                apiService.getUserByUsername(username)
+            } as MutableLiveData<NetworkResult<UnsplashUser>>
         }
-        return userViewModel
+        return userResponse
     }
 
     fun getImages() =
@@ -55,6 +61,8 @@ class FeedViewModel @Inject constructor(
             ),
             pagingSourceFactory = { UserImagesPaging(apiService, username) }
         ).liveData.cachedIn(viewModelScope)
+
+
 
 
 }

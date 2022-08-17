@@ -48,7 +48,7 @@ class SearchFragment : Fragment() {
 
 
                 viewModel.searchInUsers(query).observe(viewLifecycleOwner) {
-                    viewModel.setUsersList(it?.results)
+                    viewModel.setUsersList(it?.data?.results)
                 }
 
 
