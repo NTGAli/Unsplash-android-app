@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.databinding.FragmentHomeBinding
 import com.example.pic.util.loadImage
+import com.example.pic.util.showSnackBar
 import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.view.custom.gone
 import com.example.pic.view.custom.visible
@@ -38,10 +40,6 @@ class FeedFragment : Fragment() {
     private lateinit var feedAdapter: FeedPagerDataAdapter
     val bundle = Bundle()
 
-    companion object{
-//        lateinit var imageID: String
-//        lateinit var username: String
-    }
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,12 +64,16 @@ class FeedFragment : Fragment() {
 
         lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
             feedAdapter.loadStateFlow.collectLatest { loadStates ->
-                if (loadStates.refresh == LoadState.Loading){
+                if (loadStates.refresh is LoadState.Loading){
                     binding.shimmerViewContainer.startShimmerAnimation()
                     binding.shimmerViewContainer.visible()
                 }else{
                     binding.shimmerViewContainer.stopShimmerAnimation()
                     binding.shimmerViewContainer.gone()
+                }
+
+                if (loadStates.append is LoadState.Error){
+                    showSnackBar("Error", "Check your Internet and try again!", binding.root, requireContext())
                 }
             }
         }

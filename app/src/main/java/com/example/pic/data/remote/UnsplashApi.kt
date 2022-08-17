@@ -16,13 +16,13 @@ interface UnsplashApi {
     @GET("/photos/{id}")
     suspend fun getSpecificImage(
         @Path("id") id: String
-    ): ImageDetailsRes
+    ): Response<ImageDetailsRes>
 
 
     @GET("/users/{username}")
     suspend fun getUserByUsername(
         @Path("username") username: String
-    ): UnsplashUser
+    ): Response<UnsplashUser>
 
     @GET("/users/{username}/photos")
     suspend fun getUserPhotosByUsername(
@@ -32,12 +32,12 @@ interface UnsplashApi {
     ): Response<List<Feed>>
 
     @GET("/topics")
-    suspend fun getTopics(): List<Topic>
+    suspend fun getTopics(): Response<List<Topic>>
 
     @GET("/topics/{id}")
     suspend fun getTopicById(
         @Path("id") topicID: String
-    ): PreviewRes
+    ): Response<PreviewRes>
 
     @GET("/topics/{id}/photos")
     suspend fun getTopicPhotosById(
@@ -63,6 +63,6 @@ interface UnsplashApi {
     @GET("/search/users")
     suspend fun searchInUsers(
         @Query("query") query: String
-    ): ResultUser
+    ): Response<ResultUser>
 
 }

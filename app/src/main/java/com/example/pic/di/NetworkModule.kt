@@ -1,21 +1,16 @@
 package com.example.pic.di
 
 import com.example.pic.data.remote.HeaderInterceptor
-import com.example.pic.data.repository.SearchRepository
 import com.example.pic.data.remote.UnsplashApi
-import com.example.pic.util.Constants
 import com.example.pic.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -26,11 +21,23 @@ class NetworkModule {
     @Singleton
     fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
+//            .readTimeout(15, TimeUnit.SECONDS)
+//            .connectTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(HeaderInterceptor())
             .build()
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideOkHttpClient(): OkHttpClient {
+//        val logging = HeaderInterceptor()
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+//
+//        return OkHttpClient.Builder()
+//            .addInterceptor(logging)
+//            .addInterceptor(HeaderInterceptor())
+//            .build()
+//    }
 
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
@@ -49,10 +56,6 @@ class NetworkModule {
         return retrofit.create(UnsplashApi::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun getSearchRepository(unsplashApi: UnsplashApi): SearchRepository {
-        return SearchRepository(unsplashApi)
-    }
+
 
 }

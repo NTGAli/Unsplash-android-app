@@ -3,12 +3,8 @@ package com.example.pic.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,26 +18,24 @@ class UserListAdapter (private val onClick: (UnsplashUser) -> Unit): ListAdapter
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): UserListAdapter.UserViewHolder {
+    ): UserViewHolder {
         return UserViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false))
     }
 
-    override fun onBindViewHolder(holder: UserListAdapter.UserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.bindData(getItem(position))
         holder.layout.setOnClickListener {
             onClick.invoke(getItem(position))
         }
     }
 
-    class UserViewHolder(private val view:View): RecyclerView.ViewHolder(view){
+    class UserViewHolder(val view:View): RecyclerView.ViewHolder(view){
         private val profileImg: CircleImageView = view.findViewById(R.id.img_user_profile_item_search)
         private val txtName: TextView = view.findViewById(R.id.txt_username_item)
         val layout: ConstraintLayout = view.findViewById(R.id.user_item_layout)
 
         fun bindData(unsplashUser: UnsplashUser){
-            val anim: Animation = AnimationUtils.loadAnimation(view.context, R.anim.left_to_right)
             txtName.text = unsplashUser.name
-//            txtName.animation =anim
             txtName.isSelected = true
             loadImage(profileImg, unsplashUser.profile_image.large)
         }

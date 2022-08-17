@@ -10,24 +10,23 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.model.res.Topic
-import com.example.pic.view.custom.CustomButton
 
 class TopicListAdapter(private val onClick: (Topic) -> Unit): ListAdapter<Topic, TopicListAdapter.TopicViewHolder>(DiffTopic()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TopicListAdapter.TopicViewHolder {
+    ): TopicViewHolder {
         return TopicViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.topic_item_layout, parent, false))
     }
 
-    override fun onBindViewHolder(holder: TopicListAdapter.TopicViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
         holder.bindData(getItem(position))
         holder.layout.setOnClickListener {
             onClick.invoke(getItem(position))
         }
     }
 
-    class TopicViewHolder(private val view: View): RecyclerView.ViewHolder(view){
+    class TopicViewHolder(var view: View): RecyclerView.ViewHolder(view){
         private var txtTopic: TextView = view.findViewById(R.id.txt_topic_name)
         var layout: RelativeLayout = view.findViewById(R.id.topic_item_layout)
         fun bindData(topic: Topic){

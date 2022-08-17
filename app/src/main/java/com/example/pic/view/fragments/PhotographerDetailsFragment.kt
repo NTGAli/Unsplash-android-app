@@ -17,6 +17,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
+import com.example.pic.data.remote.NetworkResult
 import com.example.pic.databinding.FragmentPhotographerDetailsBinding
 import com.example.pic.util.loadImage
 import com.example.pic.view.adapter.FeedPagerDataAdapter
@@ -52,9 +53,17 @@ class PhotographerDetailsFragment : Fragment() {
         init()
 
         viewModel.getUserByUsername(requireArguments().getString("username")!!)
-            .observe(viewLifecycleOwner) {
-                binding.details = it
-                loadImage(binding.profileImage, it!!.profile_image.large)
+            .observe(viewLifecycleOwner) { response ->
+//                binding.details = it
+//                loadImage(binding.profileImage, it!!.profile_image.large)
+
+                when (response){
+                    is NetworkResult.Success -> {
+                        binding.details = response.data
+                        println("DDDDDDDDDDDDDDDDDDDDDDDDD ${response.data.toString()}")
+                        loadImage(binding.profileImage, response.data!!.profile_image.large)
+                    }
+                }
 
             }
 
@@ -90,10 +99,6 @@ class PhotographerDetailsFragment : Fragment() {
 
         setUpList()
 
-//        ViewCompat.setElevation(
-//            binding.appBarLayoutPhotographDetails,
-//            8f
-//        )
 
     }
 

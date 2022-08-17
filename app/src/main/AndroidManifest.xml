@@ -34,9 +34,6 @@
             android:exported="true"
             android:screenOrientation="portrait">
 
-
-
-
         </activity>
     </application>
 

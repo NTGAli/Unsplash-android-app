@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
@@ -14,8 +15,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.example.pic.R
+import com.example.pic.data.remote.NetworkResult
 import com.example.pic.databinding.FragmentDetailsFeedBinding
 import com.example.pic.util.loadImage
+import com.example.pic.util.showSnackBar
 import com.example.pic.viewModel.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,19 +35,32 @@ class DetailsFeedFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailsFeedBinding.inflate(LayoutInflater.from(context), container, false)
 
-
-
         viewModel.getSpecificImage(requireArguments().getString("imageID")!!)
-            .observe(viewLifecycleOwner) {
-                it!!.created_at = getDate(it.created_at)
-                loadImage(binding.regularImgDetails, it.urls.regular)
-                loadImage(binding.profileImage, it.user.profile_image.large)
-                bundle.putString("username", it.user.username)
-                binding.detail = it
+            ?.observe(viewLifecycleOwner) {
+
+
+                when (it) {
+                    is NetworkResult.Loading -> {
+                        // Loading state
+                    }
+
+                    is NetworkResult.Success -> {
+//                        it!!.data?.created_at = getDate(it.data.created_at)
+                        loadImage(binding.regularImgDetails, it.data?.urls?.regular!!)
+                        loadImage(binding.profileImage, it.data.user.profile_image.large)
+                        bundle.putString("username", it.data.user.username)
+                        binding.detail = it.data
+                    }
+
+                    is NetworkResult.Error -> {
+                        showSnackBar("Error","Check your Internet.", binding.root, requireContext())
+                    }
+                }
             }
+
 
 
         binding.txtNameUser.setOnClickListener {
@@ -61,7 +77,6 @@ class DetailsFeedFragment : Fragment() {
 
         return binding.root
     }
-
 
 
     @SuppressLint("SimpleDateFormat")

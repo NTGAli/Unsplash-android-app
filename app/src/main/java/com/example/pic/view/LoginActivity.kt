@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.pic.R
 import com.example.pic.databinding.ActivityLoginBinding
 import com.example.pic.model.entity.UserEntity
+import com.example.pic.util.showSnackBar
 import com.example.pic.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
                     viewModel.getUser(email).observe(this) { user ->
                         if (user?.password != pass) {
-                            showSnackBar("Something wrong!", "Check your email or password and try again!", "password")
+                            setErrorEditText("Something wrong!", "Check your email or password and try again!", "password")
                         } else {
                             submitLogin(email)
                             startActivity(Intent(this, MainActivity::class.java))
@@ -60,20 +61,20 @@ class LoginActivity : AppCompatActivity() {
 
                 } else {
                     if (email.isEmpty()) {
-                        showSnackBar("Fill blank", "Email cant be empty","email")
+                        setErrorEditText("Fill blank", "Email cant be empty","email")
                     }else if (pass.isEmpty()){
-                        showSnackBar("Fill blank", "Password cant be empty","password")
+                        setErrorEditText("Fill blank", "Password cant be empty","password")
                     }
                     else if (!isValidEmail(email)) {
-                        showSnackBar("Invalid Email", "Please enter a valid email","email")
+                        setErrorEditText("Invalid Email", "Please enter a valid email","email")
                     } else if (pass.length < 8) {
-                        showSnackBar(
+                        setErrorEditText(
                             "Invalid Password",
                             "your password must be more than 8 characters",
                             "password"
                         )
                     } else if (!isValidPassword(pass)) {
-                        showSnackBar("Easy Password", "use at least one word","password")
+                        setErrorEditText("Easy Password", "use at least one word","password")
                     } else {
                         viewModel.addUser(
                             UserEntity(
@@ -111,9 +112,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     @SuppressLint("InflateParams", "CutPasteId")
-    private fun showSnackBar(errorTitle: String, errorMassage: String, status: String) {
-
-        val snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_LONG)
+    private fun setErrorEditText(errorTitle: String, errorMassage: String, status: String) {
 
         if (status == "email"){
             binding.emailLoginTil.error = "error"
@@ -125,19 +124,9 @@ class LoginActivity : AppCompatActivity() {
                 binding.passwordLoginTil.getChildAt(1).visibility = View.GONE
         }
 
-        val layout = snackbar.view as SnackbarLayout
-        val snackView: View =
-            LayoutInflater.from(applicationContext).inflate(R.layout.my_snackbar, null)
-        val errorTitleTV: TextView = snackView.findViewById(R.id.txt_error_title)
-        val errorMassageTV: TextView = snackView.findViewById(R.id.txt_error_massage)
+        showSnackBar(errorTitle,errorMassage,binding.root,applicationContext)
 
-        errorTitleTV.text = errorTitle
-        errorMassageTV.text = errorMassage
 
-        layout.addView(snackView, 0)
-
-        snackView.setPadding(0, 0, 0, 0)
-        snackbar.show()
     }
 
 
