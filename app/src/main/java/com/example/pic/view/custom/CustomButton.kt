@@ -323,7 +323,7 @@ class CustomButton @JvmOverloads constructor(
                 } else if (icon != 0) {
                     setPadding(16.dp, 16.dp, 16.dp, 16.dp)
                 } else if (isProgress) {
-                    setPadding(0, 16.dp, 0, 16.dp)
+                    setPadding(16.dp, 16.dp, 16.dp, 16.dp)
                 } else {
                     textView.setPadding(24.dp, 16.dp, 24.dp, 16.dp)
                 }
@@ -441,9 +441,6 @@ class CustomButton @JvmOverloads constructor(
         progressParams.addRule(
             CENTER_IN_PARENT, TRUE
         )
-
-        addView(progressBar)
-        progressBar.visibility = GONE
         progressBar.layoutParams = progressParams
     }
 
@@ -517,7 +514,8 @@ class CustomButton @JvmOverloads constructor(
 
     private fun setEnableProgress() {
         linearLayout.visibility = INVISIBLE
-
+        if (progressBar.parent == null)
+            addView(progressBar)
         progressBar.indeterminateTintList = ColorStateList.valueOf(
             textColor!!
         )
