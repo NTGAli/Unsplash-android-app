@@ -16,10 +16,15 @@ import com.example.pic.R
 import com.example.pic.databinding.ActivityLoginBinding
 import com.example.pic.model.entity.UserEntity
 import com.example.pic.util.showSnackBar
+import com.example.pic.view.custom.CustomButton
 import com.example.pic.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -76,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                     } else if (!isValidPassword(pass)) {
                         setErrorEditText("Easy Password", "use at least one word","password")
                     } else {
+                        binding.btnLogin.enableProgress = true
                         viewModel.addUser(
                             UserEntity(
                                 0,
@@ -86,9 +92,13 @@ class LoginActivity : AppCompatActivity() {
                                 null
                             )
                         )
+
                         submitLogin(email)
+                        binding.btnLogin.type = CustomButton.Types.Success
+
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
+
                     }
                 }
             }
@@ -98,8 +108,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkIfUserLogged() {
         val sharedPreference = getSharedPreferences("UserData", Context.MODE_PRIVATE)
-        if (sharedPreference.getString("email", null) != null)
+        if (sharedPreference.getString("email", null) != null) {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
 
     }
 

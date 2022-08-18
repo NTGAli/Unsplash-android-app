@@ -22,6 +22,7 @@ import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.model.res.Feed
 import com.example.pic.util.loadImage
 import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.imgPreview
 import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.SearchViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -85,6 +86,7 @@ class ImageSearchFragment : Fragment() {
 
 
 
+
         return imageSearchView
     }
 
@@ -98,7 +100,7 @@ class ImageSearchFragment : Fragment() {
 
         searchImagesAdapter = FeedPagerDataAdapter(){ feed, onLong ->
             if (onLong){
-                imgPreview(feed?.urls?.regular)
+                imageSearchView.imgPreview(feed?.urls?.regular)
             }else{
                 bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
@@ -111,20 +113,4 @@ class ImageSearchFragment : Fragment() {
         }
 
     }
-
-
-    private fun imgPreview(imgLink: String?) {
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_image_preview)
-        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
-        loadImage(imgPreview, imgLink!!)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCancelable(true)
-        dialog.show()
-    }
-
-
-
-
 }

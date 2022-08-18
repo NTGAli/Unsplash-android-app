@@ -79,7 +79,8 @@
                 app:buttonText="@string/login"
                 android:layout_marginTop="24dp"
                 app:type="primary"
-                app:buttonStyleType="contained"/>
+                app:buttonStyleType="contained"
+                />
 
         </LinearLayout>
 

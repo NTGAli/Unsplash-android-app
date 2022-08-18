@@ -20,6 +20,7 @@ import com.example.pic.databinding.FragmentTopicDetailsBinding
 import com.example.pic.util.loadImage
 import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.imgPreview
 import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.TopicViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +84,7 @@ class TopicDetailsFragment : Fragment() {
     private fun setUpList() {
         topicDetailsAdapter = FeedPagerDataAdapter() { feed, onLong ->
             if (onLong) {
-                imgPreview(feed?.urls?.regular)
+                binding.root.imgPreview(feed?.urls?.regular)
             } else {
                 bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
@@ -97,17 +98,6 @@ class TopicDetailsFragment : Fragment() {
             layoutManager = gridLayoutManager
             adapter = topicDetailsAdapter
         }
-    }
-
-    private fun imgPreview(imgLink: String?) {
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_image_preview)
-        val imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
-        loadImage(imgPreview, imgLink!!)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCancelable(true)
-        dialog.show()
     }
 
 

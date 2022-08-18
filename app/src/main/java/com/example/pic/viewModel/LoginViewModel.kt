@@ -16,24 +16,11 @@ class LoginViewModel @Inject constructor(private val userLoginDao: UserLoginDao)
     var userEntity: LiveData<UserEntity?> = MutableLiveData()
     private val allRecords: LiveData<List<UserEntity>> = userLoginDao.getAllUser()
 
-    private fun loadRecords(){
-        users = allRecords
-    }
 
     fun addUser(user: UserEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-
-            if (userLoginDao.getUser(user.email).value == null){
-                userLoginDao.addUser(user)
-                loadRecords()
-            }
+             userLoginDao.addUser(user)
         }
-    }
-
-
-    fun submitUser(email: String){
-        userEmail?.postValue(email)
-        getUser(email)
     }
 
     fun getUser(email: String): LiveData<UserEntity?>{

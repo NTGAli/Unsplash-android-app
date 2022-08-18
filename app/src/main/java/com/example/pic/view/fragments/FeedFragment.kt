@@ -24,6 +24,7 @@ import com.example.pic.util.loadImage
 import com.example.pic.util.showSnackBar
 import com.example.pic.view.adapter.FeedPagerDataAdapter
 import com.example.pic.view.custom.gone
+import com.example.pic.view.custom.imgPreview
 import com.example.pic.view.custom.visible
 import com.example.pic.viewModel.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,7 +90,7 @@ class FeedFragment : Fragment() {
     private fun setUpList(){
         feedAdapter = FeedPagerDataAdapter(){ feed, onLong ->
             if (onLong){
-                imgPreview(feed?.urls?.regular)
+                binding.root.imgPreview(feed?.urls?.regular)
             }else {
 //                imageID = feed.id
                 bundle.putString("imageID", feed?.id)
@@ -104,21 +105,6 @@ class FeedFragment : Fragment() {
         }
     }
 
-
-
-    private fun imgPreview(imgLink: String?) {
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_image_preview)
-        var imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
-        loadImage(imgPreview, imgLink!!)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCancelable(true)
-        dialog.show()
-    }
-
-
-
     override fun onResume() {
         super.onResume()
         binding.shimmerViewContainer.startShimmerAnimation()
@@ -129,6 +115,8 @@ class FeedFragment : Fragment() {
         binding.shimmerViewContainer.stopShimmerAnimation()
         super.onPause()
     }
+
+
 
 
 }

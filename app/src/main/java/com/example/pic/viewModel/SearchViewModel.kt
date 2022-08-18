@@ -50,9 +50,6 @@ class SearchViewModel @Inject constructor(private val apiService: UnsplashApi): 
         return searchUserResponse
     }
 
-    fun setImageList(feeds: List<Feed>?){
-        imagesSearch.postValue(feeds)
-    }
 
     fun getQuery(): MutableLiveData<String>{
         return query
@@ -68,7 +65,6 @@ class SearchViewModel @Inject constructor(private val apiService: UnsplashApi): 
 
 
     fun setUsersList(users: List<UnsplashUser>?){
-
         usersSearch.postValue(users)
     }
 

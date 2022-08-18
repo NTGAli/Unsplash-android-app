@@ -1,10 +1,17 @@
 package com.example.pic.view.custom
 
+import android.app.Dialog
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.View
+import android.view.Window
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.example.pic.R
 import com.example.pic.data.remote.NetworkResult
+import com.example.pic.util.loadImage
 import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.HttpException
 import retrofit2.Response
@@ -26,6 +33,17 @@ fun View.inVisible() {
 
 fun View.gone() {
     this.visibility = View.GONE
+}
+
+fun View.imgPreview(imgLink: String?) {
+    val dialog = Dialog(this.context)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(R.layout.dialog_image_preview)
+    val imgPreview: ImageView = dialog.findViewById(R.id.img_preview_feed)
+    loadImage(imgPreview, imgLink!!)
+    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog.setCancelable(true)
+    dialog.show()
 }
 
 suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiToBeCalled: suspend () -> Response<T>): LiveData<NetworkResult<T>> {

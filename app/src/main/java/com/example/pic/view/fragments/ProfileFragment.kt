@@ -211,7 +211,9 @@ class ProfileFragment : Fragment() {
         }
 
         buttonYse!!.setOnClickListener {
+            dialog.dismiss()
             submitLogout()
+
         }
 
 

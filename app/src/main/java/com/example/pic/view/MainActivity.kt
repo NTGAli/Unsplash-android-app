@@ -1,6 +1,9 @@
 package com.example.pic.view
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.view.VelocityTracker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private lateinit var binding: ActivityMainBinding
     }
+    private var mVelocityTracker: VelocityTracker? = null
     private lateinit var navController: NavController
 //    private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -60,4 +64,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }
