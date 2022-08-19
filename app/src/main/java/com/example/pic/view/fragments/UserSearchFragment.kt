@@ -49,7 +49,7 @@ class UserSearchFragment : Fragment() {
     }
 
     private fun setUpList(){
-        userLstAdapter = UserListAdapter(){
+        userLstAdapter = UserListAdapter{
             bundle.putString("username", it.username)
             loadUser(bundle)
 

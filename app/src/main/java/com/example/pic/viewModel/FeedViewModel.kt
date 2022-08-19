@@ -20,8 +20,8 @@ class FeedViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var imageDetailsLiveData: MutableLiveData<NetworkResult<ImageDetailsRes>>? = MutableLiveData()
-    var userResponse: MutableLiveData<NetworkResult<UnsplashUser>> = MutableLiveData()
+    private var imageDetailsLiveData: MutableLiveData<NetworkResult<ImageDetailsRes>>? = MutableLiveData()
+    private var userResponse: MutableLiveData<NetworkResult<UnsplashUser>> = MutableLiveData()
 
 
     fun getSpecificImage(id: String): LiveData<NetworkResult<ImageDetailsRes>>? {

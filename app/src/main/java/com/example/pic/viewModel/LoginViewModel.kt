@@ -11,10 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val userLoginDao: UserLoginDao): ViewModel() {
 
-    var users: LiveData<List<UserEntity>> = MutableLiveData()
-    var userEmail: MutableLiveData<String>? = MutableLiveData()
     var userEntity: LiveData<UserEntity?> = MutableLiveData()
-    private val allRecords: LiveData<List<UserEntity>> = userLoginDao.getAllUser()
 
 
     fun addUser(user: UserEntity) {

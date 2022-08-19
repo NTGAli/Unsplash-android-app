@@ -74,7 +74,7 @@ class FeedFragment : Fragment() {
                 }
 
                 if (loadStates.append is LoadState.Error){
-                    showSnackBar("Error", "Check your Internet and try again!", binding.root, requireContext())
+                    binding.root.showSnackBar("Error", "Check your Internet and try again!")
                 }
             }
         }

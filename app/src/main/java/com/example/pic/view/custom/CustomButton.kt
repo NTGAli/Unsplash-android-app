@@ -21,7 +21,7 @@ class CustomButton @JvmOverloads constructor(
     attrs: AttributeSet,
     defStyleAttr: Int = 0
 ) :
-    RelativeLayout(context, attrs) {
+    FrameLayout(context, attrs) {
 
     private var myAttrs: AttributeSet? = null
     enum class Types(var value: Int) {
@@ -58,7 +58,6 @@ class CustomButton @JvmOverloads constructor(
     var type: Types = Types.Primary
         set(value) {
             field = value
-            setupButton()
             setButtonType(value.value)
             setColorsStates()
         }
@@ -409,13 +408,13 @@ class CustomButton @JvmOverloads constructor(
         }
 
         // -- linearLayout --
-        linearLayout.layoutParams = RelativeLayout.LayoutParams(
+        linearLayout.layoutParams = LayoutParams(
             LayoutParams.WRAP_CONTENT,
             LayoutParams.WRAP_CONTENT
         ).apply {
             gravity = Gravity.CENTER
         }
-        linearLayout.orientation = LinearLayout.HORIZONTAL
+//        linearLayout.orientation = LinearLayout.HORIZONTAL
 
 
         // -- textView --
@@ -434,13 +433,13 @@ class CustomButton @JvmOverloads constructor(
         }
 
         //---- progressBar -----
-        val progressParams = RelativeLayout.LayoutParams(
+        val progressParams = LayoutParams(
             progressWidth.toInt().dp,
             progressHeight.toInt().dp
-        )
-        progressParams.addRule(
-            CENTER_IN_PARENT, TRUE
-        )
+        ).apply {
+            gravity = Gravity.CENTER
+        }
+
         progressBar.layoutParams = progressParams
     }
 

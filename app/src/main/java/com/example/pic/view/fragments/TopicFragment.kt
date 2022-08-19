@@ -1,22 +1,21 @@
 package com.example.pic.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
 import com.example.pic.data.remote.NetworkResult
-import com.example.pic.view.adapter.TopicListAdapter
 import com.example.pic.databinding.FragmentTopicBinding
 import com.example.pic.model.res.Topic
 import com.example.pic.util.showSnackBar
+import com.example.pic.view.adapter.TopicListAdapter
 import com.example.pic.viewModel.TopicViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Response
 
 
 @AndroidEntryPoint
@@ -24,7 +23,7 @@ class TopicFragment : Fragment() {
 
     private lateinit var binding: FragmentTopicBinding
     private val viewModel: TopicViewModel by viewModels()
-    lateinit var topicAdapter: TopicListAdapter
+    private lateinit var topicAdapter: TopicListAdapter
 
     companion object {
         lateinit var topic: Topic
@@ -50,7 +49,7 @@ class TopicFragment : Fragment() {
                     topicAdapter.submitList(Response.data)
                 }
                 is NetworkResult.Error -> {
-                    showSnackBar("Error", "Check Your Internet and try again!", binding.root, requireContext())
+                    binding.root.showSnackBar("Error", "Check Your Internet and try again!")
                 }
             }
         }
@@ -61,7 +60,7 @@ class TopicFragment : Fragment() {
 
 
     private fun init() {
-        topicAdapter = TopicListAdapter() {
+        topicAdapter = TopicListAdapter {
             topic = it
             findNavController().navigate(R.id.topicDetailsFragment)
         }

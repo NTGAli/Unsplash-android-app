@@ -42,16 +42,11 @@ class SearchFragment : Fragment() {
 
                 query = binding.searchTil.editText?.text.toString()
 
-
-
                 viewModel.searchInImages(query)
-
 
                 viewModel.searchInUsers(query).observe(viewLifecycleOwner) {
                     viewModel.setUsersList(it?.data?.results)
                 }
-
-
 
                 return@setOnEditorActionListener true
             }
@@ -61,8 +56,6 @@ class SearchFragment : Fragment() {
         binding.searchTil.setOnClickListener {
             binding.searchTil.editText?.isFocusable = true
             binding.searchTil.editText?.isFocusableInTouchMode = true
-
-//            binding.searchTil.editText?.requestFocus()
         }
 
 

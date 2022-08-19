@@ -63,7 +63,7 @@ class DetailsFeedFragment : Fragment() {
                     }
 
                     is NetworkResult.Error -> {
-                        showSnackBar("Error","Check your Internet.", binding.root, requireContext())
+                        binding.root.showSnackBar("Error",it.message.toString())
                     }
                 }
             }

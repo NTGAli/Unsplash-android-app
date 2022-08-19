@@ -1,14 +1,9 @@
 package com.example.pic.view.fragments
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -55,8 +50,6 @@ class PhotographerDetailsFragment : Fragment() {
 
         viewModel.getUserByUsername(requireArguments().getString("username")!!)
             .observe(viewLifecycleOwner) { response ->
-//                binding.details = it
-//                loadImage(binding.profileImage, it!!.profile_image.large)
 
                 when (response){
                     is NetworkResult.Success -> {
@@ -97,10 +90,7 @@ class PhotographerDetailsFragment : Fragment() {
     }
 
     private fun init() {
-
         setUpList()
-
-
     }
 
 

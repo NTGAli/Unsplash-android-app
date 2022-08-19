@@ -18,7 +18,6 @@ class ProfileViewModel @Inject constructor(private val userLoginDao: UserLoginDa
 
 
     fun getUser(email: String): LiveData<UserEntity?>{
-
         return userLoginDao.getUser(email)
     }
 

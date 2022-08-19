@@ -13,7 +13,7 @@ interface UserLoginDao {
     @Query("SELECT * FROM UserEntity")
     fun getAllUser(): LiveData<List<UserEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     suspend fun addUser(user: UserEntity)
 
     @Query("DELETE FROM UserEntity")

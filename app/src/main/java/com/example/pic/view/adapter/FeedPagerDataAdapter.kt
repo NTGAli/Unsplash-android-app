@@ -40,11 +40,9 @@ class FeedPagerDataAdapter(private val onClick: (Feed?, Boolean) -> Unit) :
         holder.bindData(getItem(position)!!)
         holder.cardItem.setOnClickListener {
             onClick.invoke(getItem(position), false)
-//            isLongClick = false
         }
 
         holder.cardItem.setOnLongClickListener {
-//            isLongClick = true
             onClick.invoke(getItem(position), true)
             return@setOnLongClickListener true
         }

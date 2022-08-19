@@ -6,9 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,15 +14,8 @@ import com.example.pic.R
 import com.example.pic.databinding.ActivityLoginBinding
 import com.example.pic.model.entity.UserEntity
 import com.example.pic.util.showSnackBar
-import com.example.pic.view.custom.CustomButton
 import com.example.pic.viewModel.LoginViewModel
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -92,9 +83,7 @@ class LoginActivity : AppCompatActivity() {
                                 null
                             )
                         )
-
                         submitLogin(email)
-                        binding.btnLogin.type = CustomButton.Types.Success
 
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
@@ -136,9 +125,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.passwordLoginTil.getChildAt(1).visibility = View.GONE
         }
 
-        showSnackBar(errorTitle,errorMassage,binding.root,applicationContext)
-
-
+        binding.root.showSnackBar(errorTitle,errorMassage)
     }
 
 

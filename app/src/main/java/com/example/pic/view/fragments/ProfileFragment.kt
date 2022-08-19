@@ -101,12 +101,7 @@ class ProfileFragment : Fragment() {
                 pickupImage()
             }
 
-
-
-
         }
-
-
         return binding.root
     }
 
