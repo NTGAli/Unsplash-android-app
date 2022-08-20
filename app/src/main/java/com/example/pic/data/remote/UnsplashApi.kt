@@ -32,7 +32,9 @@ interface UnsplashApi {
     ): Response<List<Feed>>
 
     @GET("/topics")
-    suspend fun getTopics(): Response<List<Topic>>
+    suspend fun getTopics(
+        @Query("per_page") per_page: Int
+    ): Response<List<Topic>>
 
     @GET("/topics/{id}")
     suspend fun getTopicById(

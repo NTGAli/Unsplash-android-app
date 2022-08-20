@@ -7,7 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
-import com.example.pic.data.paging.PhotoPagingSource
+import com.example.pic.data.paging.NetworkPagingSource
 import com.example.pic.data.paging.SearchPagingSource
 import com.example.pic.data.remote.NetworkResult
 import com.example.pic.data.remote.UnsplashApi
@@ -31,7 +31,11 @@ class SearchViewModel @Inject constructor(private val apiService: UnsplashApi): 
             config = PagingConfig(
                 pageSize = 10,
             ),
-            pagingSourceFactory = { PhotoPagingSource(apiService) }
+            pagingSourceFactory = {
+                NetworkPagingSource{
+                    apiService.getAllImages(it,10)
+                }
+            }
         ).liveData.cachedIn(viewModelScope)
 
     fun searchInImages(userQuery: String){

@@ -52,28 +52,24 @@ class FeedFragment : Fragment() {
         init()
 
 
-        viewModel.getImages().observe(viewLifecycleOwner){
-            lifecycleScope.launch(Dispatchers.IO){
-
+        viewModel.getImages().observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
                 feedAdapter.submitData(it)
-                runBlocking {
-
-                }
             }
 
         }
 
         lifecycleScope.launch(viewLifecycleOwner.lifecycleScope.coroutineContext) {
             feedAdapter.loadStateFlow.collectLatest { loadStates ->
-                if (loadStates.refresh is LoadState.Loading){
+                if (loadStates.refresh is LoadState.Loading) {
                     binding.shimmerViewContainer.startShimmerAnimation()
                     binding.shimmerViewContainer.visible()
-                }else{
+                } else {
                     binding.shimmerViewContainer.stopShimmerAnimation()
                     binding.shimmerViewContainer.gone()
                 }
 
-                if (loadStates.append is LoadState.Error){
+                if (loadStates.append is LoadState.Error) {
                     binding.root.showSnackBar("Error", "Check your Internet and try again!")
                 }
             }
@@ -83,21 +79,21 @@ class FeedFragment : Fragment() {
         return binding.root
     }
 
-    private fun init(){
+    private fun init() {
         setUpList()
     }
 
-    private fun setUpList(){
-        feedAdapter = FeedPagerDataAdapter(){ feed, onLong ->
-            if (onLong){
+    private fun setUpList() {
+        feedAdapter = FeedPagerDataAdapter() { feed, onLong ->
+            if (onLong) {
                 binding.root.imgPreview(feed?.urls?.regular)
-            }else {
+            } else {
 //                imageID = feed.id
                 bundle.putString("imageID", feed?.id)
                 findNavController().navigate(R.id.detailsFeedFragment, bundle)
             }
         }
-        val gridLayoutManager = GridLayoutManager(requireContext(),2)
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
 
         binding.feedRecv.apply {
             layoutManager = gridLayoutManager
@@ -115,8 +111,6 @@ class FeedFragment : Fragment() {
         binding.shimmerViewContainer.stopShimmerAnimation()
         super.onPause()
     }
-
-
 
 
 }

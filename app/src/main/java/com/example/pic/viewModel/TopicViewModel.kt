@@ -7,7 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
-import com.example.pic.data.paging.TopicsPhotosPaging
+import com.example.pic.data.paging.NetworkPagingSource
 import com.example.pic.data.remote.NetworkResult
 import com.example.pic.model.res.Topic
 import com.example.pic.data.remote.UnsplashApi
@@ -27,7 +27,7 @@ class TopicViewModel @Inject constructor(private val apiService: UnsplashApi): V
     fun getTopics(): MutableLiveData<NetworkResult<List<Topic>>>{
         viewModelScope.launch {
             liveDataTopics = safeApiCall(Dispatchers.IO){
-                apiService.getTopics()
+                apiService.getTopics(25)
             } as MutableLiveData<NetworkResult<List<Topic>>>
         }
 
@@ -48,6 +48,10 @@ class TopicViewModel @Inject constructor(private val apiService: UnsplashApi): V
             config = PagingConfig(
                 pageSize = 10,
             ),
-            pagingSourceFactory = { TopicsPhotosPaging(apiService, topicID) }
+            pagingSourceFactory = {
+                NetworkPagingSource{
+                    apiService.getTopicPhotosById(topicID,it,10)
+                }
+            }
         ).liveData.cachedIn(viewModelScope)
 }
