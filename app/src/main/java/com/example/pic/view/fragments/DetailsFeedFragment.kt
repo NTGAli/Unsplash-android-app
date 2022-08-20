@@ -2,7 +2,6 @@ package com.example.pic.view.fragments
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +17,8 @@ import com.example.pic.util.loadImage
 import com.example.pic.util.showSnackBar
 import com.example.pic.viewModel.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
@@ -85,6 +79,7 @@ class DetailsFeedFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun counterTime(imageDate: String): String {
 
 
@@ -92,12 +87,13 @@ class DetailsFeedFragment : Fragment() {
         val to = LocalDate.now()
         val period: Period = Period.between(from, to)
 
-        Log.d("My Time", period.years.toString())
 
-        return if (period.years == 0){
+        return if (period.years > 0){
+            "${period.years} years ago"
+        }else if (period.days != 0){
             "${period.days} days ago"
         }else{
-            "${period.years} years ago"
+            "Today"
         }
 
     }

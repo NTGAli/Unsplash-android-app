@@ -54,7 +54,6 @@ class PhotographerDetailsFragment : Fragment() {
                 when (response){
                     is NetworkResult.Success -> {
                         binding.details = response.data
-                        println("DDDDDDDDDDDDDDDDDDDDDDDDD ${response.data.toString()}")
                         loadImage(binding.profileImage, response.data!!.profile_image.large)
                     }
                 }

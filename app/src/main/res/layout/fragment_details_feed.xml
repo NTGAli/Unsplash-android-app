@@ -62,7 +62,7 @@
                     android:id="@+id/card_details_img"
                     android:layout_width="match_parent"
                     android:layout_height="402dp"
-                    android:layout_margin="8dp"
+                    android:layout_margin="16dp"
                     app:cardCornerRadius="16dp">
 
                     <RelativeLayout
@@ -85,7 +85,7 @@
                                 android:id="@+id/profile_image"
                                 android:layout_width="56dp"
                                 android:layout_height="56dp"
-                                android:layout_margin="16dp"
+                                android:layout_margin="12dp"
                                 app:civ_border_color="@color/white"
                                 app:civ_border_width="2dp" />
 
@@ -96,6 +96,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/outfit_semi_bold"
                                 android:gravity="center_vertical"
+                                android:layout_marginStart="8dp"
                                 android:text="@{detail.user.name}"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
@@ -110,14 +111,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/card_details_img"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:text="@string/likes"
                         android:textColor="@color/dark_600"
                         android:textSize="14sp" />
@@ -125,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/downloads"
                         android:textColor="@color/dark_600"
                         android:textSize="14sp" />
@@ -133,7 +134,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/publish_date"
                         android:textColor="@color/dark_600"
                         android:textSize="14sp" />
@@ -141,7 +142,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/camera"
                         android:textColor="@color/dark_600"
                         android:textSize="14sp" />
@@ -154,7 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/card_details_img"
                     android:layout_alignParentEnd="true"
-                    android:layout_margin="16dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="24dp"
                     android:gravity="right"
                     android:orientation="vertical"
                     tools:ignore="RtlHardcoded">
@@ -163,7 +165,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginTop="8dp"
                         android:text="@{Integer.toString(detail.likes)}"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -171,7 +172,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@{detail.downloads}"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -179,7 +180,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@{detail.created_at}"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -187,7 +188,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@{detail.exif.name}"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
