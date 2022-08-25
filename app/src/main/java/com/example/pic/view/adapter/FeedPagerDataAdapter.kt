@@ -14,7 +14,7 @@ import com.example.pic.model.res.Feed
 class FeedPagerDataAdapter(private val onClick: (Feed?, Boolean) -> Unit) :
     PagingDataAdapter<Feed, FeedPagerDataAdapter.FeedViewHolder>(FeedDiffUtil()) {
 
-    class FeedViewHolder(private val binding: FeedItemBinding) :
+    class FeedViewHolder(val binding: FeedItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var cardItem: ConstraintLayout = binding.feedItemCard
         fun bindData(feed: Feed) {
@@ -38,6 +38,7 @@ class FeedPagerDataAdapter(private val onClick: (Feed?, Boolean) -> Unit) :
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.bindData(getItem(position)!!)
+
         holder.cardItem.setOnClickListener {
             onClick.invoke(getItem(position), false)
         }
@@ -46,7 +47,6 @@ class FeedPagerDataAdapter(private val onClick: (Feed?, Boolean) -> Unit) :
             onClick.invoke(getItem(position), true)
             return@setOnLongClickListener true
         }
-
 
     }
 

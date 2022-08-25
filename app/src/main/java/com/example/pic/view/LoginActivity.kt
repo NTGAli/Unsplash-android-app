@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var pass: String
 
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                     } else if (!isValidPassword(pass)) {
                         setErrorEditText("Easy Password", "use at least one word","password")
                     } else {
+
                         binding.btnLogin.enableProgress = true
                         viewModel.addUser(
                             UserEntity(
@@ -146,6 +148,4 @@ class LoginActivity : AppCompatActivity() {
         editor.putString("email", email)
         editor.apply()
     }
-
-
 }

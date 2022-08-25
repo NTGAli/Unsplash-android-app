@@ -12,12 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ExperimentalPagingApi
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val apiService: UnsplashApi
 ) : ViewModel() {
-
 
     private var imageDetailsLiveData: MutableLiveData<NetworkResult<ImageDetailsRes>>? = MutableLiveData()
     private var userResponse: MutableLiveData<NetworkResult<UnsplashUser>> = MutableLiveData()

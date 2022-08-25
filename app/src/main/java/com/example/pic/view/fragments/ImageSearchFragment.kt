@@ -1,16 +1,10 @@
 package com.example.pic.view.fragments
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,8 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pic.R
 import com.example.pic.view.adapter.FeedPagerDataAdapter
-import com.example.pic.model.res.Feed
-import com.example.pic.util.loadImage
 import com.example.pic.view.custom.gone
 import com.example.pic.view.custom.imgPreview
 import com.example.pic.view.custom.visible
@@ -45,9 +37,10 @@ class ImageSearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         imageSearchView = inflater.inflate(R.layout.fragment_image_search, container, false)
+
 
 
 
@@ -98,7 +91,7 @@ class ImageSearchFragment : Fragment() {
 
     private fun setUpImagesList(){
 
-        searchImagesAdapter = FeedPagerDataAdapter(){ feed, onLong ->
+        searchImagesAdapter = FeedPagerDataAdapter{ feed, onLong ->
             if (onLong){
                 imageSearchView.imgPreview(feed?.urls?.regular)
             }else{

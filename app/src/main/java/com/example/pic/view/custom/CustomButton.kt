@@ -173,6 +173,7 @@ class CustomButton @JvmOverloads constructor(
         setColorsStates()
         setSize()
         setPaddingViews(size.value)
+
     }
 
     private fun setDefaultData() {
@@ -432,6 +433,9 @@ class CustomButton @JvmOverloads constructor(
             gravity = Gravity.CENTER
         }
 
+
+
+
         //---- progressBar -----
         val progressParams = LayoutParams(
             progressWidth.toInt().dp,
@@ -488,6 +492,7 @@ class CustomButton @JvmOverloads constructor(
 
             txtButton = getString(R.styleable.CustomButton_buttonText)
             type.value = getInt(R.styleable.CustomButton_type, 0)
+            val tt = getInt(R.styleable.CustomButton_type, 0)
             size.value = getInt(R.styleable.CustomButton_size, 0)
             btnStyle?.value = getInt(R.styleable.CustomButton_buttonStyleType, 0)
             icon = getResourceId(R.styleable.CustomButton_icon, 0)

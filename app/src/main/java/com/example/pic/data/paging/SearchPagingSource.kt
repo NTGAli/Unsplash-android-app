@@ -8,7 +8,7 @@ import com.example.pic.util.Constants.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException
 
-class SearchPagingSource(var api: UnsplashApi, private var query: String): PagingSource<Int, Feed>() {
+class SearchPagingSource(private var api: UnsplashApi, private var query: String): PagingSource<Int, Feed>() {
     override fun getRefreshKey(state: PagingState<Int, Feed>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)

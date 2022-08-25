@@ -13,10 +13,10 @@ class SearchPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
     }
 
     override fun createFragment(position: Int): Fragment {
-        when (position){
-            0 -> return ImageSearchFragment()
-            1 -> return UserSearchFragment()
-            else -> return ImageSearchFragment()
+        return when (position){
+            0 -> ImageSearchFragment()
+            1 -> UserSearchFragment()
+            else -> ImageSearchFragment()
         }
     }
 }

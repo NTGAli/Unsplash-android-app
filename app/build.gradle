@@ -139,6 +139,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.8'
+
+    //Okhttp
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+
 }
 
 kapt {

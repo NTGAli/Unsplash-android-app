@@ -41,4 +41,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="last_name">Last Name</string>
+    <string name="error_connection_message">Check your Internet connection and try again.</string>
+    <string name="error_connection_message2">We couldnt make connection, check your network </string>
+    <string name="dismiss">Dismiss</string>
 </resources>

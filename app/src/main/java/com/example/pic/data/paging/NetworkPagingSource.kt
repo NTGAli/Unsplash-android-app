@@ -2,7 +2,9 @@ package com.example.pic.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import retrofit2.HttpException
 import retrofit2.Response
+import java.io.IOException
 
 class NetworkPagingSource<T : Any>(private val backend: suspend (Int) -> Response<List<T>>) :
     PagingSource<Int, T>() {
@@ -17,24 +19,31 @@ class NetworkPagingSource<T : Any>(private val backend: suspend (Int) -> Respons
         val nextPageNumber = params.key ?: 1
 
 
-        val response = backend.invoke(nextPageNumber)
+        try {
+            val response = backend.invoke(nextPageNumber)
 
-        if (response.isSuccessful) {
-            val body = response.body()!!
+            return if (response.isSuccessful) {
+                val body = response.body()!!
 
-            return LoadResult.Page(
-                data = body,
-                prevKey = null, // Only paging forward.
-                nextKey = nextPageNumber.plus(1)
+                LoadResult.Page(
+                    data = body,
+                    prevKey = null, // Only paging forward.
+                    nextKey = nextPageNumber.plus(1)
 
-            )
-        } else {
-            val errorBody = response.errorBody()
-            return LoadResult.Error(
-                RuntimeException(errorBody.toString())
-            )
+                )
+            } else {
+                val errorBody = response.errorBody()
+                LoadResult.Error(
+                    RuntimeException(errorBody.toString())
+                )
+            }
+        }catch (e: HttpException){
+            return LoadResult.Error(e)
+        }catch (e: IOException){
+            return LoadResult.Error(e)
+        }catch (e: Exception){
+            return LoadResult.Error(e)
         }
-
     }
 
 }

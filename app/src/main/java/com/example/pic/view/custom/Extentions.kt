@@ -46,6 +46,8 @@ fun View.imgPreview(imgLink: String?) {
     dialog.show()
 }
 
+
+
 suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiToBeCalled: suspend () -> Response<T>): LiveData<NetworkResult<T>> {
 
 

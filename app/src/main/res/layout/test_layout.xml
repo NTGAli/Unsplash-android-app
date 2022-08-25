@@ -8,10 +8,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <TextView
+    <com.example.pic.view.custom.CustomButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ali"
+        app:enableProgress="true"
+        app:type="success"
         android:gravity="center"/>
 
 </FrameLayout>

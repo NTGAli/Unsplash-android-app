@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/idNestedSV"
         android:layout_width="match_parent"
@@ -44,10 +45,15 @@
 
 
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                >
 
 
                 <com.facebook.shimmer.ShimmerFrameLayout
@@ -107,6 +113,8 @@
                 </com.facebook.shimmer.ShimmerFrameLayout>
 
             </RelativeLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

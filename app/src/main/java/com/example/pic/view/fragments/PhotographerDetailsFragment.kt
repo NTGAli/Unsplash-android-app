@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pic.R
@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-@OptIn(ExperimentalPagingApi::class)
 
 class PhotographerDetailsFragment : Fragment() {
 
@@ -55,6 +54,9 @@ class PhotographerDetailsFragment : Fragment() {
                     is NetworkResult.Success -> {
                         binding.details = response.data
                         loadImage(binding.profileImage, response.data!!.profile_image.large)
+                    }
+                    is NetworkResult.Error -> {
+                        Toast.makeText(binding.root.context,"ERR",Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -94,7 +96,7 @@ class PhotographerDetailsFragment : Fragment() {
 
 
     private fun setUpList() {
-        itemsAdapter = FeedPagerDataAdapter() { feed, onLong ->
+        itemsAdapter = FeedPagerDataAdapter { feed, onLong ->
             if (onLong) {
                 binding.root.imgPreview(feed?.urls?.regular)
             } else {

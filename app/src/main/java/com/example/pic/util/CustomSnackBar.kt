@@ -1,12 +1,13 @@
 package com.example.pic.util
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.example.pic.R
 import com.google.android.material.snackbar.Snackbar
 
+@SuppressLint("InflateParams")
 fun View.showSnackBar(errorTitle: String, errorMassage: String) {
     val snackBar = Snackbar.make(this, "", Snackbar.LENGTH_LONG)
 

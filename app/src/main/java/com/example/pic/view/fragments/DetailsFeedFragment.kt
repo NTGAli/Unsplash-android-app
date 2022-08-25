@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.paging.ExperimentalPagingApi
 import com.example.pic.R
 import com.example.pic.data.remote.NetworkResult
 import com.example.pic.databinding.FragmentDetailsFeedBinding
@@ -22,7 +21,6 @@ import java.time.Period
 
 
 @AndroidEntryPoint
-@OptIn(ExperimentalPagingApi::class)
 class DetailsFeedFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsFeedBinding
@@ -38,6 +36,7 @@ class DetailsFeedFragment : Fragment() {
 
         viewModel.getSpecificImage(requireArguments().getString("imageID")!!)
             ?.observe(viewLifecycleOwner) {
+
 
 
                 when (it) {
@@ -88,12 +87,16 @@ class DetailsFeedFragment : Fragment() {
         val period: Period = Period.between(from, to)
 
 
-        return if (period.years > 0){
-            "${period.years} years ago"
-        }else if (period.days != 0){
-            "${period.days} days ago"
-        }else{
-            "Today"
+        return when {
+            period.years > 0 -> {
+                "${period.years} years ago"
+            }
+            period.days != 0 -> {
+                "${period.days} days ago"
+            }
+            else -> {
+                "Today"
+            }
         }
 
     }

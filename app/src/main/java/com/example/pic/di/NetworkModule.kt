@@ -1,45 +1,45 @@
 package com.example.pic.di
 
-import com.example.pic.data.remote.HeaderInterceptor
-import com.example.pic.data.remote.UnsplashApi
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.example.pic.MyApplication
+import com.example.pic.data.remote.*
 import com.example.pic.util.Constants.BASE_URL
+import com.example.pic.util.Constants.CACHE_SIZE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.ExperimentalSerializationApi
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
+    @RequiresApi(Build.VERSION_CODES.M)
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
 //            .readTimeout(15, TimeUnit.SECONDS)
 //            .connectTimeout(15, TimeUnit.SECONDS)
+            .cache(cache())
+            .addInterceptor(LoggingInterceptor().httpLoggingInterceptor())
             .addInterceptor(HeaderInterceptor())
+            .addNetworkInterceptor(NetworkInterceptor())
+            .addInterceptor(OfflineInterceptor())
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideOkHttpClient(): OkHttpClient {
-//        val logging = HeaderInterceptor()
-//        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-//
-//        return OkHttpClient.Builder()
-//            .addInterceptor(logging)
-//            .addInterceptor(HeaderInterceptor())
-//            .build()
-//    }
+    private fun cache(): Cache{
+        return Cache(File(MyApplication.instance?.cacheDir,"someImages"), CACHE_SIZE.toLong())
+    }
 
-    @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit{

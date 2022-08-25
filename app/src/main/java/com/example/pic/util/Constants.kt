@@ -7,9 +7,13 @@ object Constants {
 
     const val BASE_URL= "https://api.unsplash.com"
 
-    const val UNSPLASH_NAME_DB = "UnsplashDB"
-
     const val STARTING_PAGE_INDEX = 1
+
+    const val CACHE_SIZE = 5 * 1024 * 1024
+
+    const val HEADER_PRAGMA = "Pragma"
+
+    const val HEADER_CACHE_CONTROL = "Cache-Control"
 
 
 }

@@ -1,8 +1,5 @@
 package com.example.pic.model.res
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
 data class ImageDetailsRes(
     val id: String,
     var created_at: String,

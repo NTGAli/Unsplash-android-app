@@ -17,8 +17,7 @@
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
-
-
+        <item name="android:windowContentTransitions">true</item>
 
         <item name="fontFamily">@font/outfit_regular</item>
     </style>
